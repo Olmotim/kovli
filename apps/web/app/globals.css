@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Paleta Kovli */
+  --color-crema: #FBF7F0;
+  --color-beige: #E8DCC8;
+  --color-apricot: #D9A679;
+  --color-cafe: #A87C5F;
+  --color-chocolate: #4E3B2E;
+
+  /* Tipografía */
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background-color: #FBF7F0;
+  color: #4E3B2E;
+  font-family: var(--font-sans), sans-serif;
+}
