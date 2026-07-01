@@ -22,6 +22,13 @@ Kovli es una web de información sobre el cuidado de perros, organizada en secci
 - `pnpm lint` — revisa el estilo (antes de cada PR)
 - `pnpm build` — compila para producción
 
+## Entorno de desarrollo
+
+- El proyecto vive en el filesystem **nativo de Linux dentro de WSL** (`~/dev/kovli`), **no** en `/mnt/c/...` (disco de Windows montado en WSL).
+- Motivo: sobre `/mnt/c`, el watcher de archivos de Next.js (`inotify`) no detecta de forma fiable los cambios guardados desde VSCode, y además el I/O es mucho más lento (instalar dependencias, builds, git). Moviéndolo a Linux se resuelve de raíz.
+- VSCode debe abrirse conectado a WSL (extensión "WSL", comando `code .` desde una terminal de WSL ya situada en `~/dev/kovli`), no como carpeta de Windows.
+- Si el hot-reload deja de funcionar o `pnpm dev` no arranca ("Port 3000 is in use..."): comprobar que no hay un proceso `next-server` zombi de una sesión anterior (`ss -tlnp | grep 3000`) y matarlo antes de reintentar.
+
 ## Estructura del proyecto
 
 - `apps/web/` — sitio Next.js (público y, más adelante, área privada)
