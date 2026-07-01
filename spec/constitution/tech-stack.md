@@ -5,6 +5,7 @@
 - **Lenguaje:** TypeScript estricto.
 - **Framework / runtime:** Next.js (App Router) + React, sobre Node LTS.
 - **Estilos:** Tailwind CSS.
+- **Contenido:** MDX (archivos versionados en el repo, sin CMS), vía `@next/mdx`. Decidido en la feature 002.
 - **Monorepo:** pnpm workspaces + Turborepo.
 - **Base de datos:** 🟡 Fase 2 — Postgres. ORM por decidir (Prisma vs Drizzle); hosting por decidir (Supabase vs Neon). No aplica en Fase 1.
 - **Auth:** 🟡 Fase 2 — por decidir (Supabase Auth / Auth.js / Clerk).
@@ -21,6 +22,8 @@
   - `apps/web/components/ui/` — piezas de interfaz genéricas y reutilizables (botones, modales...), sin lógica de página concreta.
   - `apps/web/components/home/` — contenido específico de la home (Hero, Secciones...).
   - Cada feature nueva que añada páginas propias (p. ej. 002 · Secciones) valora si sus componentes van en su propia subcarpeta de `components/` o colocados junto a su ruta en `app/`.
+  - `apps/web/app/(secciones)/` — las páginas de contenido (MDX) comparten `layout.tsx` (volver a inicio + contenedor). El paréntesis es un *route group* de Next.js: agrupa sin añadir segmento a la URL.
+  - `apps/web/mdx-components.tsx` — estilos Tailwind por defecto para el contenido MDX (títulos, párrafos, listas, enlaces), para no repetir clases en cada sección.
 - `apps/mobile/` — app Expo / React Native (Fase 3).
 - `packages/domain/` — lógica de negocio pura.
 - `packages/schemas/` — tipos + validación Zod compartidos.
@@ -40,7 +43,7 @@
 - TypeScript estricto: prohibido `any` sin justificarlo.
 - Lógica de negocio en `packages/domain`, nunca en componentes ni route handlers.
 - Validar toda entrada de usuario con Zod (Fase 2).
-- Idioma del contenido: español (España y Latam), redactado en español neutro. 🟡 Previsto a futuro: i18n para inglés — conviene no hardcodear textos de interfaz y elegir el origen de contenido (MDX/CMS) pensando ya en varios idiomas.
+- Idioma del contenido: español (España y Latam), redactado en español neutro. 🟡 Previsto a futuro: i18n para inglés — conviene no hardcodear textos de interfaz; con MDX, se resolvería con un archivo por idioma (p. ej. `salud.es.mdx` / `salud.en.mdx`).
 
 ## Estilo visual
 
