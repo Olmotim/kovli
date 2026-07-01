@@ -11,9 +11,8 @@ Añade las secciones de contenido del sitio, cada una con su propia página/ruta
 - **Primeros pasos** _(orientada a dueños primerizos)_
 - **Tiempo de juego**
 - **Adiestramiento / Enseñanza**
-- **Razas de perros**
 
-🟡 _Por decidir juntos:_ la estructura interna de cada sección (¿artículos, subapartados, índice?) y el origen del contenido (MDX vs CMS headless).
+Cada sección es una única página (sin sub-artículos con ruta propia por ahora), con el contenido escrito en MDX y organizado por subtítulos.
 
 ## Por qué
 
@@ -21,13 +20,12 @@ Es el contenido que da valor al sitio. Sin las secciones, la home no lleva a nin
 
 ## Criterios de aceptación
 
-🟡 _Propuesta a confirmar/ajustar:_
-
-- [ ] Cada sección tiene su ruta propia y es accesible desde la home.
+- [ ] Cada sección tiene su ruta propia y es accesible desde la home (y desde el header).
 - [ ] El contenido es responsive y legible (mobile-first).
 - [ ] Navegación coherente entre secciones y vuelta a la home.
+- [ ] Los `href=""` pendientes del Header y de las tarjetas de la home apuntan ya a las rutas reales.
 
 ## Fuera de alcance
 
 - Cursor de hocico y huellas → feature 003.
-- 🟡 **Razas de perros** podría crecer mucho (listado + ficha por raza, datos). Quizá convenga separarla en su propia feature más adelante. _A valorar._
+- **Razas de perros** → separada en su propia feature (004), por ser contenido de otra naturaleza (ficha de datos estructurados por raza, no un artículo).

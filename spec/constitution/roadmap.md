@@ -7,11 +7,12 @@
 
 ## Siguiente 🔜
 
-1. **002 · Secciones temáticas** — contenido de cada sección: Salud, Seguridad, Primeros pasos, Tiempo de juego, Adiestramiento/Enseñanza, Razas de perros.
+1. **002 · Secciones temáticas** — contenido de cada sección: Salud, Seguridad, Primeros pasos, Tiempo de juego, Adiestramiento/Enseñanza.
 
 ## Backlog / features 💡
 
 1. **003 · Cursor hocico + enlaces con huella** — cursor en forma de hocico; enlaces que llevan a otro sitio muestran una huella en hover.
+2. **004 · Razas de perros** — listado + ficha por raza. Separada de la 002 por ser contenido de datos estructurados, no un artículo.
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 
