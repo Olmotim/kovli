@@ -17,3 +17,14 @@ body {
   color: #4E3B2E;
   font-family: var(--font-sans), sans-serif;
 }
+
+/* Cursor Kovli — solo en dispositivos con puntero (ratón), no en táctil */
+@media (pointer: fine) {
+  body {
+    cursor: url("/cursores/hocico.png") 16 16, auto;
+  }
+
+  a[href] {
+    cursor: url("/cursores/huella.png") 16 16, pointer;
+  }
+}

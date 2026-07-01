@@ -4,15 +4,15 @@
 
 1. **Etapa 0 · Esqueleto del monorepo** — pnpm workspaces + Turborepo, `apps/web` con Next.js + Tailwind + TypeScript.
 2. **001 · Página principal** — landing (header, hero, secciones) responsive, con paleta de marca, desplegada en producción y validada por el usuario. Lighthouse: Accesibilidad 100, Buenas prácticas 100, SEO 100, Rendimiento 82.
+3. **003 · Cursor hocico + enlaces con huella** — cursor en forma de hocico; cualquier enlace que navegue (interno o externo) sustituye el cursor por una huella estática. CSS puro, sin JavaScript. Validado por el usuario en el navegador.
 
-## Siguiente 🔜
+## Siguiente 🔜 (en curso)
 
-1. **002 · Secciones temáticas** — contenido de cada sección: Salud, Seguridad, Primeros pasos, Tiempo de juego, Adiestramiento/Enseñanza.
+1. **002 · Secciones temáticas** — esqueleto, navegación y MDX ya listos (ver sesión 04); falta redactar el contenido real de cada sección. Se retoma ahora que la 003 está cerrada.
 
 ## Backlog / features 💡
 
-1. **003 · Cursor hocico + enlaces con huella** — cursor en forma de hocico; enlaces que llevan a otro sitio muestran una huella en hover.
-2. **004 · Razas de perros** — listado + ficha por raza. Separada de la 002 por ser contenido de datos estructurados, no un artículo.
+1. **004 · Razas de perros** — listado + ficha por raza. Separada de la 002 por ser contenido de datos estructurados, no un artículo.
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 

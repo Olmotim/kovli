@@ -15,12 +15,10 @@ Kovli es una web de información sobre el cuidado de perros, organizada en secci
 
 ## Comandos
 
-🟡 _Se concretan al montar el monorepo (Etapa 0). Previstos:_
-
-- `pnpm dev` — arranca el entorno local
-- `pnpm test` — ejecuta los tests (deben pasar antes de cada commit)
-- `pnpm lint` — revisa el estilo (antes de cada PR)
+- `pnpm dev` — arranca el entorno local (`apps/web` en `http://localhost:3000`)
 - `pnpm build` — compila para producción
+- `pnpm lint` — revisa el estilo
+- `pnpm test` — 🟡 todavía no configurado (propuesta: Vitest)
 
 ## Entorno de desarrollo
 
