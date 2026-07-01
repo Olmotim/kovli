@@ -12,7 +12,7 @@ Página estática construida con Next.js (App Router) en `apps/web`, estilada co
 
 1. Layout base de la app (`app/layout.tsx`) — fuentes, estilos globales, paleta. — _archivo: apps/web/app/layout.tsx_
 2. Página de inicio (`app/page.tsx`) — hero + acceso a secciones. — _archivo: apps/web/app/page.tsx_
-3. Componentes reutilizables (p. ej. tarjeta de sección, cabecera). — _carpeta: apps/web/components/_
+3. Componentes reutilizables (p. ej. tarjeta de sección, cabecera). — _carpeta: apps/web/components/ (reorganizada en sesión 03 en subcarpetas `layout/`, `ui/`, `home/` — ver `constitution/tech-stack.md`)_
 4. Tokens de la paleta en la config de Tailwind. — _archivo: apps/web/tailwind.config.ts_
 
 ## Decisiones

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Seccion } from "@/lib/secciones";
-import DescargaAppButton from "@/components/DescargaAppButton";
+import DescargaAppButton from "@/components/ui/DescargaAppButton";
 
 export default function MobileMenu({ secciones }: { secciones: Seccion[] }) {
     const [open, setOpen] = useState(false);

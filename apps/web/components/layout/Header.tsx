@@ -1,7 +1,7 @@
 import { secciones } from "@/lib/secciones";
 import Image from "next/image";
-import MobileMenu from "@/components/MobileMenu";
-import DescargaAppButton from "@/components/DescargaAppButton";
+import MobileMenu from "@/components/layout/MobileMenu";
+import DescargaAppButton from "@/components/ui/DescargaAppButton";
 
 export default function Navbar() {
     return (

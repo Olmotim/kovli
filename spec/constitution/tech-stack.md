@@ -17,6 +17,10 @@
 ## Archivos / módulos clave
 
 - `apps/web/` — sitio Next.js.
+  - `apps/web/components/layout/` — estructura del sitio, presente en todas las páginas (Header, menús...).
+  - `apps/web/components/ui/` — piezas de interfaz genéricas y reutilizables (botones, modales...), sin lógica de página concreta.
+  - `apps/web/components/home/` — contenido específico de la home (Hero, Secciones...).
+  - Cada feature nueva que añada páginas propias (p. ej. 002 · Secciones) valora si sus componentes van en su propia subcarpeta de `components/` o colocados junto a su ruta en `app/`.
 - `apps/mobile/` — app Expo / React Native (Fase 3).
 - `packages/domain/` — lógica de negocio pura.
 - `packages/schemas/` — tipos + validación Zod compartidos.
