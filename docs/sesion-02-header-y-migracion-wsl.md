@@ -1,7 +1,7 @@
 # Sesión 02 — Home completa de la feature 001 (Header, Hero, Secciones) + migración a WSL nativo + Lighthouse + despliegue
 
 **Fecha:** 2026-07-01
-**Estado al terminar:** Home de la feature 001 completa (Header, Hero, Secciones) y desplegada en producción en `https://kovli.vercel.app`. Todo committeado y pusheado a GitHub (commit `2762438`). Quedan dos pasos abiertos: conectar Vercel con GitHub para despliegue automático (decidido dejarlo para otra sesión), y mover la feature 001 a "Hecho" en `roadmap.md` (pendiente de tu confirmación final).
+**Estado al terminar:** Home de la feature 001 completa (Header, Hero, Secciones) y desplegada en producción en `https://kovli.vercel.app`. Todo committeado y pusheado a GitHub. Copia vieja de `/mnt/c/Users/olmot/dev/kovli` borrada — `~/dev/kovli` es ahora la única copia. Vercel conectado a GitHub desde el dashboard (por el usuario, no verificado aún con un push real). **La feature 001 NO se marca como "Hecho" todavía — el usuario quiere revisarla él mismo primero en la próxima sesión.**
 
 ---
 
@@ -173,8 +173,8 @@ Verificado: arranque en **452ms** (frente a ~21-27s sobre `/mnt/c`) y hot-reload
 
 ## Próximos pasos (inicio de siguiente sesión)
 
-1. Confirmar el cierre de la feature 001 y moverla a "Hecho" en `constitution/roadmap.md`.
-2. Conectar el proyecto de Vercel con el repositorio de GitHub para despliegue automático en cada push.
-3. Si todo sigue bien desde `~/dev/kovli` tras varias sesiones, borrar la copia vieja de `/mnt/c/Users/olmot/dev/kovli`.
+1. **El usuario quiere revisar él mismo la feature 001 antes de marcarla como "Hecho"** en `constitution/roadmap.md` — no darlo por cerrado automáticamente al empezar la sesión.
+2. Vercel ya está conectado a GitHub desde el dashboard web (lo hizo el usuario, no por CLI) — **pendiente de confirmar que funciona de verdad**: en el próximo `git push`, comprobar si dispara un despliegue automático (`vercel ls` debería mostrar un deployment nuevo con esa fecha).
+3. ~~Si todo sigue bien desde `~/dev/kovli` tras varias sesiones, borrar la copia vieja de `/mnt/c/Users/olmot/dev/kovli`.~~ Hecho — la copia vieja ya se borró en esta misma sesión (2026-07-01), confirmado que `~/dev/kovli` es ahora la única copia del proyecto.
 4. Arreglar el warning menor de build (`outputFileTracingRoot` vs `turbopack.root` no coinciden) — cosmético, no bloqueante.
 5. Empezar la feature 002 (secciones temáticas) cuando toque, siguiendo spec → plan → tasks.
