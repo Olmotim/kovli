@@ -7,10 +7,10 @@
 - [x] Maquetar el layout base (cabecera, fuentes, estilos globales). _(hecho a mano)_
 - [x] Maquetar la home: hero + acceso a las secciones.
 - [x] Comprobar responsive en móvil y escritorio.
-- [x] Pasar Lighthouse y corregir lo básico de rendimiento/accesibilidad. _(Rendimiento 96, Accesibilidad 95, Buenas prácticas 100, SEO 100 — detalle en `docs/`)_
+- [x] Pasar Lighthouse y corregir lo básico de rendimiento/accesibilidad. _(Ronda final: Rendimiento 82, Accesibilidad 100, Buenas prácticas 100, SEO 100 — detalle y trade-off de rendimiento en `docs/`)_
 - [x] Desplegar en Vercel y verificar en producción. _(https://kovli.vercel.app)_
-- [ ] Validar contra los criterios de aceptación de `spec.md`.
-- [ ] Mover la feature a "Hecho" en `../../constitution/roadmap.md`.
+- [x] Validar contra los criterios de aceptación de `spec.md`. _(revisión visual completa: header, hero, secciones — confirmado por el usuario)_
+- [x] Mover la feature a "Hecho" en `../../constitution/roadmap.md`.
 
 ## Nota de aprendizaje
 

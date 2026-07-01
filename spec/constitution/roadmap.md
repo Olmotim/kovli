@@ -2,16 +2,16 @@
 
 ## Hecho ✅
 
-_Aún nada. (La Etapa 0 — montar el monorepo — se marcará aquí al completarse.)_
+1. **Etapa 0 · Esqueleto del monorepo** — pnpm workspaces + Turborepo, `apps/web` con Next.js + Tailwind + TypeScript.
+2. **001 · Página principal** — landing (header, hero, secciones) responsive, con paleta de marca, desplegada en producción y validada por el usuario. Lighthouse: Accesibilidad 100, Buenas prácticas 100, SEO 100, Rendimiento 82.
 
 ## Siguiente 🔜
 
-1. **001 · Página principal** — landing que presenta el sitio y da acceso a las secciones.
+1. **002 · Secciones temáticas** — contenido de cada sección: Salud, Seguridad, Primeros pasos, Tiempo de juego, Adiestramiento/Enseñanza, Razas de perros.
 
 ## Backlog / features 💡
 
-2. **002 · Secciones temáticas** — contenido de cada sección: Salud, Seguridad, Primeros pasos, Tiempo de juego, Adiestramiento/Enseñanza, Razas de perros.
-3. **003 · Cursor hocico + enlaces con huella** — cursor en forma de hocico; enlaces que llevan a otro sitio muestran una huella en hover.
+1. **003 · Cursor hocico + enlaces con huella** — cursor en forma de hocico; enlaces que llevan a otro sitio muestran una huella en hover.
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 

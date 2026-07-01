@@ -22,7 +22,7 @@ export default function Secciones() {
                             <p className="text-chocolate mt-1">{s.descripcion}</p>
                             <a
                                 href={s.href}
-                                className="text-chocolate text-sm font-semibold mt-4 inline-flex items-center gap-1 group-hover:gap-2 transition-all duration-200"
+                                className="text-chocolate text-sm font-semibold mt-4 inline-flex items-center gap-1 group-hover:gap-2 transition-all duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
                             >
                                 Ver más <span aria-hidden="true">→</span>
                             </a>

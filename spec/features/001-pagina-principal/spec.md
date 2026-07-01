@@ -1,10 +1,10 @@
 # 001 · Página principal
 
-**Estado:** propuesta
+**Estado:** hecho
 
 ## Qué hace
 
-🟡 _Propuesta a confirmar/ajustar._ Página de inicio que:
+Página de inicio que:
 
 - Presenta el sitio y su propósito (identidad visual con la paleta de marca).
 - Da acceso claro a las secciones temáticas (las que define la feature 002).
@@ -18,12 +18,10 @@ Es la puerta de entrada del sitio y la primera feature: sirve para asentar los f
 
 ## Criterios de aceptación
 
-🟡 _Propuesta a confirmar/ajustar:_
-
-- [ ] La home es responsive (mobile-first) y se ve bien en móvil y escritorio.
-- [ ] Presenta las secciones temáticas y permite navegar a cada una.
-- [ ] Aplica la paleta de marca definida en `tech-stack.md`.
-- [ ] Buen resultado en Lighthouse (rendimiento y accesibilidad).
+- [x] La home es responsive (mobile-first) y se ve bien en móvil y escritorio. _(incluye menú hamburguesa por debajo de 1024px)_
+- [x] Presenta las secciones temáticas y permite navegar a cada una.
+- [x] Aplica la paleta de marca definida en `tech-stack.md`.
+- [x] Buen resultado en Lighthouse (rendimiento y accesibilidad). _(Accesibilidad 100 — detalle y trade-off de rendimiento en `docs/`)_
 
 ## Fuera de alcance
 
