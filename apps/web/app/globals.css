@@ -13,6 +13,8 @@
 
   /* Tipografía */
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-plex-mono);
 }
 
 body {

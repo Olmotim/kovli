@@ -16,12 +16,14 @@
 4. Una ruta por sección, cada una como `app/<seccion>/page.mdx`: `salud`, `seguridad`, `primeros-pasos`, `tiempo-de-juego`, `adiestramiento`.
 5. Un layout de artículo compartido (título, enlace de vuelta a inicio) que envuelva el contenido MDX de las 5 páginas.
 6. Actualizar los `href=""` pendientes en `Header.tsx` y `Secciones.tsx` (home) para que apunten a las rutas reales.
+7. **(Añadido en sesión 07)** Cada página `.mdx` abre con `<FichaSeccion>` (`components/secciones/FichaSeccion.tsx`) — la "Libreta de veterinario": número de sección, estado, título e índice de apartados con enlace directo a cada uno. Cierra con `<RolodexSecciones>` (`components/secciones/RolodexSecciones.tsx`) — el "Rolodex": fichero de tarjetas en abanico con el resto de secciones (excluye la actual), como índice secundario para seguir navegando. Ambos reutilizan `lib/secciones.ts` (con un campo nuevo, `resumen`, para el teaser corto de las tarjetas) y dos fuentes nuevas vía `next/font/google` (Playfair Display para títulos, IBM Plex Mono para etiquetas).
 
 ## Decisiones (cerradas)
 
 - Una página por sección, sin sub-artículos con ruta propia por ahora.
 - Contenido en MDX (archivos en el repo), sin CMS headless.
 - "Razas de perros" se separa en la feature 004.
+- **Libreta + artículo + Rolodex** como estructura fija de cada página de sección (cerrado en sesión 07, tras construir `primeros-pasos` como referencia) — se repite igual en las 4 secciones que faltan.
 
 ## Riesgos
 

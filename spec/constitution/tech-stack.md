@@ -23,7 +23,8 @@
   - `apps/web/components/home/` — contenido específico de la home (Hero, Secciones...).
   - Cada feature nueva que añada páginas propias (p. ej. 002 · Secciones) valora si sus componentes van en su propia subcarpeta de `components/` o colocados junto a su ruta en `app/`.
   - `apps/web/app/(secciones)/` — las páginas de contenido (MDX) comparten `layout.tsx` (volver a inicio + contenedor). El paréntesis es un *route group* de Next.js: agrupa sin añadir segmento a la URL.
-  - `apps/web/mdx-components.tsx` — estilos Tailwind por defecto para el contenido MDX (títulos, párrafos, listas, enlaces), para no repetir clases en cada sección.
+  - `apps/web/mdx-components.tsx` — estilos Tailwind por defecto para el contenido MDX (títulos, párrafos, listas, enlaces), para no repetir clases en cada sección. **Ojo:** solo aplica a la sintaxis Markdown (`## título`), no a JSX literal (`<h2>`) escrito a mano dentro del `.mdx` — si se necesita un `id` en un encabezado (para anclas), hay que aplicarle las clases directamente.
+  - `apps/web/components/secciones/` — componentes reutilizables de las páginas de sección: `FichaSeccion.tsx` (la "Libreta de veterinario", índice de la página) y `RolodexSecciones.tsx` (el "Rolodex", fichero de tarjetas con el resto de secciones). Ver `spec/features/002-secciones/plan.md`.
 - `apps/mobile/` — app Expo / React Native (Fase 3).
 - `packages/domain/` — lógica de negocio pura.
 - `packages/schemas/` — tipos + validación Zod compartidos.
@@ -57,7 +58,7 @@ Dirección de marca: **paleta de marrones, beiges y blancos**, inspirada en los 
 - Café-au-lait (acento medio): `#A87C5F`
 - Chocolate (texto y acentos oscuros): `#4E3B2E`
 
-**Tipografía:** base simple y muy legible. De partida, Inter para el cuerpo. Cambiable más adelante si se quiere dar más personalidad.
+**Tipografía:** Inter (`font-sans`) para el cuerpo del sitio. Desde la sesión 07, dos fuentes más para los componentes de sección con más carácter (vía `next/font/google`, sin dependencias nuevas): Playfair Display (`font-serif`, títulos con aire de papelería/catálogo) e IBM Plex Mono (`font-mono`, etiquetas tipo "SECCIÓN 01 DE 05").
 
 - Layout: mobile-first, usando los breakpoints de Tailwind.
 

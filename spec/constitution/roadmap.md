@@ -8,7 +8,7 @@
 
 ## Siguiente 🔜 (en curso)
 
-1. **002 · Secciones temáticas** — esqueleto, navegación y MDX ya listos (ver sesión 04); falta redactar el contenido real de cada sección. Antes de retomarla se hizo un repaso visual de la home (paleta, Hero, y rediseño del bloque "Secciones" como camino ilustrado — ver sesión 06); se retoma el contenido a partir de la sesión 07.
+1. **002 · Secciones temáticas** — esqueleto, navegación y MDX ya listos (ver sesión 04); antes de escribir contenido se hizo un repaso visual de la home (paleta, Hero, camino ilustrado de "Secciones" — sesión 06). En la sesión 07 se cerró el patrón de página (Libreta de veterinario + artículo + Rolodex) y se redactó el borrador completo de `primeros-pasos`, pendiente de una revisión manual del usuario antes de repetirlo en `salud`, `seguridad`, `adiestramiento` y `tiempo-de-juego`.
 
 ## Backlog / features 💡
 

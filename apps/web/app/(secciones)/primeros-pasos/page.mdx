@@ -1,3 +1,81 @@
-# Primeros pasos
+import FichaSeccion from "@/components/secciones/FichaSeccion";
+import RolodexSecciones from "@/components/secciones/RolodexSecciones";
 
-🚧 Contenido en camino.
+<FichaSeccion
+  numero={1}
+  total={5}
+  titulo="Primeros pasos"
+  estado="En progreso"
+  actualizado="JUL 2026"
+  items={[
+    {
+      titulo: "Antes de que llegue a casa",
+      descripcion: "Lo esencial que preparar antes del primer día.",
+      href: "#antes-de-que-llegue",
+    },
+    {
+      titulo: "Los primeros días en casa",
+      descripcion: "Rutina y paciencia mientras se adapta a su nuevo hogar.",
+      href: "#primeros-dias",
+    },
+    {
+      titulo: "La primera visita al veterinario",
+      descripcion: "Cuándo pedirla y qué esperar de la revisión inicial.",
+      href: "#primera-visita-veterinario",
+    },
+    {
+      titulo: "Identificación y registro",
+      descripcion: "Microchip y chapa: lo obligatorio, explicado simple.",
+      href: "#identificacion-y-registro",
+    },
+    {
+      titulo: "Primeros vínculos",
+      descripcion: "Cómo ganarte su confianza sin agobiarlo.",
+      href: "#primeros-vinculos",
+    },
+  ]}
+/>
+
+<h2 id="antes-de-que-llegue" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Antes de que llegue a casa</h2>
+
+Antes del primer día conviene tener listo lo básico, para no improvisar justo cuando más tranquilidad necesita:
+
+- **Una zona de descanso propia**, tranquila y algo apartada del paso de la casa — una cama o manta es suficiente al principio.
+- **Cuencos de comida y agua**, y si ya sabes qué va a comer, un poco del mismo pienso que tenía antes (cambiar de golpe de alimentación puede sentarle mal).
+- **Collar o arnés y correa** de un tamaño adecuado — si es un cachorro, ten en cuenta que crecerá rápido.
+- **Revisa la casa a su altura**: cables sueltos, plantas tóxicas, productos de limpieza, objetos pequeños que pueda tragarse. Lo que no quieras que toque, mejor que no esté a su alcance desde el primer día.
+- **Habla con el resto de la familia** sobre qué zonas de la casa están permitidas y cuáles no, para no darle mensajes contradictorios en las primeras semanas.
+
+<h2 id="primeros-dias" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Los primeros días en casa</h2>
+
+Es normal que los primeros días esté algo nervioso o desorientado — todo es nuevo: la casa, los olores, las personas. Algunas cosas ayudan a que la transición sea más suave:
+
+- **Mantén una rutina simple y predecible**: horarios parecidos para comer, salir y descansar, desde el primer día.
+- **Deja que explore a su ritmo.** No hace falta que conozca toda la casa ni a todo el mundo el primer día.
+- **Ten paciencia con los accidentes o el comportamiento raro** durante las primeras semanas — es parte del proceso de adaptación, no un problema de carácter.
+- **Evita las visitas masivas** los primeros días. Cuantas menos caras nuevas a la vez, mejor para que se asiente.
+
+<h2 id="primera-visita-veterinario" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">La primera visita al veterinario</h2>
+
+Conviene pedir cita en los primeros días tras la llegada, antes de exponerlo demasiado a otros perros si todavía no tiene la pauta de vacunación completa.
+
+En esa primera visita, el veterinario suele hacer una revisión general (peso, estado físico, parásitos) y, con el historial que aportes (cartilla, información del criador o la protectora), te dirá qué plan de vacunación y desparasitación le corresponde. Ese plan depende de la edad, la raza y el historial de cada perro — es una valoración individual que solo puede hacer un veterinario, no algo que se pueda generalizar aquí.
+
+Aprovecha también para preguntar cualquier duda sobre la alimentación inicial: es un buen momento para resolverlas con alguien que ya ha visto a tu perro en persona.
+
+<h2 id="identificacion-y-registro" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Identificación y registro</h2>
+
+El **microchip es obligatorio** en España y en gran parte de Latinoamérica (conviene confirmar la normativa concreta de tu país o región). Lo implanta el veterinario y queda asociado a tus datos como dueño en el registro correspondiente — es lo que permite identificar a un perro perdido o encontrado.
+
+Como complemento, una **chapa con un teléfono de contacto** en el collar es útil para que cualquiera que lo encuentre pueda avisarte sin necesidad de un lector de microchip. Si cambias de número o de dirección, recuerda mantener esos datos actualizados en el registro.
+
+<h2 id="primeros-vinculos" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Primeros vínculos</h2>
+
+La confianza se construye poco a poco, no en un solo día. Algunas ideas para las primeras semanas:
+
+- **Acércate con calma**, sin invadir su espacio ni forzar el contacto si se muestra reservado.
+- **Usa su nombre en un tono positivo**, asociado a cosas buenas (comida, caricias, juego), para que aprenda a relacionarlo contigo.
+- **Juega en sesiones cortas**, con refuerzo positivo, sin sobreestimularlo — mejor varias veces al día que una sesión larga.
+- **Aprende a leer sus señales** de incomodidad o estrés (bostezos, lamerse el hocico, apartar la mirada) y respétalas — es la base de una buena relación a largo plazo.
+
+<RolodexSecciones actual="/primeros-pasos" />
