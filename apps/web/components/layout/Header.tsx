@@ -9,13 +9,13 @@ export default function Navbar() {
             <header className="sticky top-0 z-50 bg-arena">
                 <div className=" max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-18 py-4">
                     {/* Logo */}
-                    <a href="#" className="flex items-center rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate">
+                    <a href="/" className="flex items-center rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate">
                         <Image
                             src="/iconoHuella.png"
                             alt="Kovli"
                             priority
-                            width={256}
-                            height={256}
+                            width={713}
+                            height={320}
                             className="h-16 w-auto object-contain"
                         />
                     </a>

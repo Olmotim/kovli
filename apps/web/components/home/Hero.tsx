@@ -35,10 +35,10 @@ export default function Hero() {
 
                 <div className="mt-10 flex items-end justify-center gap-1">
                     <Image
-                        src="/poodle-sentado.png"
+                        src="/poodle-sentado3.png"
                         alt=""
-                        width={776}
-                        height={976}
+                        width={633}
+                        height={936}
                         className="h-28 sm:h-48 w-auto object-contain"
                     />
                     <Image
