@@ -6,12 +6,12 @@ import DescargaAppButton from "@/components/ui/DescargaAppButton";
 export default function Navbar() {
     return (
         <>
-            <header className="sticky top-0 z-50 bg-crema">
+            <header className="sticky top-0 z-50 bg-arena">
                 <div className=" max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-18 py-4">
                     {/* Logo */}
                     <a href="#" className="flex items-center rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate">
                         <Image
-                            src="/kovliCGT.png"
+                            src="/iconoHuella.png"
                             alt="Kovli"
                             priority
                             width={256}

@@ -8,7 +8,7 @@
 
 ## Siguiente 🔜 (en curso)
 
-1. **002 · Secciones temáticas** — esqueleto, navegación y MDX ya listos (ver sesión 04); falta redactar el contenido real de cada sección. Se retoma ahora que la 003 está cerrada.
+1. **002 · Secciones temáticas** — esqueleto, navegación y MDX ya listos (ver sesión 04); falta redactar el contenido real de cada sección. Antes de retomarla se hizo un repaso visual de la home (paleta, Hero, y rediseño del bloque "Secciones" como camino ilustrado — ver sesión 06); se retoma el contenido a partir de la sesión 07.
 
 ## Backlog / features 💡
 

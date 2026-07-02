@@ -3,17 +3,20 @@
 @theme inline {
   /* Paleta Kovli */
   --color-crema: #FBF7F0;
+  --color-arena: #f3ebdd;
   --color-beige: #E8DCC8;
   --color-apricot: #D9A679;
   --color-cafe: #A87C5F;
   --color-chocolate: #4E3B2E;
+  --color-kovu: #b3ebf2;
+  --color-loli: #FFC5D3;
 
   /* Tipografía */
   --font-sans: var(--font-inter);
 }
 
 body {
-  background-color: #FBF7F0;
+  background-color: var(--color-arena);
   color: #4E3B2E;
   font-family: var(--font-sans), sans-serif;
 }
@@ -21,7 +24,7 @@ body {
 /* Cursor Kovli — solo en dispositivos con puntero (ratón), no en táctil */
 @media (pointer: fine) {
   body {
-    cursor: url("/cursores/hocico.png") 16 16, auto;
+    cursor: url("/cursores/hocico-2.png") 16 16, auto;
   }
 
   a[href] {

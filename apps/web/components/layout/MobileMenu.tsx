@@ -30,7 +30,7 @@ export default function MobileMenu({ secciones }: { secciones: Seccion[] }) {
 
             <div
                 id="menu-movil"
-                className={`absolute left-0 right-0 top-full bg-crema border-t border-cafe/20 shadow-md ${open ? "block" : "hidden"}`}
+                className={`absolute left-0 right-0 top-full bg-arena border-t border-cafe/20 shadow-md ${open ? "block" : "hidden"}`}
             >
                 <ul className="flex flex-col px-6 py-4 gap-1">
                     {secciones.map((s) => (

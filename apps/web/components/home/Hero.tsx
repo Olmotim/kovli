@@ -33,13 +33,22 @@ export default function Hero() {
                     Explorar secciones ↓
                 </a>
 
-                <Image
-                    src="/poodle-hero.png"
-                    alt=""
-                    width={499}
-                    height={627}
-                    className="mx-auto mt-10 w-48 sm:w-56 h-auto"
-                />
+                <div className="mt-10 flex items-end justify-center gap-1">
+                    <Image
+                        src="/poodle-sentado.png"
+                        alt=""
+                        width={776}
+                        height={976}
+                        className="h-28 sm:h-48 w-auto object-contain"
+                    />
+                    <Image
+                        src="/poodle-tumbado-lado.png"
+                        alt=""
+                        width={1089}
+                        height={624}
+                        className="h-16 sm:h-28 w-auto object-contain"
+                    />
+                </div>
             </div>
         </section>
     );

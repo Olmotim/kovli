@@ -44,13 +44,15 @@
 - Lógica de negocio en `packages/domain`, nunca en componentes ni route handlers.
 - Validar toda entrada de usuario con Zod (Fase 2).
 - Idioma del contenido: español (España y Latam), redactado en español neutro. 🟡 Previsto a futuro: i18n para inglés — conviene no hardcodear textos de interfaz; con MDX, se resolvería con un archivo por idioma (p. ej. `salud.es.mdx` / `salud.en.mdx`).
+- Cuando un componente necesita disposiciones muy distintas según el ancho de pantalla (no solo reajustar tamaños, sino estructuras diferentes), las dos versiones conviven en el DOM y se alternan por CSS (`lg:hidden` en una, `hidden lg:block` en la otra) — no con JavaScript (`matchMedia`). Patrón ya usado en Header/MobileMenu y en el camino de "Secciones" (sesión 06).
 
 ## Estilo visual
 
 Dirección de marca: **paleta de marrones, beiges y blancos**, inspirada en los colores de pelaje de los poodles. Paleta de partida (en evolución, se irá afinando):
 
-- Base / fondo claro (crema): `#FBF7F0`
-- Beige arena: `#E8DCC8`
+- Crema (blanco cálido, capas puntuales: modal, hover de tarjetas): `#FBF7F0`
+- Arena (fondo general del body, header y menú móvil): `#f3ebdd`
+- Beige: `#E8DCC8`
 - Apricot (acento cálido, color típico de poodle): `#D9A679`
 - Café-au-lait (acento medio): `#A87C5F`
 - Chocolate (texto y acentos oscuros): `#4E3B2E`
