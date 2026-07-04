@@ -1,3 +1,85 @@
-# Seguridad
+import FichaSeccion from "@/components/secciones/FichaSeccion";
+import RolodexSecciones from "@/components/secciones/RolodexSecciones";
 
-🚧 Contenido en camino.
+<FichaSeccion
+  numero={3}
+  total={5}
+  titulo="Seguridad"
+  estado="En progreso"
+  actualizado="JUL 2026"
+  items={[
+    {
+      titulo: "Peligros en casa",
+      descripcion: "Tóxicos, plantas, objetos pequeños, ventanas y balcones.",
+      href: "#peligros-en-casa",
+    },
+    {
+      titulo: "En la calle y en el coche",
+      descripcion: "Correa, arnés, tráfico y cómo viajar con seguridad.",
+      href: "#calle-y-coche",
+    },
+    {
+      titulo: "Golpe de calor",
+      descripcion: "Por qué es una urgencia real y cómo evitarlo.",
+      href: "#golpe-de-calor",
+    },
+    {
+      titulo: "Evitar fugas",
+      descripcion: "Vallas, jardín, puertas y los momentos de más riesgo.",
+      href: "#evitar-fugas",
+    },
+    {
+      titulo: "Ruidos fuertes",
+      descripcion: "Fuegos artificiales y tormentas: cómo ayudarle a pasarlo mejor.",
+      href: "#ruidos-fuertes",
+    },
+  ]}
+/>
+
+<h2 id="peligros-en-casa" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Peligros en casa</h2>
+
+Muchos accidentes domésticos se evitan simplemente revisando la casa desde su altura y con su curiosidad en mente:
+
+- **Productos de limpieza y medicamentos** guardados en armarios cerrados, nunca a su alcance ni en el suelo mientras limpias.
+- **Algunas plantas de interior son tóxicas para los perros** (por ejemplo, la costilla de Adán o el potos) — si tienes dudas sobre una planta concreta, consulta con tu veterinario o un centro de toxicología animal antes de tenerla en casa.
+- **Objetos pequeños que pueda tragarse**: pilas, tapones, juguetes de niños con piezas sueltas — especialmente con cachorros, que exploran con la boca.
+- **Ventanas y balcones**: una mosquitera o red bien fijada evita caídas, sobre todo si vives en un piso alto y tu perro es curioso o de raza pequeña.
+- **Cables eléctricos** al alcance de un cachorro en fase de dentición son un riesgo de mordisco — protégelos o retíralos de su zona habitual.
+
+<h2 id="calle-y-coche" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">En la calle y en el coche</h2>
+
+- **Usa siempre correa en la vía pública**, salvo en zonas específicamente habilitadas para perros sueltos — protege tanto a tu perro como a terceros.
+- **El arnés reparte mejor la fuerza que el collar** si tira de la correa, y reduce el riesgo de lesiones en el cuello a largo plazo.
+- **En el coche, sujétalo** con un arnés de cinturón homologado o un transportín bien fijado — un frenazo convierte a un perro suelto en un peligro para él mismo y para el resto de ocupantes.
+- **Nunca lo dejes solo dentro del coche parado**, ni siquiera "un momento" — la temperatura interior sube mucho más rápido de lo que parece, incluso con las ventanillas algo bajadas (más detalle en el siguiente apartado).
+- **Antes de cruzar o soltarlo en una zona nueva**, comprueba que su identificación (chapa y microchip, ver `primeros-pasos`) está actualizada por si se despista.
+
+<h2 id="golpe-de-calor" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Golpe de calor</h2>
+
+El golpe de calor es una urgencia veterinaria real, no una simple molestia — puede poner en riesgo su vida en poco tiempo, especialmente en razas braquicéfalas (hocico chato, como el bulldog o el pug), perros mayores o con sobrepeso.
+
+- **Nunca lo dejes en un coche parado**, aunque sea "solo cinco minutos" o con la ventanilla bajada — es la causa más frecuente y más evitable.
+- **Evita los paseos en las horas de más calor**; mejor a primera hora de la mañana o al atardecer.
+- **El asfalto muy caliente quema las almohadillas** antes de que tú notes calor a través del calzado — si no aguantas la mano sobre el asfalto unos segundos, tampoco lo hagas caminar sobre él.
+- **Asegúrate de que siempre tiene acceso a agua fresca y sombra**, sobre todo si pasa tiempo en el exterior.
+- **Si notas jadeo muy intenso, babeo excesivo, desorientación o encías muy rojas**, busca sombra, ofrécele agua y contacta con tu veterinario de inmediato — no esperes a ver si mejora solo.
+
+<h2 id="evitar-fugas" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Evitar fugas</h2>
+
+La mayoría de fugas ocurren en momentos de distracción, no por descuido general:
+
+- **Revisa el estado de vallas y puertas del jardín** periódicamente — un hueco pequeño puede ser suficiente para un perro decidido.
+- **Ten especial cuidado en visitas, mudanzas o reformas**, cuando puertas y verjas quedan abiertas más tiempo del habitual con gente entrando y saliendo.
+- **Enséñale a esperar en la puerta** en vez de salir corriendo en cuanto se abre — un hábito simple que reduce mucho el riesgo del día a día.
+- **Mantén su identificación siempre actualizada** (microchip y chapa) — es lo que permite devolverlo a casa si, a pesar de todo, llega a escaparse.
+
+<h2 id="ruidos-fuertes" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Ruidos fuertes</h2>
+
+Los fuegos artificiales y las tormentas son de las situaciones que más estrés generan a muchos perros — el miedo a estos ruidos es real y no se soluciona regañándole ni forzándolo a "acostumbrarse" de golpe.
+
+- **Prepárale un espacio seguro dentro de casa** antes de que empiece el ruido: una habitación interior, con sus cosas y, si ayuda, algo de ruido de fondo (radio, televisión) que amortigüe los estampidos.
+- **Mantén la calma tú también** — tu perro capta tu estado de ánimo; una actitud tranquila transmite más seguridad que sobreprotegerlo o darle mucha importancia al ruido.
+- **No lo saques a pasear durante la traca o la tormenta** si puedes evitarlo — es un momento en el que el riesgo de fuga por pánico es más alto.
+- **Si el miedo es muy intenso o frecuente** (temblores fuertes, intentos de esconderse o escapar, jadeo excesivo), coméntalo con tu veterinario — existen pautas y, si hace falta, tratamientos que pueden ayudarle a llevarlo mejor.
+
+<RolodexSecciones actual="/seguridad" />
