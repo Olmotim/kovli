@@ -1,3 +1,87 @@
-# Salud
+import FichaSeccion from "@/components/secciones/FichaSeccion";
+import RolodexSecciones from "@/components/secciones/RolodexSecciones";
 
-🚧 Contenido en camino.
+<FichaSeccion
+  numero={2}
+  total={5}
+  titulo="Salud"
+  estado="En progreso"
+  actualizado="JUL 2026"
+  items={[
+    {
+      titulo: "Vacunación",
+      descripcion: "Por qué son necesarias y qué esperar del plan que marque tu veterinario.",
+      href: "#vacunacion",
+    },
+    {
+      titulo: "Desparasitación",
+      descripcion: "Interna y externa: con qué frecuencia orientativa hay que protegerlo.",
+      href: "#desparasitacion",
+    },
+    {
+      titulo: "Alimentación",
+      descripcion: "Qué cambia según la etapa de vida y cómo cambiar de pienso sin sustos.",
+      href: "#alimentacion",
+    },
+    {
+      titulo: "Revisiones veterinarias",
+      descripcion: "Chequeos periódicos, no solo cuando algo va mal.",
+      href: "#revisiones-veterinarias",
+    },
+    {
+      titulo: "Señales de alerta",
+      descripcion: "Qué síntomas no esperan a mañana.",
+      href: "#senales-de-alerta",
+    },
+  ]}
+/>
+
+<h2 id="vacunacion" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Vacunación</h2>
+
+Las vacunas protegen a tu perro frente a enfermedades graves, algunas de ellas mortales o transmisibles a otros animales. La primera tanda suele administrarse durante los primeros meses de vida, seguida de recuerdos periódicos ya en la edad adulta.
+
+**El calendario exacto no es el mismo para todos los perros**: depende de su edad, su raza, dónde vive y el historial que ya tenga. Es tu veterinario quien debe pautarlo — no algo que se pueda generalizar aquí. Lo que sí puedes hacer tú:
+
+- **Lleva siempre la cartilla o el registro digital** a cada visita, para que quede constancia de qué se ha puesto y cuándo toca la siguiente.
+- **No expongas a tu cachorro a zonas de mucho tránsito de otros perros** (parques, calles muy transitadas) hasta que el veterinario confirme que la pauta inicial está completa.
+- **Si te mudas de país o de región**, coméntaselo a tu veterinario: la normativa y los riesgos sanitarios cambian de un sitio a otro.
+
+<h2 id="desparasitacion" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Desparasitación</h2>
+
+Los parásitos pueden ser **internos** (lombrices, otros parásitos intestinales) o **externos** (pulgas, garrapatas). Ambos afectan a su bienestar y algunos también pueden transmitirse a las personas, así que conviene protegerlo de forma regular, no solo cuando ya se ha detectado un problema.
+
+- **La desparasitación interna** suele repetirse varias veces al año — la pauta concreta (producto y frecuencia) te la indica tu veterinario según su edad, peso y estilo de vida (por ejemplo, si convive con niños o sale mucho al monte).
+- **La desparasitación externa** es especialmente importante en primavera y verano, cuando las garrapatas están más activas, pero muchos productos protegen todo el año.
+- **Revísalo tras cada paseo por zonas de vegetación densa** — pasar la mano por su pelaje ayuda a detectar garrapatas a tiempo, antes de que se agarren.
+
+<h2 id="alimentacion" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Alimentación</h2>
+
+Las necesidades nutricionales de un perro cambian a lo largo de su vida — no es lo mismo alimentar a un cachorro en crecimiento que a un adulto tranquilo o a un perro senior.
+
+- **Cachorro:** necesita más energía y nutrientes por su ritmo de crecimiento — piensos formulados específicamente para esta etapa, en tomas más repartidas a lo largo del día.
+- **Adulto:** una alimentación equilibrada y raciones ajustadas a su peso y actividad son suficientes para mantenerlo sano.
+- **Senior:** suele necesitar menos calorías (es habitual que se mueva menos) y, en algunos casos, piensos adaptados a articulaciones o digestión más sensible.
+
+**Cambiar de pienso siempre de forma gradual**: mezclando el nuevo con el anterior en proporciones crecientes durante varios días. Un cambio brusco de alimentación es una de las causas más frecuentes de molestias digestivas. Si tienes dudas sobre qué darle o en qué cantidad, tu veterinario es quien mejor puede orientarte, conociendo su peso, edad y estado de salud.
+
+<h2 id="revisiones-veterinarias" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Revisiones veterinarias</h2>
+
+No hace falta esperar a que algo vaya mal para ir al veterinario. Las revisiones periódicas (normalmente una vez al año, o más a menudo si es un cachorro o un perro senior) permiten detectar a tiempo problemas que todavía no dan síntomas visibles.
+
+- **Aprovecha la revisión anual** para poner al día vacunas y desparasitación, y para comentar cualquier cambio que hayas notado en su comportamiento, apetito o energía, aunque te parezca menor.
+- **Los perros senior se benefician de revisiones más frecuentes**, ya que muchas afecciones propias de la edad son más fáciles de tratar cuanto antes se detectan.
+- **Lleva un registro simple** (una nota en el móvil sirve) de peso, vacunas y visitas — ayuda a tu veterinario a ver la evolución de un vistazo.
+
+<h2 id="senales-de-alerta" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Señales de alerta</h2>
+
+Hay síntomas que justifican una llamada o visita al veterinario sin esperar a que se pase solo. Esto no es una lista para diagnosticar en casa — es una guía de **cuándo no conviene esperar**:
+
+- **Vómitos o diarrea persistentes** (más de un día), especialmente si van acompañados de decaimiento o si hay sangre.
+- **Dificultad para respirar, o cansancio extremo** ante un esfuerzo que antes toleraba bien.
+- **Hinchazón repentina del abdomen**, sobre todo si además está inquieto o intenta vomitar sin conseguirlo — puede ser una urgencia grave.
+- **Rechazo total de la comida o el agua durante más de un día.**
+- **Cojera repentina, dolor al tocarlo, o cualquier herida que no deja de sangrar.**
+
+Ante cualquiera de estas señales, contacta con tu veterinario o un centro de urgencias lo antes posible — el diagnóstico y el tratamiento son siempre cosa suya, no de una guía general como esta.
+
+<RolodexSecciones actual="/salud" />

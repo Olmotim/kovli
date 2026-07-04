@@ -10,8 +10,8 @@
 - [x] Actualizar los `href=""` (centralizados en `lib/secciones.ts`, usado por `Header.tsx` y `Secciones.tsx`) para las 5 secciones — "Razas" se deja sin ruta a propósito, es la feature 004.
 - [x] Comprobar responsive en móvil y escritorio, y navegación real desde el header y las tarjetas de la home.
 - [x] Construir los componentes reutilizables de cada página de sección (sesión 07): **"Libreta de veterinario"** (`FichaSeccion.tsx` — índice de la sección con aire de carné/ficha clínica, al principio) y **"Rolodex"** (`RolodexSecciones.tsx` — fichero de tarjetas en abanico con el resto de secciones, al final). Fuentes nuevas (Playfair Display, IBM Plex Mono) añadidas para darles su propio lenguaje visual.
-- [~] Redactar y maquetar el contenido real de `primeros-pasos` — **borrador completo** (Libreta + artículo + Rolodex), pendiente de una revisión manual tranquila del usuario antes de darlo por bueno.
-- [ ] Redactar y maquetar el contenido real de `salud`.
+- [x] Redactar y maquetar el contenido real de `primeros-pasos` — revisado y aprobado por el usuario.
+- [x] Redactar y maquetar el contenido real de `salud` — revisado y aprobado por el usuario.
 - [ ] Redactar y maquetar el contenido real de `seguridad`.
 - [ ] Redactar y maquetar el contenido real de `tiempo-de-juego`.
 - [ ] Redactar y maquetar el contenido real de `adiestramiento`.
