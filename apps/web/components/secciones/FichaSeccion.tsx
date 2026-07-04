@@ -1,3 +1,8 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
 type FichaItem = {
     titulo: string;
     descripcion: string;
@@ -21,6 +26,26 @@ export default function FichaSeccion({
     actualizado,
     items,
 }: FichaSeccionProps) {
+    const pathname = usePathname();
+    const storageKey = `kovli:leido:${pathname}`;
+    const [leidos, setLeidos] = useState<string[]>([]);
+
+    useEffect(() => {
+        const guardado = localStorage.getItem(storageKey);
+        if (guardado) {
+            setLeidos(JSON.parse(guardado));
+        }
+    }, [storageKey]);
+
+    function marcarComoLeido(href: string) {
+        setLeidos((actuales) => {
+            if (actuales.includes(href)) return actuales;
+            const nuevos = [...actuales, href];
+            localStorage.setItem(storageKey, JSON.stringify(nuevos));
+            return nuevos;
+        });
+    }
+
     return (
         <div className="border border-chocolate bg-crema px-6 py-6 sm:px-8 sm:py-8">
             <div className="flex items-center justify-between gap-4">
@@ -46,15 +71,25 @@ export default function FichaSeccion({
                     >
                         <a
                             href={item.href}
+                            onClick={() => marcarComoLeido(item.href)}
                             className="group flex items-start gap-3 py-4 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
                         >
                             <span
                                 aria-hidden="true"
-                                className="mt-1 h-4 w-4 border-2 border-chocolate shrink-0"
-                            />
+                                className={`mt-1 h-4 w-4 border-2 border-chocolate shrink-0 flex items-center justify-center transition-colors duration-200 ${
+                                    leidos.includes(item.href) ? "bg-chocolate" : ""
+                                }`}
+                            >
+                                {leidos.includes(item.href) && (
+                                    <span className="text-crema text-[10px] leading-none">✓</span>
+                                )}
+                            </span>
                             <span>
                                 <span className="block font-serif font-bold text-chocolate group-hover:text-apricot transition-colors duration-200">
                                     {item.titulo}
+                                    {leidos.includes(item.href) && (
+                                        <span className="sr-only"> (leído)</span>
+                                    )}
                                 </span>
                                 <span className="block text-cafe text-sm mt-0.5">
                                     {item.descripcion}

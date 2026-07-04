@@ -8,13 +8,18 @@
   --color-apricot: #D9A679;
   --color-cafe: #A87C5F;
   --color-chocolate: #4E3B2E;
-  --color-kovu: #b3ebf2;
+  --color-kovu: #B3EBF2;
+  --color-pastel: #5BA2AB;
   --color-loli: #FFC5D3;
 
   /* Tipografía */
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
   --font-mono: var(--font-plex-mono);
+}
+
+html {
+  scroll-padding-top: 4.5rem; /* alto del header sticky (h-18), evita que tape el título al saltar a un ancla */
 }
 
 body {
@@ -26,7 +31,7 @@ body {
 /* Cursor Kovli — solo en dispositivos con puntero (ratón), no en táctil */
 @media (pointer: fine) {
   body {
-    cursor: url("/cursores/hocico-2.png") 16 16, auto;
+    cursor: url("/cursores/hocico-3.png") 16 16, auto;
   }
 
   a[href] {
