@@ -13,10 +13,10 @@
 - [x] Redactar y maquetar el contenido real de `primeros-pasos` — revisado y aprobado por el usuario.
 - [x] Redactar y maquetar el contenido real de `salud` — revisado y aprobado por el usuario.
 - [x] Redactar y maquetar el contenido real de `seguridad` — revisado y aprobado por el usuario.
-- [ ] Redactar y maquetar el contenido real de `tiempo-de-juego`.
-- [ ] Redactar y maquetar el contenido real de `adiestramiento`.
-- [ ] Validar contra los criterios de aceptación de `spec.md`.
-- [ ] Mover la feature a "Hecho" en `../../constitution/roadmap.md`.
+- [x] Redactar y maquetar el contenido real de `tiempo-de-juego` — revisado y aprobado por el usuario.
+- [x] Redactar y maquetar el contenido real de `adiestramiento` — revisado y aprobado por el usuario.
+- [x] Validar contra los criterios de aceptación de `spec.md`.
+- [x] Mover la feature a "Hecho" en `../../constitution/roadmap.md`.
 
 ## Nota de contenido
 

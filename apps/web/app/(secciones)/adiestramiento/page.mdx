@@ -1,3 +1,85 @@
-# Adiestramiento
+import FichaSeccion from "@/components/secciones/FichaSeccion";
+import RolodexSecciones from "@/components/secciones/RolodexSecciones";
 
-🚧 Contenido en camino.
+<FichaSeccion
+  numero={4}
+  total={5}
+  titulo="Adiestramiento"
+  estado="En progreso"
+  actualizado="JUL 2026"
+  items={[
+    {
+      titulo: "Refuerzo positivo",
+      descripcion: "El principio base: premiar lo que quieres que repita.",
+      href: "#refuerzo-positivo",
+    },
+    {
+      titulo: "Comandos básicos",
+      descripcion: "Cómo enseñar \"sienta\", \"quieto\" y \"ven\" con constancia.",
+      href: "#comandos-basicos",
+    },
+    {
+      titulo: "Socialización",
+      descripcion: "Por qué la etapa de cachorro es clave para que tolere bien lo nuevo.",
+      href: "#socializacion",
+    },
+    {
+      titulo: "Rutinas y buenos hábitos",
+      descripcion: "Consistencia entre toda la familia y paciencia con los tiempos.",
+      href: "#rutinas-y-habitos",
+    },
+    {
+      titulo: "Cuándo pedir ayuda profesional",
+      descripcion: "Qué comportamientos necesitan un adiestrador, no intentarlo a ciegas.",
+      href: "#ayuda-profesional",
+    },
+  ]}
+/>
+
+<h2 id="refuerzo-positivo" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Refuerzo positivo</h2>
+
+El refuerzo positivo consiste en premiar el comportamiento que quieres que repita — con comida, elogio o juego — en vez de castigar el que no quieres. Es el enfoque que recomiendan hoy la mayoría de educadores caninos, porque enseña sin generarle miedo ni desconfianza hacia ti.
+
+- **Premia justo en el momento**, no minutos después — así asocia claramente la acción con la recompensa.
+- **Sé constante**: si un día premias algo y al siguiente lo ignoras, el aprendizaje se vuelve confuso.
+- **Ignora en vez de castigar** los comportamientos que no quieres reforzar, siempre que no sean peligrosos — muchas veces basta con no darles atención para que se reduzcan solos.
+- **Ve reduciendo el premio de comida poco a poco** una vez que el comportamiento está aprendido, sustituyéndolo por elogio o caricias.
+
+<h2 id="comandos-basicos" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Comandos básicos</h2>
+
+Empezar por dos o tres comandos simples, bien afianzados, da mejor resultado que intentar enseñar muchos a la vez:
+
+- **"Sienta":** con un premio en la mano, llévalo despacio desde su nariz hacia atrás por encima de su cabeza — al seguir el movimiento, se sentará solo. En ese momento, di "sienta" y premia.
+- **"Quieto":** una vez que sabe sentarse, pide que se mantenga así unos segundos antes de premiar, alargando el tiempo poco a poco.
+- **"Ven":** practica en un espacio seguro y sin distracciones al principio, premiando siempre que venga — nunca lo llames para regañarlo, o asociará la orden con algo negativo.
+- **Practica en sesiones cortas** (5-10 minutos), varias veces al día, mejor que una sesión larga que le aburra o le canse.
+
+<h2 id="socializacion" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Socialización</h2>
+
+Las primeras semanas de vida (aproximadamente hasta los 3-4 meses) son la ventana en la que un cachorro aprende con más facilidad a tolerar bien lo que le resultará familiar de adulto — personas, otros perros, ruidos, superficies distintas.
+
+- **Expón a tu cachorro a situaciones nuevas de forma gradual y positiva**: gente distinta, otros perros vacunados, sonidos del día a día (tráfico, aspiradora) — siempre a un ritmo que no le genere miedo.
+- **La cantidad importa menos que la calidad de la experiencia** — una situación que le supera y le asusta puede hacer más daño que bien; mejor ir poco a poco.
+- **La socialización no termina en el primer año** — mantener el contacto con gente y otros perros a lo largo de su vida ayuda a que no pierda esas habilidades sociales.
+
+<h2 id="rutinas-y-habitos" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Rutinas y buenos hábitos</h2>
+
+Muchos "problemas de comportamiento" no son más que falta de consistencia — un perro aprende más rápido cuando las normas son siempre las mismas, las aplique quien las aplique:
+
+- **Pon de acuerdo a toda la familia** en qué está permitido (subir al sofá, pedir comida en la mesa, etc.) — reglas que cambian según quién esté en casa confunden mucho.
+- **Sé paciente con los tiempos de aprendizaje**: un cachorro no entiende una norma a la primera, necesita repetición constante durante semanas.
+- **Las rutinas dan seguridad**: horarios parecidos para comer, pasear y descansar ayudan a que esté más tranquilo en general, no solo durante el adiestramiento.
+- **Corrige en el momento**, nunca después — un perro no relaciona una regañina con algo que hizo minutos u horas antes.
+
+<h2 id="ayuda-profesional" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Cuándo pedir ayuda profesional</h2>
+
+Algunos comportamientos van más allá de lo que se puede resolver con paciencia y constancia en casa, y conviene abordarlos con un adiestrador o educador canino profesional en vez de intentarlo a ciegas:
+
+- **Agresividad** hacia personas u otros animales, aunque parezca puntual o "solo un aviso".
+- **Ansiedad por separación** intensa (destrozos, ladridos prolongados o accidentes solo cuando se queda solo).
+- **Miedos muy marcados** que no mejoran con el tiempo y le limitan el día a día (a la calle, a otros perros, a ciertas personas).
+- **Cualquier cambio brusco de comportamiento** en un perro adulto — a veces tiene un origen médico, así que también conviene comentarlo con tu veterinario antes de asumir que es solo cuestión de adiestramiento.
+
+Pedir ayuda a tiempo no es un fracaso — es la forma más rápida de que tanto tú como tu perro dejéis de sufrir una situación que a solas cuesta mucho resolver bien.
+
+<RolodexSecciones actual="/adiestramiento" />

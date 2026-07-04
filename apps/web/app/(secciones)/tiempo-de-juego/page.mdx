@@ -1,3 +1,82 @@
-# Tiempo de juego
+import FichaSeccion from "@/components/secciones/FichaSeccion";
+import RolodexSecciones from "@/components/secciones/RolodexSecciones";
 
-🚧 Contenido en camino.
+<FichaSeccion
+  numero={5}
+  total={5}
+  titulo="Tiempo de juego"
+  estado="En progreso"
+  actualizado="JUL 2026"
+  items={[
+    {
+      titulo: "Por qué importa el juego",
+      descripcion: "Bienestar físico y mental, no solo entretenimiento.",
+      href: "#por-que-importa-el-juego",
+    },
+    {
+      titulo: "Juego según edad y energía",
+      descripcion: "Cachorro, adulto y senior necesitan tipos de juego distintos.",
+      href: "#juego-segun-edad",
+    },
+    {
+      titulo: "Juguetes seguros",
+      descripcion: "Materiales y tamaños a evitar, cuándo supervisar.",
+      href: "#juguetes-seguros",
+    },
+    {
+      titulo: "Enriquecimiento mental",
+      descripcion: "Juegos de olfato y de buscar comida: cansar la cabeza, no solo el cuerpo.",
+      href: "#enriquecimiento-mental",
+    },
+    {
+      titulo: "Cuándo parar",
+      descripcion: "Señales de sobreestimulación o cansancio, para no pasarse.",
+      href: "#cuando-parar",
+    },
+  ]}
+/>
+
+<h2 id="por-que-importa-el-juego" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Por qué importa el juego</h2>
+
+El juego no es solo para gastar energía — es una de las formas en que un perro aprende, se relaciona y libera estrés. Un perro que juega lo suficiente suele estar más tranquilo el resto del día y tiene menos comportamientos destructivos por aburrimiento (morder muebles, escarbar, ladrar sin motivo aparente).
+
+- **El juego refuerza el vínculo contigo**, sobre todo si participas activamente en vez de dejarlo jugar solo todo el rato.
+- **También es una vía de socialización**, tanto con personas como con otros perros, si se hace de forma controlada y progresiva.
+- **No hace falta mucho tiempo cada vez**: varias sesiones cortas a lo largo del día suelen funcionar mejor que una única sesión larga y agotadora.
+
+<h2 id="juego-segun-edad" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Juego según edad y energía</h2>
+
+El tipo de juego adecuado cambia con la edad — no es solo cuestión de gustos, también de lo que su cuerpo puede sostener:
+
+- **Cachorro:** sesiones cortas y frecuentes, evitando saltos o esfuerzos bruscos mientras sus huesos y articulaciones todavía se están formando. El juego con otros cachorros vacunados ayuda mucho a su socialización.
+- **Adulto:** aquí ya se puede variar más — juegos de tirar y aflojar, buscar y traer, o carreras, siempre según su condición física y raza (algunas razas de hocico chato toleran peor el ejercicio intenso, sobre todo con calor).
+- **Senior:** mantener el juego, pero adaptado — sesiones más cortas y suaves, priorizando el estímulo mental sobre el esfuerzo físico si empieza a notarse menos ágil.
+
+<h2 id="juguetes-seguros" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Juguetes seguros</h2>
+
+No todos los juguetes son igual de seguros para todos los perros — depende sobre todo de su tamaño y de lo fuerte que muerda:
+
+- **Elige un tamaño que no pueda tragarse entero** ni partir en trozos pequeños que se atraganten — cuanto más fuerte muerda, más resistente debe ser el material.
+- **Revisa los juguetes de vez en cuando**: uno desgastado o roto puede soltar piezas pequeñas sin que te des cuenta.
+- **Supervisa el juego con juguetes que se puedan desmontar** (con partes, cuerdas o relleno), especialmente las primeras veces que se lo das.
+- **Evita objetos que no sean juguetes** (pelotas de tenis viejas, piezas pequeñas de plástico) como sustituto habitual — no están pensados para aguantar mordiscos ni son seguros si los traga.
+
+<h2 id="enriquecimiento-mental" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Enriquecimiento mental</h2>
+
+Cansar la cabeza cansa tanto o más que cansar el cuerpo — y es especialmente útil en días de lluvia o cuando el paseo se queda corto:
+
+- **Juegos de olfato**: esconder premios por la casa o el jardín para que los busque es una de las formas más sencillas de estimularlo mentalmente.
+- **Juguetes rellenables** (tipo Kong con pienso o algo de comida húmeda) le hacen trabajar para conseguir la recompensa, en vez de recibirla al instante.
+- **Alfombras o tableros de olfato** reparten la comida entre varias texturas y compartimentos, alargando el tiempo que tarda en comer y añadiendo estímulo.
+- **Alternar los juegos habituales** evita que se aburra de siempre lo mismo — no hace falta comprar juguetes nuevos constantemente, con rotar los que ya tiene es suficiente.
+
+<h2 id="cuando-parar" className="text-chocolate text-2xl sm:text-3xl font-bold mt-10 mb-3">Cuándo parar</h2>
+
+Tan importante como jugar es saber cuándo ha sido suficiente — un perro sobreestimulado puede volverse más nervioso en vez de más relajado:
+
+- **Jadeo muy intenso, buscar constantemente alejarse o esconderse**, o mordisqueos que antes no daba son señales de que necesita una pausa.
+- **Corta el juego en un momento tranquilo**, no justo cuando está más excitado — ayuda a que aprenda a bajar la intensidad poco a poco.
+- **Después de una sesión intensa, dale un rato de descanso real** antes de la siguiente actividad, igual que necesitaría una persona tras hacer ejercicio.
+- **Si un juego concreto lo pone nervioso de forma repetida** (por ejemplo, tirar de la cuerda con ciertas personas), no pasa nada por dejarlo de lado y quedarte con los que sí disfruta.
+
+<RolodexSecciones actual="/tiempo-de-juego" />

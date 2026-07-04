@@ -1,6 +1,6 @@
 # 002 · Secciones temáticas
 
-**Estado:** propuesta
+**Estado:** hecho
 
 ## Qué hace
 
@@ -20,10 +20,10 @@ Es el contenido que da valor al sitio. Sin las secciones, la home no lleva a nin
 
 ## Criterios de aceptación
 
-- [ ] Cada sección tiene su ruta propia y es accesible desde la home (y desde el header).
-- [ ] El contenido es responsive y legible (mobile-first).
-- [ ] Navegación coherente entre secciones y vuelta a la home.
-- [ ] Los `href=""` pendientes del Header y de las tarjetas de la home apuntan ya a las rutas reales.
+- [x] Cada sección tiene su ruta propia y es accesible desde la home (y desde el header).
+- [x] El contenido es responsive y legible (mobile-first).
+- [x] Navegación coherente entre secciones y vuelta a la home.
+- [x] Los `href=""` pendientes del Header y de las tarjetas de la home apuntan ya a las rutas reales.
 
 ## Fuera de alcance
 
