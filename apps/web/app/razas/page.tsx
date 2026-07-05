@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { breeds } from "@/data/breeds";
-import BreedCard from "@/components/razas/BreedCard";
+import BreedsExplorer from "@/components/razas/BreedsExplorer";
 
 export const metadata: Metadata = {
     title: "Razas de perros | Kovli",
@@ -26,11 +26,7 @@ export default function RazasPage() {
                     Tamaño, energía y cuidados de las razas más comunes, para entender qué necesita cada una.
                 </p>
 
-                <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {breeds.map((breed) => (
-                        <BreedCard key={breed.slug} breed={breed} />
-                    ))}
-                </div>
+                <BreedsExplorer breeds={breeds} />
             </div>
         </section>
     );

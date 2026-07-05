@@ -51,8 +51,8 @@ export const breeds: Breed[] = [
     slug: "caniche",
     nombre: "Caniche (Poodle)",
     fotoUrl:
-      "https://images.unsplash.com/photo-1539191394261-c17ec4a3e451?auto=format&fit=crop&w=1200&q=80",
-    fotoAlt: "Caniche estándar color fawn de pie",
+      "https://images.unsplash.com/photo-1652757556345-cc9e640dce81?auto=format&fit=crop&w=1200&q=80",
+    fotoAlt: "Caniche marrón de pelaje rizado y voluminoso, de pie sobre hierba",
     tamano: "mediano",
     temperamento: "Muy inteligente y fácil de entrenar; leal con su familia. Existen variedades toy, mini y estándar.",
     energia: "medio",
