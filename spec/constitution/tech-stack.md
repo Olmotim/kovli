@@ -20,7 +20,7 @@
 - `apps/web/` — sitio Next.js.
   - `apps/web/components/layout/` — estructura del sitio, presente en todas las páginas (Header, menús...).
   - `apps/web/components/ui/` — piezas de interfaz genéricas y reutilizables (botones, modales...), sin lógica de página concreta.
-  - `apps/web/components/home/` — contenido específico de la home (Hero, Secciones...).
+  - `apps/web/components/home/` — contenido específico de la home (Hero, Secciones...). `Organizaciones.tsx` (feature 006): directorio de organizaciones de ayuda/adopción, Client Component (pestañas de filtro por país como estado del navegador). Las pestañas se calculan a partir de los países presentes en `apps/web/data/organizaciones.ts` (`[...new Set(...)]`), no hardcodeadas, para que un país nuevo en los datos aparezca solo con añadir filas al array.
   - Cada feature nueva que añada páginas propias (p. ej. 002 · Secciones) valora si sus componentes van en su propia subcarpeta de `components/` o colocados junto a su ruta en `app/`.
   - `apps/web/app/(secciones)/` — las páginas de contenido (MDX) comparten `layout.tsx` (volver a inicio + contenedor). El paréntesis es un *route group* de Next.js: agrupa sin añadir segmento a la URL.
   - `apps/web/mdx-components.tsx` — estilos Tailwind por defecto para el contenido MDX (títulos, párrafos, listas, enlaces), para no repetir clases en cada sección. **Ojo:** solo aplica a la sintaxis Markdown (`## título`), no a JSX literal (`<h2>`) escrito a mano dentro del `.mdx` — si se necesita un `id` en un encabezado (para anclas), hay que aplicarle las clases directamente.
