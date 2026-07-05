@@ -10,11 +10,12 @@
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso — pendiente de decidir la siguiente._
+_Ninguna feature en curso — la próxima sesión empieza concretando spec/plan/tasks de una de las dos ideas de abajo._
 
 ## Backlog / features 💡
 
-_Vacío por ahora._
+1. **Buscador y filtros en `/razas`** (por tamaño, energía, apto-primerizos) — ya anotado como v2 en `spec/features/004-razas-de-perros/spec.md` (fuera de alcance de la 004). Falta decidir cuándo se aborda y con qué spec/plan/tasks propios.
+2. **005 · Apartado de ONGs y organizaciones relacionadas con perros** — nuevo apartado en la página principal. Todavía sin `spec.md`/`plan.md`/`tasks.md`; se concreta en la próxima sesión (qué contenido exacto, de dónde salen los datos de las organizaciones, dónde se ubica en la home).
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 

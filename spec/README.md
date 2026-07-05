@@ -13,7 +13,8 @@ spec/
 └── features/                ← una carpeta por feature
     ├── 001-pagina-principal/
     ├── 002-secciones/
-    └── 003-cursor/
+    ├── 003-cursor/
+    └── 004-razas-de-perros/
         ├── spec.md          ← qué hace + criterios de aceptación
         ├── plan.md          ← cómo se implementa
         └── tasks.md         ← checklist de tareas

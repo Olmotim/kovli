@@ -26,6 +26,10 @@
   - `apps/web/mdx-components.tsx` — estilos Tailwind por defecto para el contenido MDX (títulos, párrafos, listas, enlaces), para no repetir clases en cada sección. **Ojo:** solo aplica a la sintaxis Markdown (`## título`), no a JSX literal (`<h2>`) escrito a mano dentro del `.mdx` — si se necesita un `id` en un encabezado (para anclas), hay que aplicarle las clases directamente.
   - `apps/web/components/secciones/` — componentes reutilizables de las páginas de sección: `FichaSeccion.tsx` (la "Libreta de veterinario", índice de la página) y `RolodexSecciones.tsx` (el "Rolodex", fichero de tarjetas con el resto de secciones). Ver `spec/features/002-secciones/plan.md`.
     - `FichaSeccion.tsx` es el primer *Client Component* del proyecto (`"use client"`): necesita estado en el navegador para el tick de "leído" en cada ítem. Guarda en `localStorage`, con clave `kovli:leido:<pathname>` (vía `usePathname()`), la lista de anchors ya clicados. Como el `localStorage` no existe en el primer render de servidor, el tick aparece un instante después de montar el componente (`useEffect`) — parpadeo mínimo aceptado como trade-off de no tener backend todavía.
+  - `apps/web/data/` — datos estructurados versionados en TS (no MDX, no DB): cada archivo exporta una `interface` con la forma del dato y un array que la cumple. Primer caso, feature 004: `breeds.ts` (`interface Breed`, 8 campos; tamaño/energía/apto-primerizos como uniones de literales en vez de `string` suelto, para que TypeScript rechace valores fuera de las opciones cerradas). Se usa cuando el catálogo es fijo en el repo, no una entrada de usuario ni contenido largo tipo artículo (eso sigue siendo MDX).
+  - `apps/web/components/razas/` — `BreedCard.tsx`: toda la tarjeta es un `Link` (no un `<div>` con un enlace dentro) a la ficha de la raza.
+  - Rutas dinámicas con catálogo fijo (ej. `apps/web/app/razas/[slug]/page.tsx`, feature 004): como los datos no cambian en producción, se usa `generateStaticParams` para que Next.js genere las páginas en el build (SSG) en vez de bajo demanda, y `notFound()` de `next/navigation` para un 404 real si el slug no existe. Cada ruta dinámica con datos fijos así debería llevar su propio `not-found.tsx` en la misma carpeta (con la marca de Kovli), en vez de dejar el 404 genérico de Next.js.
+  - Imágenes de fuentes externas (ej. fotos de razas en `breeds.ts`): `next.config.ts` da de alta el dominio en `images.remotePatterns` antes de poder usarlo en `next/image` — sin esto Next.js lo rechaza (protección: `next/image` procesa la imagen en el propio servidor, así que permitir cualquier URL abriría la puerta a SSRF y a coste de procesado sin límite).
 - `apps/mobile/` — app Expo / React Native (Fase 3).
 - `packages/domain/` — lógica de negocio pura.
 - `packages/schemas/` — tipos + validación Zod compartidos.
@@ -48,6 +52,7 @@
 - Idioma del contenido: español (España y Latam), redactado en español neutro. 🟡 Previsto a futuro: i18n para inglés — conviene no hardcodear textos de interfaz; con MDX, se resolvería con un archivo por idioma (p. ej. `salud.es.mdx` / `salud.en.mdx`).
 - Cuando un componente necesita disposiciones muy distintas según el ancho de pantalla (no solo reajustar tamaños, sino estructuras diferentes), las dos versiones conviven en el DOM y se alternan por CSS (`lg:hidden` en una, `hidden lg:block` en la otra) — no con JavaScript (`matchMedia`). Patrón ya usado en Header/MobileMenu y en el camino de "Secciones" (sesión 06).
 - El `<Header>` es `sticky top-0`. Por eso `globals.css` fija `scroll-padding-top` en el `html` (altura del header): sin esto, saltar a un ancla (`#id`) deja el título tapado justo debajo del header fijo. Cualquier nuevo ancla del sitio queda cubierta automáticamente por esta regla global, sin tocarla por página.
+- Para navegar entre páginas de la propia app, usar `Link` de `next/link`, no un `<a>` normal — evita recargar la página entera y precarga el destino cuando el enlace entra en el viewport. Introducido en la feature 004 (`BreedCard`, ficha de raza). 🟡 Parte del código más antiguo del sitio (Header, `RolodexSecciones`, `Secciones.tsx`) todavía usa `<a>` para esto; no es el patrón a replicar en código nuevo, y migrar el existente queda pendiente como limpieza aparte, sin prisa.
 
 ## Estilo visual
 
@@ -59,6 +64,7 @@ Dirección de marca: **paleta de marrones, beiges y blancos**, inspirada en los 
 - Apricot (acento cálido, color típico de poodle): `#D9A679`
 - Café-au-lait (acento medio): `#A87C5F`
 - Chocolate (texto y acentos oscuros): `#4E3B2E`
+- Kovu (`#B3EBF2`) y Loli (`#FFC5D3`): acentos puntuales, alternados en el icono de pata del camino de "Secciones" en la home (`Secciones.tsx`).
 
 **Tipografía:** Inter (`font-sans`) para el cuerpo del sitio. Desde la sesión 07, dos fuentes más para los componentes de sección con más carácter (vía `next/font/google`, sin dependencias nuevas): Playfair Display (`font-serif`, títulos con aire de papelería/catálogo) e IBM Plex Mono (`font-mono`, etiquetas tipo "SECCIÓN 01 DE 05").
 
