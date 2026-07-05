@@ -44,7 +44,7 @@ export const secciones: Seccion[] = [
   },
   {
     label: "Razas",
-    href: "",
+    href: "/razas",
     descripcion: "Características y necesidades según la raza de tu perro.",
     resumen: "Por temperamento",
     icono: "🐩",

@@ -9,11 +9,11 @@
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso — pendiente de decidir la siguiente (candidata en backlog: 004 · Razas de perros)._
+**004 · Razas de perros** — listado + ficha por raza. Separada de la 002 por ser contenido de datos estructurados, no un artículo. Esta iteración cubre solo el listado (`/razas`); la ficha individual (`/razas/[slug]`) queda para un paso posterior dentro de la misma feature.
 
 ## Backlog / features 💡
 
-1. **004 · Razas de perros** — listado + ficha por raza. Separada de la 002 por ser contenido de datos estructurados, no un artículo.
+_Vacío por ahora._
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 
