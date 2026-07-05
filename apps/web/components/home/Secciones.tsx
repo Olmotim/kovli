@@ -173,7 +173,8 @@ export default function Secciones() {
                             >
                                 <span
                                     aria-hidden="true"
-                                    className="flex h-9 w-9 items-center justify-center rounded-full bg-apricot text-base ring-4 ring-arena transition-transform duration-300 group-hover:scale-110 group-focus-visible:scale-110"
+                                    className={`flex h-9 w-9 items-center justify-center rounded-full  text-base ring-4 ring-arena transition-transform duration-300 group-hover:scale-110 group-focus-visible:scale-110 ${
+                                    i%2==0 ? "bg-kovu/70" : "bg-loli"}`}
                                 >
                                     🐾
                                 </span>
