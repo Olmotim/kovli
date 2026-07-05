@@ -6,10 +6,11 @@
 2. **001 · Página principal** — landing (header, hero, secciones) responsive, con paleta de marca, desplegada en producción y validada por el usuario. Lighthouse: Accesibilidad 100, Buenas prácticas 100, SEO 100, Rendimiento 82.
 3. **003 · Cursor hocico + enlaces con huella** — cursor en forma de hocico; cualquier enlace que navegue (interno o externo) sustituye el cursor por una huella estática. CSS puro, sin JavaScript. Validado por el usuario en el navegador.
 4. **002 · Secciones temáticas** — las 5 páginas (`primeros-pasos`, `salud`, `seguridad`, `adiestramiento`, `tiempo-de-juego`) con su patrón fijo (Libreta de veterinario + artículo + Rolodex), contenido redactado y revisado sección a sección por el usuario. Incluye el tick de "leído" en la Libreta (persistido en `localStorage`) y el fix de scroll bajo el header fijo al saltar a un ancla.
+5. **004 · Razas de perros** — listado (`/razas`) con las 15 razas y ficha individual por raza (`/razas/[slug]`), datos estructurados en `apps/web/data/breeds.ts`. La ficha enlaza a Primeros pasos cuando la raza no es apta para primerizos. Validado por el usuario en el navegador.
 
 ## Siguiente 🔜 (en curso)
 
-**004 · Razas de perros** — listado + ficha por raza. Separada de la 002 por ser contenido de datos estructurados, no un artículo. Esta iteración cubre solo el listado (`/razas`); la ficha individual (`/razas/[slug]`) queda para un paso posterior dentro de la misma feature.
+_Ninguna feature en curso — pendiente de decidir la siguiente._
 
 ## Backlog / features 💡
 

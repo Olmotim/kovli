@@ -1,6 +1,6 @@
 # 004 · Razas de perros
 
-**Estado:** en curso
+**Estado:** hecho
 
 ## Qué hace
 
@@ -8,7 +8,7 @@ Sección dedicada a razas de perros, separada de la feature 002 por ser contenid
 
 Estructura general: **listado de razas** en `/razas` + **ficha individual por raza** en `/razas/[slug]`.
 
-**Alcance de esta iteración: solo el listado.** La ficha individual por raza se aborda como paso siguiente dentro de esta misma feature.
+**Iteración 1 (hecha): el listado** (`/razas`). **Iteración 2 (hecha): la ficha individual** (`/razas/[slug]`), con los 8 datos completos de cada raza y, cuando el apto-primerizos no sea "sí", un enlace a la sección Primeros pasos.
 
 Cada raza tiene estos 8 datos:
 
@@ -27,16 +27,23 @@ Kovli quiere ayudar a elegir y entender razas concretas, no solo dar consejos ge
 
 ## Criterios de aceptación
 
-_(De esta iteración: el listado.)_
+### Iteración 1 · Listado (hecha)
 
 - [x] El listado de razas es accesible desde la home y desde el header.
 - [x] El listado muestra las 10-15 razas, cada una en una tarjeta con sus datos clave.
 - [x] Responsive y legible (mobile-first).
 - [x] Aplica la paleta de marca definida en `tech-stack.md`.
 
+### Iteración 2 · Ficha individual (hecha)
+
+- [x] Cada tarjeta del listado enlaza a su ficha (`/razas/[slug]`); la tarjeta entera es clicable.
+- [x] La ficha muestra los 8 datos de la raza: nombre, foto, tamaño, temperamento, energía, pelaje/cuidados, apto-primerizos, esperanza de vida y notas de salud.
+- [x] Si `aptoPrimerizos` no es `"sí"`, la ficha muestra un enlace a `/primeros-pasos`.
+- [x] Una URL con un slug que no exista devuelve 404 (`notFound()`), no un error genérico.
+- [x] Responsive y legible (mobile-first), aplica la paleta de marca.
+
 ## Fuera de alcance
 
-- **Ficha individual por raza** (`/razas/[slug]`) → paso siguiente dentro de esta misma feature.
 - **Buscador y filtros** (por tamaño, energía, apto primerizos) → v2, cuando haya tantas razas que no entren en pantalla.
 - Cursor de hocico y huellas → feature 003.
 - Las otras 5 secciones (Salud, Seguridad, Primeros pasos, Tiempo de juego, Adiestramiento) → feature 002.
