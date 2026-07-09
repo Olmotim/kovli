@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { breeds } from "@/data/breeds";
+import FichaRazaHero from "@/components/razas/FichaRazaHero";
 
 type RazaPageProps = {
     params: Promise<{ slug: string }>;
@@ -44,20 +44,17 @@ export default async function RazaPage({ params }: RazaPageProps) {
                     ← Volver a razas
                 </Link>
 
-                <div className="relative h-64 sm:h-80 w-full mt-6 overflow-hidden rounded-sm">
-                    <Image
-                        src={breed.fotoUrl}
-                        alt={breed.fotoAlt}
-                        fill
-                        sizes="(min-width: 768px) 768px, 100vw"
-                        className="object-cover"
-                        priority
+                <div className="mt-6">
+                    <FichaRazaHero
+                        nombre={breed.nombre}
+                        fotos={[
+                            { url: breed.fotoUrl, alt: breed.fotoAlt },
+                            ...(breed.otrasFotos ?? []),
+                        ]}
                     />
                 </div>
 
-                <h1 className="font-serif text-4xl font-bold text-chocolate mt-6">{breed.nombre}</h1>
-
-                <div className="flex flex-wrap gap-2 mt-4">
+                <div className="flex flex-wrap gap-2 mt-6">
                     <span className="rounded-full bg-beige px-3 py-1 font-mono text-xs uppercase tracking-wide text-chocolate">
                         Tamaño {breed.tamano}
                     </span>
@@ -84,22 +81,39 @@ export default async function RazaPage({ params }: RazaPageProps) {
                     </div>
                 )}
 
-                <dl className="mt-10 space-y-8">
-                    <div>
-                        <dt className="font-mono text-xs uppercase tracking-widest text-cafe">Temperamento</dt>
-                        <dd className="text-chocolate/80 mt-1">{breed.temperamento}</dd>
+                {breed.introduccion && (
+                    <div className="mt-10 columns-1 md:columns-2 md:gap-11 font-serif text-[14.5px] leading-[1.72] text-chocolate/90">
+                        {breed.introduccion.map((parrafo, indice) => (
+                            <p
+                                key={indice}
+                                className={`mb-4 break-inside-avoid ${
+                                    indice === 0
+                                        ? "first-letter:float-left first-letter:font-serif first-letter:text-6xl first-letter:leading-[0.72] first-letter:pr-2 first-letter:pt-1 first-letter:text-apricot"
+                                        : ""
+                                }`}
+                            >
+                                {parrafo}
+                            </p>
+                        ))}
                     </div>
-                    <div>
-                        <dt className="font-mono text-xs uppercase tracking-widest text-cafe">Pelaje y cuidados</dt>
-                        <dd className="text-chocolate/80 mt-1">{breed.pelaje}</dd>
+                )}
+
+                <dl className="mt-10 divide-y divide-chocolate/20 border-t border-chocolate/20">
+                    <div className="flex gap-7 py-4">
+                        <dt className="w-36 shrink-0 font-mono text-xs uppercase tracking-widest text-cafe">Temperamento</dt>
+                        <dd className="text-sm text-chocolate/80">{breed.temperamento}</dd>
                     </div>
-                    <div>
-                        <dt className="font-mono text-xs uppercase tracking-widest text-cafe">Esperanza de vida</dt>
-                        <dd className="text-chocolate/80 mt-1">{breed.esperanzaVida}</dd>
+                    <div className="flex gap-7 py-4">
+                        <dt className="w-36 shrink-0 font-mono text-xs uppercase tracking-widest text-cafe">Pelaje y cuidados</dt>
+                        <dd className="text-sm text-chocolate/80">{breed.pelaje}</dd>
                     </div>
-                    <div>
-                        <dt className="font-mono text-xs uppercase tracking-widest text-cafe">Notas de salud</dt>
-                        <dd className="text-chocolate/80 mt-1">{breed.notasSalud}</dd>
+                    <div className="flex gap-7 py-4">
+                        <dt className="w-36 shrink-0 font-mono text-xs uppercase tracking-widest text-cafe">Esperanza de vida</dt>
+                        <dd className="text-sm text-chocolate/80">{breed.esperanzaVida}</dd>
+                    </div>
+                    <div className="flex gap-7 py-4">
+                        <dt className="w-36 shrink-0 font-mono text-xs uppercase tracking-widest text-cafe">Notas de salud</dt>
+                        <dd className="text-sm text-chocolate/80">{breed.notasSalud}</dd>
                     </div>
                 </dl>
             </div>
