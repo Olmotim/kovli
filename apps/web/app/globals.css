@@ -14,7 +14,7 @@
 
   /* Tipografía */
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --font-serif: var(--font-fraunces);
   --font-mono: var(--font-plex-mono);
 }
 
@@ -31,7 +31,7 @@ body {
 /* Cursor Kovli — solo en dispositivos con puntero (ratón), no en táctil */
 @media (pointer: fine) {
   body {
-    cursor: url("/cursores/hocico-3.png") 16 16, auto;
+    cursor: url("/cursores/cursorHocico.png") 16 16, auto;
   }
 
   a[href] {

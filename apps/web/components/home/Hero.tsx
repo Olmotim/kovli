@@ -18,7 +18,7 @@ export default function Hero() {
                     🐾 Guía completa para dueños de perros
                 </span>
 
-                <h1 className="text-chocolate text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                <h1 className="font-serif text-chocolate text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
                     Todo lo que necesitas saber para cuidar de tu perro
                 </h1>
 

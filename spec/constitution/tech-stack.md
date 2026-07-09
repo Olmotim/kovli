@@ -19,7 +19,7 @@
 
 - `apps/web/` — sitio Next.js.
   - `apps/web/components/layout/` — estructura del sitio, presente en todas las páginas (Header, menús...).
-  - `apps/web/components/ui/` — piezas de interfaz genéricas y reutilizables (botones, modales...), sin lógica de página concreta.
+  - `apps/web/components/ui/` — piezas de interfaz genéricas y reutilizables (botones, modales...), sin lógica de página concreta. `LoadingScreen.tsx` (sesión 13): pantalla de carga de la home, Client Component con dos estados (`loading` y `progress`) — la barra de progreso usa `requestAnimationFrame` antes de saltar a 100% para que el navegador llegue a pintar el 0% inicial y la transición CSS (`transitionDuration`) se vea, en vez de aparecer ya llena; la duración vive en una única constante (`DURATION_MS`) compartida entre el temporizador y la animación.
   - `apps/web/components/home/` — contenido específico de la home (Hero, Secciones...). `Organizaciones.tsx` (feature 006): directorio de organizaciones de ayuda/adopción, Client Component (pestañas de filtro por país como estado del navegador). Las pestañas se calculan a partir de los países presentes en `apps/web/data/organizaciones.ts` (`[...new Set(...)]`), no hardcodeadas, para que un país nuevo en los datos aparezca solo con añadir filas al array.
   - Cada feature nueva que añada páginas propias (p. ej. 002 · Secciones) valora si sus componentes van en su propia subcarpeta de `components/` o colocados junto a su ruta en `app/`.
   - `apps/web/app/(secciones)/` — las páginas de contenido (MDX) comparten `layout.tsx` (volver a inicio + contenedor). El paréntesis es un *route group* de Next.js: agrupa sin añadir segmento a la URL.
@@ -66,7 +66,7 @@ Dirección de marca: **paleta de marrones, beiges y blancos**, inspirada en los 
 - Chocolate (texto y acentos oscuros): `#4E3B2E`
 - Kovu (`#B3EBF2`) y Loli (`#FFC5D3`): acentos puntuales, alternados en el icono de pata del camino de "Secciones" en la home (`Secciones.tsx`).
 
-**Tipografía:** Inter (`font-sans`) para el cuerpo del sitio. Desde la sesión 07, dos fuentes más para los componentes de sección con más carácter (vía `next/font/google`, sin dependencias nuevas): Playfair Display (`font-serif`, títulos con aire de papelería/catálogo) e IBM Plex Mono (`font-mono`, etiquetas tipo "SECCIÓN 01 DE 05").
+**Tipografía:** Inter (`font-sans`) para el cuerpo del sitio. Desde la sesión 07, dos fuentes más para los componentes con más carácter (vía `next/font/google`, sin dependencias nuevas): Fraunces (`font-serif`, cálida y orgánica — sustituyó a Playfair Display en la sesión 13, con el eje óptico `axes: ["opsz"]` activado para que la letra se ajuste sola según el tamaño) e IBM Plex Mono (`font-mono`, etiquetas tipo "SECCIÓN 01 DE 05").
 
 - Layout: mobile-first, usando los breakpoints de Tailwind.
 
