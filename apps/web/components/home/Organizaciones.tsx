@@ -84,7 +84,7 @@ export default function Organizaciones() {
     );
 
     return (
-        <section className="py-16 sm:py-20">
+        <section id="organizaciones" className="py-16 sm:py-20">
             <div className="mx-auto max-w-screen-2xl px-6 lg:px-10">
                 <span className="mb-4 inline-block rounded-full bg-beige px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-chocolate">
                     Ayuda y adopción

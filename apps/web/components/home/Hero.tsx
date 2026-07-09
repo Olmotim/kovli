@@ -30,7 +30,7 @@ export default function Hero() {
                     href="#secciones"
                     className="inline-block mt-9 bg-chocolate text-crema text-sm font-semibold px-6 py-3 rounded-sm tracking-wide hover:bg-apricot transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-apricot"
                 >
-                    Explorar secciones ↓
+                    Explorar ↓
                 </a>
 
                 <div className="mt-10 flex items-end justify-center gap-1">

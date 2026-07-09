@@ -1,9 +1,14 @@
 import { secciones } from "@/lib/secciones";
 import Image from "next/image";
+import Link from "next/link";
 import MobileMenu from "@/components/layout/MobileMenu";
+import SeccionesDropdown from "@/components/layout/SeccionesDropdown";
 import DescargaAppButton from "@/components/ui/DescargaAppButton";
 
 export default function Navbar() {
+    const subsecciones = secciones.filter((s) => s.href !== "/razas");
+    const razas = secciones.find((s) => s.href === "/razas")!;
+
     return (
         <>
             <header className="sticky top-0 z-50 bg-arena">
@@ -22,19 +27,29 @@ export default function Navbar() {
 
                     {/* Desktop links */}
                     <ul className="hidden lg:flex items-center gap-8">
-                        {secciones.map((l) => (
-                            <li key={l.label}>
-                                <a
-                                    href={l.href}
-                                    className="text-sm font-medium  text-cafe hover:text-cafe tracking-wide transition-colors duration-200 relative group rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
-                                >
-                                    {l.label}
-                                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-chocolate group-hover:w-full transition-all duration-300" />
-                                </a>
-                            </li>
-                        ))}
+                        <li>
+                            <SeccionesDropdown items={subsecciones} />
+                        </li>
+                        <li>
+                            <Link
+                                href="/#organizaciones"
+                                className="text-sm font-medium  text-cafe hover:text-cafe tracking-wide transition-colors duration-200 relative group rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
+                            >
+                                Organizaciones
+                                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-chocolate group-hover:w-full transition-all duration-300" />
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href={razas.href}
+                                className="text-sm font-medium  text-cafe hover:text-cafe tracking-wide transition-colors duration-200 relative group rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
+                            >
+                                {razas.label}
+                                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-chocolate group-hover:w-full transition-all duration-300" />
+                            </Link>
+                        </li>
                     </ul>
-                    
+
                     {/* CTA */}
                     <div className="hidden lg:flex items-center gap-3">
                         <DescargaAppButton
@@ -43,7 +58,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile menu */}
-                    <MobileMenu secciones={secciones} />
+                    <MobileMenu subsecciones={subsecciones} razas={razas} />
                 </div>
             </header>
 

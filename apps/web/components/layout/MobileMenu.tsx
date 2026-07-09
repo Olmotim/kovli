@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { Seccion } from "@/lib/secciones";
 import DescargaAppButton from "@/components/ui/DescargaAppButton";
 
-export default function MobileMenu({ secciones }: { secciones: Seccion[] }) {
+type MobileMenuProps = {
+    subsecciones: Seccion[];
+    razas: Seccion;
+};
+
+export default function MobileMenu({ subsecciones, razas }: MobileMenuProps) {
     const [open, setOpen] = useState(false);
+    const [seccionesAbiertas, setSeccionesAbiertas] = useState(false);
 
     return (
         <div className="lg:hidden">
@@ -33,17 +40,66 @@ export default function MobileMenu({ secciones }: { secciones: Seccion[] }) {
                 className={`absolute left-0 right-0 top-full bg-arena border-t border-cafe/20 shadow-md ${open ? "block" : "hidden"}`}
             >
                 <ul className="flex flex-col px-6 py-4 gap-1">
-                    {secciones.map((s) => (
-                        <li key={s.label}>
-                            <a
-                                href={s.href}
-                                onClick={() => setOpen(false)}
-                                className="block py-2 text-cafe font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate rounded-sm"
+                    <li>
+                        <button
+                            type="button"
+                            aria-expanded={seccionesAbiertas}
+                            onClick={() => setSeccionesAbiertas((v) => !v)}
+                            className="flex w-full items-center justify-between py-2 text-cafe font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate rounded-sm"
+                        >
+                            Cuidado del perro
+                            <svg
+                                aria-hidden="true"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className={`transition-transform duration-200 ${seccionesAbiertas ? "rotate-180" : ""}`}
                             >
-                                {s.label}
-                            </a>
-                        </li>
-                    ))}
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+
+                        {seccionesAbiertas && (
+                            <ul className="flex flex-col gap-1 pl-4">
+                                {subsecciones.map((s) => (
+                                    <li key={s.label}>
+                                        <Link
+                                            href={s.href}
+                                            onClick={() => setOpen(false)}
+                                            className="block py-2 text-cafe focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate rounded-sm"
+                                        >
+                                            {s.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </li>
+
+                    <li>
+                        <Link
+                            href="/#organizaciones"
+                            onClick={() => setOpen(false)}
+                            className="block py-2 text-cafe font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate rounded-sm"
+                        >
+                            Organizaciones
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href={razas.href}
+                            onClick={() => setOpen(false)}
+                            className="block py-2 text-cafe font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate rounded-sm"
+                        >
+                            {razas.label}
+                        </Link>
+                    </li>
                 </ul>
                 <div className="px-6 pb-5">
                     <DescargaAppButton
