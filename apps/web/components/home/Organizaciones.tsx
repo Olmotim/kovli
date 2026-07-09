@@ -1,8 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import type { Organizacion, Pais } from "@/data/organizaciones";
 import { organizaciones } from "@/data/organizaciones";
+
+const OrganizacionesMapa = dynamic(() => import("./OrganizacionesMapa"), {
+    ssr: false,
+    loading: () => <div className="h-72 w-full animate-pulse rounded-sm bg-beige sm:h-80 lg:h-full" />,
+});
 
 function iniciales(nombre: string): string {
     const palabras = nombre.split(" ").filter(Boolean);
@@ -15,11 +21,26 @@ function iniciales(nombre: string): string {
 
 type FilaOrganizacionProps = {
     organizacion: Organizacion;
+    activa: boolean;
+    onSeleccionar: (nombre: string) => void;
 };
 
-function FilaOrganizacion({ organizacion }: FilaOrganizacionProps) {
+function FilaOrganizacion({ organizacion, activa, onSeleccionar }: FilaOrganizacionProps) {
     return (
-        <li className="flex items-center gap-4 rounded-sm border border-chocolate/30 bg-crema p-4">
+        <li
+            role="button"
+            tabIndex={0}
+            onClick={() => onSeleccionar(organizacion.nombre)}
+            onKeyDown={(evento) => {
+                if (evento.key === "Enter" || evento.key === " ") {
+                    evento.preventDefault();
+                    onSeleccionar(organizacion.nombre);
+                }
+            }}
+            className={`flex cursor-pointer items-center gap-4 rounded-sm border bg-crema p-4 transition-colors duration-200 ${
+                activa ? "border-apricot ring-1 ring-apricot" : "border-chocolate/30"
+            }`}
+        >
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-beige font-serif text-lg font-bold text-chocolate">
                 {iniciales(organizacion.nombre)}
             </span>
@@ -35,6 +56,7 @@ function FilaOrganizacion({ organizacion }: FilaOrganizacionProps) {
                 href={organizacion.enlace}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(evento) => evento.stopPropagation()}
                 aria-label={`Ver más sobre ${organizacion.nombre} (abre en una pestaña nueva)`}
                 className="shrink-0 rounded-sm bg-chocolate px-4 py-2 text-sm font-semibold text-crema transition-colors duration-200 hover:bg-cafe focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
             >
@@ -51,6 +73,7 @@ export default function Organizaciones() {
     );
 
     const [paisActivo, setPaisActivo] = useState<Pais | "todos">("todos");
+    const [seleccionada, setSeleccionada] = useState<string | null>(null);
 
     const visibles = useMemo(
         () =>
@@ -103,30 +126,53 @@ export default function Organizaciones() {
                     ))}
                 </div>
 
-                {paisActivo === "todos" ? (
-                    <div className="mt-10 flex flex-col gap-10">
-                        {paises.map((pais) => (
-                            <div key={pais}>
-                                <h3 className="mb-4 font-mono text-xs uppercase tracking-wide text-chocolate/70">
-                                    {pais}
-                                </h3>
-                                <ul className="flex flex-col gap-3">
-                                    {organizaciones
-                                        .filter((organizacion) => organizacion.pais === pais)
-                                        .map((organizacion) => (
-                                            <FilaOrganizacion key={organizacion.nombre} organizacion={organizacion} />
-                                        ))}
-                                </ul>
+                <div className="mt-10 flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:items-start lg:gap-6">
+                    <div className="order-2 lg:order-1">
+                        {paisActivo === "todos" ? (
+                            <div className="flex flex-col gap-10">
+                                {paises.map((pais) => (
+                                    <div key={pais}>
+                                        <h3 className="mb-4 font-mono text-xs uppercase tracking-wide text-chocolate/70">
+                                            {pais}
+                                        </h3>
+                                        <ul className="flex flex-col gap-3">
+                                            {organizaciones
+                                                .filter((organizacion) => organizacion.pais === pais)
+                                                .map((organizacion) => (
+                                                    <FilaOrganizacion
+                                                        key={organizacion.nombre}
+                                                        organizacion={organizacion}
+                                                        activa={organizacion.nombre === seleccionada}
+                                                        onSeleccionar={setSeleccionada}
+                                                    />
+                                                ))}
+                                        </ul>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        ) : (
+                            <ul className="flex flex-col gap-3">
+                                {visibles.map((organizacion) => (
+                                    <FilaOrganizacion
+                                        key={organizacion.nombre}
+                                        organizacion={organizacion}
+                                        activa={organizacion.nombre === seleccionada}
+                                        onSeleccionar={setSeleccionada}
+                                    />
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                ) : (
-                    <ul className="mt-10 flex flex-col gap-3">
-                        {visibles.map((organizacion) => (
-                            <FilaOrganizacion key={organizacion.nombre} organizacion={organizacion} />
-                        ))}
-                    </ul>
-                )}
+
+                    <div className="order-1 h-72 sm:h-80 lg:sticky lg:top-24 lg:order-2 lg:h-[560px]">
+                        <OrganizacionesMapa
+                            key={paisActivo}
+                            organizaciones={visibles}
+                            seleccionada={seleccionada}
+                            onSeleccionar={setSeleccionada}
+                        />
+                    </div>
+                </div>
             </div>
         </section>
     );
