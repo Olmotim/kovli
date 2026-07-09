@@ -33,6 +33,9 @@ export default function FichaSeccion({
     useEffect(() => {
         const guardado = localStorage.getItem(storageKey);
         if (guardado) {
+            // localStorage no existe en el primer render de servidor: esta lectura
+            // solo puede pasar aquí, sincronizando estado desde algo externo a React.
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setLeidos(JSON.parse(guardado));
         }
     }, [storageKey]);
@@ -50,7 +53,7 @@ export default function FichaSeccion({
         <div className="border border-chocolate bg-crema px-6 py-6 sm:px-8 sm:py-8">
             <div className="flex items-center justify-between gap-4">
                 <span className="font-mono text-xs uppercase tracking-widest text-cafe">
-                    🐾
+                    Sección {String(numero).padStart(2, "0")} de {String(total).padStart(2, "0")}
                 </span>
                 <span className="font-mono text-xs uppercase tracking-widest text-apricot border border-dashed border-apricot rounded-full px-3 py-1">
                     {estado}

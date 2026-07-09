@@ -23,7 +23,6 @@ export default function DescargaAppButton({
         }
         document.addEventListener("keydown", onKeyDown);
         return () => document.removeEventListener("keydown", onKeyDown);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open]);
 
     function close() {

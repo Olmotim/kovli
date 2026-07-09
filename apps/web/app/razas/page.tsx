@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { breeds } from "@/data/breeds";
 import BreedsExplorer from "@/components/razas/BreedsExplorer";
 
@@ -11,12 +12,12 @@ export default function RazasPage() {
     return (
         <section className="py-16 sm:py-20">
             <div className="max-w-screen-2xl mx-auto px-6 lg:px-10">
-                <a
+                <Link
                     href="/"
                     className="text-cafe text-sm font-semibold hover:text-apricot transition-colors duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
                 >
                     ← Volver a inicio
-                </a>
+                </Link>
 
                 <span className="inline-block bg-beige text-chocolate text-xs font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full mt-6 mb-4">
                     Elige por raza
