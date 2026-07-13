@@ -13,6 +13,7 @@
 9. **008 · Ficha de raza editorial + galería + 3 razas nuevas** — 3 razas nuevas en el catálogo (Galgo, Salchicha, Pitbull, 18 en total); rediseño editorial de la ficha individual (`/razas/[slug]`): hero a sangre completa con galería de miniaturas clicable (`FichaRazaHero.tsx`), cuerpo de texto a 2 columnas con letra capitular, filas de datos restilizadas — todo con la paleta y tipografías ya existentes de Kovli, sin añadir ninguna nueva. Las 18 razas recibieron 2-3 fotos adicionales y un párrafo editorial de introducción, revisados por el usuario en tandas. Validado por el usuario en el navegador.
 10. **009 · Navbar agrupado con submenú** — el navbar baja de 6 enlaces sueltos a 3: "Cuidado del perro" (mega menú de escritorio a todo el ancho / acordeón en móvil, agrupa las 5 secciones temáticas), "Organizaciones" (nuevo, enlaza a `/#organizaciones`), "Razas" (se mantiene aparte, es un catálogo no una guía temática). `lib/secciones.ts` no cambia — la separación se calcula en `Header.tsx`. Validado por el usuario en el navegador.
 11. **010 · Huellitas gastadas (cuidado del perro senior)** — nueva sección de contenido (`/huellitas-gastadas`), sexta del patrón Libreta + artículo + Rolodex: cuándo empieza la etapa senior, señales de esta etapa, alimentación adaptada, adaptar casa y paseos, bienestar cognitivo y emocional. De paso, "Razas" sale de `lib/secciones.ts` (ya no se cuela en el camino de la home ni en el Rolodex; se mantiene igual en el navbar, como constante propia en `Header.tsx`). Validado por el usuario en el navegador.
+12. **Cierre de Fase 1** (sin feature numerada) — antes de abrir Fase 2: metadata propia (título/descripción) en las 6 páginas de sección; `app/robots.ts` y `app/sitemap.ts`; `app/not-found.tsx` genérico con marca de Kovli; migrados los últimos `<a>` internos a `next/link` (`Secciones.tsx`, `RolodexSecciones.tsx`); páginas de Aviso legal / Privacidad / Cookies + `Footer.tsx` nuevo que las enlaza; Lighthouse re-medido (Chromium instalado en WSL para poder correrlo por CLI) y 4 problemas reales de accesibilidad corregidos (contraste del footer y de dos elementos ya existentes en `Organizaciones.tsx`, `<li role="button">` que rompía la semántica de lista, marcadores de mapa sin nombre accesible). Accesibilidad 96/100 (queda pendiente el agrupado/clustering de marcadores del mapa cuando quedan muy juntos, ver Backlog), Buenas prácticas y SEO 100/100.
 
 ## Siguiente 🔜 (en curso)
 
@@ -20,7 +21,7 @@ _Ninguna feature en curso._
 
 ## Backlog / features 💡
 
-_Sin ideas concretas anotadas por ahora._
+- **Agrupado (clustering) de marcadores del mapa de organizaciones** — con muchas organizaciones cercanas entre sí, los marcadores quedan pegados y Lighthouse marca el touch-target como insuficiente (detectado en el cierre de Fase 1). Arreglarlo bien necesitaría una librería de clustering (p. ej. `leaflet.markercluster`), dependencia nueva a valorar contigo antes de instalarla.
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 

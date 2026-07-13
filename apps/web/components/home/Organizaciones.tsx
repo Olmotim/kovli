@@ -27,41 +27,43 @@ type FilaOrganizacionProps = {
 
 function FilaOrganizacion({ organizacion, activa, onSeleccionar }: FilaOrganizacionProps) {
     return (
-        <li
-            role="button"
-            tabIndex={0}
-            onClick={() => onSeleccionar(organizacion.nombre)}
-            onKeyDown={(evento) => {
-                if (evento.key === "Enter" || evento.key === " ") {
-                    evento.preventDefault();
-                    onSeleccionar(organizacion.nombre);
-                }
-            }}
-            className={`flex cursor-pointer items-center gap-4 rounded-sm border bg-crema p-4 transition-colors duration-200 ${
-                activa ? "border-apricot ring-1 ring-apricot" : "border-chocolate/30"
-            }`}
-        >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-beige font-serif text-lg font-bold text-chocolate">
-                {iniciales(organizacion.nombre)}
-            </span>
-
-            <div className="flex-1">
-                <p className="font-serif text-lg font-bold text-chocolate">{organizacion.nombre}</p>
-                <p className="text-sm text-chocolate/80">
-                    {organizacion.ciudad} · {organizacion.categoria}
-                </p>
-            </div>
-
-            <a
-                href={organizacion.enlace}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(evento) => evento.stopPropagation()}
-                aria-label={`Ver más sobre ${organizacion.nombre} (abre en una pestaña nueva)`}
-                className="shrink-0 rounded-sm bg-chocolate px-4 py-2 text-sm font-semibold text-crema transition-colors duration-200 hover:bg-cafe focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
+        <li>
+            <div
+                role="button"
+                tabIndex={0}
+                onClick={() => onSeleccionar(organizacion.nombre)}
+                onKeyDown={(evento) => {
+                    if (evento.key === "Enter" || evento.key === " ") {
+                        evento.preventDefault();
+                        onSeleccionar(organizacion.nombre);
+                    }
+                }}
+                className={`flex cursor-pointer items-center gap-4 rounded-sm border bg-crema p-4 transition-colors duration-200 ${
+                    activa ? "border-apricot ring-1 ring-apricot" : "border-chocolate/30"
+                }`}
             >
-                Ver más
-            </a>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-beige font-serif text-lg font-bold text-chocolate">
+                    {iniciales(organizacion.nombre)}
+                </span>
+
+                <div className="flex-1">
+                    <p className="font-serif text-lg font-bold text-chocolate">{organizacion.nombre}</p>
+                    <p className="text-sm text-chocolate/80">
+                        {organizacion.ciudad} · {organizacion.categoria}
+                    </p>
+                </div>
+
+                <a
+                    href={organizacion.enlace}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(evento) => evento.stopPropagation()}
+                    aria-label={`Ver más sobre ${organizacion.nombre} (abre en una pestaña nueva)`}
+                    className="shrink-0 rounded-sm bg-chocolate px-4 py-2 text-sm font-semibold text-crema transition-colors duration-200 hover:bg-cafe focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
+                >
+                    Ver más
+                </a>
+            </div>
         </li>
     );
 }
@@ -103,7 +105,7 @@ export default function Organizaciones() {
                         aria-pressed={paisActivo === "todos"}
                         className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-200 ${
                             paisActivo === "todos"
-                                ? "bg-apricot text-crema"
+                                ? "bg-apricot text-chocolate"
                                 : "bg-beige text-chocolate hover:bg-apricot/40"
                         }`}
                     >
@@ -117,7 +119,7 @@ export default function Organizaciones() {
                             aria-pressed={paisActivo === pais}
                             className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-200 ${
                                 paisActivo === pais
-                                    ? "bg-apricot text-crema"
+                                    ? "bg-apricot text-chocolate"
                                     : "bg-beige text-chocolate hover:bg-apricot/40"
                             }`}
                         >
@@ -132,7 +134,7 @@ export default function Organizaciones() {
                             <div className="flex flex-col gap-10">
                                 {paises.map((pais) => (
                                     <div key={pais}>
-                                        <h3 className="mb-4 font-mono text-xs uppercase tracking-wide text-chocolate/70">
+                                        <h3 className="mb-4 font-mono text-xs uppercase tracking-wide text-chocolate/80">
                                             {pais}
                                         </h3>
                                         <ul className="flex flex-col gap-3">

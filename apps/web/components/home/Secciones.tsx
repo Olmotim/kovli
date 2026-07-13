@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { secciones } from "@/lib/secciones";
 
 // --- Versión móvil/tablet (<lg): sendero vertical con huellas en zigzag ---
@@ -112,12 +113,12 @@ export default function Secciones() {
                                 <div className="pb-8 sm:pb-10">
                                     <h3 className="text-chocolate text-lg font-semibold">{s.label}</h3>
                                     <p className="text-chocolate/80 mt-1">{s.descripcion}</p>
-                                    <a
+                                    <Link
                                         href={s.href}
                                         className="text-chocolate text-sm font-semibold mt-3 inline-flex items-center gap-1 hover:gap-2 hover:text-apricot transition-all duration-200 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
                                     >
                                         Ver más <span aria-hidden="true">→</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </li>
                         ))}
@@ -165,7 +166,7 @@ export default function Secciones() {
                         const p = puntos[i];
                         const labelAbove = p.y > (CAMINO_Y_ALTO + CAMINO_Y_BAJO) / 2;
                         return (
-                            <a
+                            <Link
                                 key={s.label}
                                 href={s.href}
                                 className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
@@ -187,7 +188,7 @@ export default function Secciones() {
                                         {s.label}
                                     </span>
                                 </div>
-                            </a>
+                            </Link>
                         );
                     })}
                 </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { secciones } from "@/lib/secciones";
 
 type RolodexSeccionesProps = {
@@ -21,7 +22,7 @@ export default function RolodexSecciones({ actual }: RolodexSeccionesProps) {
             <ul className="lg:hidden mt-4 flex flex-col gap-3">
                 {otras.map((s) => (
                     <li key={s.label}>
-                        <a
+                        <Link
                             href={s.href}
                             className="flex items-center gap-3 border border-chocolate/30 bg-crema rounded-sm px-4 py-3 hover:border-chocolate transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"
                         >
@@ -36,7 +37,7 @@ export default function RolodexSecciones({ actual }: RolodexSeccionesProps) {
                                     {s.resumen}
                                 </span>
                             </span>
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>
@@ -44,7 +45,7 @@ export default function RolodexSecciones({ actual }: RolodexSeccionesProps) {
             {/* Escritorio: fichero en abanico */}
             <div className="hidden lg:flex mt-8 items-start">
                 {otras.map((s, idx) => (
-                    <a
+                    <Link
                         key={s.label}
                         href={s.href}
                         style={{ zIndex: idx }}
@@ -59,7 +60,7 @@ export default function RolodexSecciones({ actual }: RolodexSeccionesProps) {
                         <span className="block font-mono text-xs text-cafe mt-2">
                             {s.resumen}
                         </span>
-                    </a>
+                    </Link>
                 ))}
             </div>
         </div>

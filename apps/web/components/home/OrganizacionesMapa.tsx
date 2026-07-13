@@ -93,6 +93,9 @@ export default function OrganizacionesMapa({
           eventHandlers={{ click: () => onSeleccionar(organizacion.nombre) }}
           ref={(marker) => {
             markerRefs.current[organizacion.nombre] = marker;
+            // Leaflet marca el icono con role="button" para el teclado, pero no
+            // le da nombre accesible por sí solo (el SVG interno es decorativo).
+            marker?.getElement()?.setAttribute("aria-label", `Ver ${organizacion.nombre} en el mapa`);
           }}
         >
           <Popup>
