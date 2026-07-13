@@ -7,8 +7,9 @@
 - **Estilos:** Tailwind CSS.
 - **Contenido:** MDX (archivos versionados en el repo, sin CMS), vía `@next/mdx`. Decidido en la feature 002.
 - **Monorepo:** pnpm workspaces + Turborepo.
-- **Base de datos:** 🟡 Fase 2 — Postgres. ORM por decidir (Prisma vs Drizzle); hosting por decidir (Supabase vs Neon). No aplica en Fase 1.
-- **Auth:** 🟡 Fase 2 — por decidir (Supabase Auth / Auth.js / Clerk).
+- **Base de datos:** Fase 2 — Postgres alojado en **Supabase**. ORM: **Prisma**. Decidido con el usuario el 2026-07-14: un solo proveedor (Supabase) para Auth + Postgres + Storage, en vez de piezas sueltas (Auth.js + Neon + Vercel Blob) — más simple de tener funcionando, y el diario personal (Fase 2) necesita subir fotos de todas formas. No aplica en Fase 1.
+- **Auth:** Fase 2 — **Supabase Auth**, login con **email + contraseña** (sin OAuth ni enlace mágico por ahora).
+- **Almacenamiento de archivos** (fotos de perro, fotos del diario): Fase 2 — **Supabase Storage**, mismo proveedor que Auth/DB.
 - **Validación:** Zod (esquemas compartidos en `packages/schemas`), a partir de Fase 2.
 - **Móvil:** 🟡 Fase 3 — Expo + React Native.
 - **Capa nativa:** 🟡 Fase 4 — Kotlin + Jetpack Compose.
@@ -45,7 +46,7 @@
 
 ## Modelo de datos / dominio
 
-🟡 Fase 2 — entidades previstas: `user`, `calendario`, `tareas`. Sin definir todavía.
+Fase 2 — entidades previstas (esquema Prisma exacto por definir en la spec de cada feature): `user` (gestionado por Supabase Auth), `perro` (varios por usuario), `evento_calendario` (vacunas/desparasitación/revisiones, con fecha), `tarea` (checklist de rutinas), `entrada_diario` (texto + fotos, por perro). Se construyen una a una: primero autenticación (011, sin tablas de negocio todavía), luego `perro`, luego el resto.
 
 ## Convenciones
 

@@ -17,7 +17,7 @@
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso._
+13. **011 · Autenticación** — `spec.md`/`plan.md`/`tasks.md` escritos y decisiones cerradas (Supabase Auth, email+contraseña, confirmación de email obligatoria, recuperación de contraseña incluida). Pendiente de que el usuario cree el proyecto en Supabase (tarea 1 de `tasks.md`) antes de empezar a tocar código. Ver `spec/features/011-autenticacion/`.
 
 ## Backlog / features 💡
 
@@ -25,7 +25,17 @@ _Ninguna feature en curso._
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 
-- **Fase 2 · Área privada** — login/registro, base de datos, calendario y tareas.
+- **Fase 2 · Área privada** — decisiones técnicas cerradas con el usuario (sesión 2026-07-14), planificación en marcha, sin tocar código todavía:
+  - **Infraestructura:** Supabase (Auth + Postgres + Storage en un mismo proveedor, en vez de piezas sueltas como Auth.js + Neon + Vercel Blob) — elegido por simplicidad, ya que el diario personal necesita subir fotos de todas formas.
+  - **ORM:** Prisma (elegido sobre Drizzle por ser más documentado/tutorializado para aprender sobre la marcha).
+  - **Login:** email + contraseña (Supabase Auth), sin OAuth ni enlace mágico por ahora.
+  - **Alcance funcional, en 4 pilares** (a construir uno a uno, como en Fase 1):
+    1. **Autenticación** — registro, login, logout, sesión protegida. Sin datos de negocio todavía.
+    2. **Ficha de perro(s)** — un usuario puede registrar varios perros; datos básicos (nombre, raza enlazada al catálogo existente, fecha de nacimiento, foto).
+    3. **Calendario de cuidados** — vacunas, desparasitación, revisiones veterinarias con fecha y recordatorio, ligado a lo ya explicado en `/salud`.
+    4. **Tareas / rutinas diarias** — checklist de tareas (paseos, comida, adiestramiento) que el usuario crea y marca como hechas.
+    5. **Diario personal** — recuerdos, fotos y notas de cuidados, por perro.
+  - Primera feature a especificar en detalle: **011 · Autenticación**.
 - **Fase 3 · App móvil** — Expo / React Native, login compartido.
 - **Fase 4 · Capa nativa** — módulo o app en Kotlin + Jetpack Compose.
 
