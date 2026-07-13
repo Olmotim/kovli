@@ -5,10 +5,9 @@ import MobileMenu from "@/components/layout/MobileMenu";
 import SeccionesDropdown from "@/components/layout/SeccionesDropdown";
 import DescargaAppButton from "@/components/ui/DescargaAppButton";
 
-export default function Navbar() {
-    const subsecciones = secciones.filter((s) => s.href !== "/razas");
-    const razas = secciones.find((s) => s.href === "/razas")!;
+const razas = { label: "Razas", href: "/razas" };
 
+export default function Navbar() {
     return (
         <>
             <header className="sticky top-0 z-50 bg-arena">
@@ -28,7 +27,7 @@ export default function Navbar() {
                     {/* Desktop links */}
                     <ul className="hidden lg:flex items-center gap-8">
                         <li>
-                            <SeccionesDropdown items={subsecciones} />
+                            <SeccionesDropdown items={secciones} />
                         </li>
                         <li>
                             <Link
@@ -58,7 +57,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile menu */}
-                    <MobileMenu subsecciones={subsecciones} razas={razas} />
+                    <MobileMenu subsecciones={secciones} razas={razas} />
                 </div>
             </header>
 

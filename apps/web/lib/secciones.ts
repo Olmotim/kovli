@@ -43,10 +43,10 @@ export const secciones: Seccion[] = [
     icono: "🎾",
   },
   {
-    label: "Razas",
-    href: "/razas",
-    descripcion: "Características y necesidades según la raza de tu perro.",
-    resumen: "Por temperamento",
-    icono: "🐩",
+    label: "Huellitas gastadas",
+    href: "/huellitas-gastadas",
+    descripcion: "Cuidados y cambios a tener en cuenta cuando tu perro entra en su etapa senior.",
+    resumen: "Cuidados en la etapa senior",
+    icono: "🦴",
   },
 ];

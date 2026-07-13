@@ -7,7 +7,7 @@ import DescargaAppButton from "@/components/ui/DescargaAppButton";
 
 type MobileMenuProps = {
     subsecciones: Seccion[];
-    razas: Seccion;
+    razas: Pick<Seccion, "label" | "href">;
 };
 
 export default function MobileMenu({ subsecciones, razas }: MobileMenuProps) {
