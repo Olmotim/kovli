@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@kovli/db";
 import { calcularEdadEnAnios } from "@kovli/domain";
 import BotonBorrar from "@/components/perros/BotonBorrar";
 import PerroForm from "@/components/perros/PerroForm";
+import FilaCuidado from "@/components/cuidados/FilaCuidado";
 import { actualizarPerroAction, borrarPerroAction } from "@/lib/actions/perros";
 import { urlFotoPerro } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
@@ -40,6 +42,15 @@ export default async function FichaPerroPage({ params }: PageProps) {
 
     const edad = calcularEdadEnAnios(perro.fechaNacimiento);
 
+    const cuidados = await prisma.cuidado.findMany({
+        where: { perroId: perro.id },
+        orderBy: { fecha: "asc" },
+    });
+
+    const hoy = new Date();
+    const proximos = cuidados.filter((cuidado) => cuidado.fecha >= hoy);
+    const historial = cuidados.filter((cuidado) => cuidado.fecha < hoy).reverse();
+
     const valoresIniciales = {
         nombre: perro.nombre,
         raza: perro.raza,
@@ -67,6 +78,50 @@ export default async function FichaPerroPage({ params }: PageProps) {
 
                 <div className="mt-8 border-t border-chocolate/15 pt-6">
                     <BotonBorrar accion={borrarPerroAction.bind(null, perro.id)} />
+                </div>
+
+                <div className="mt-10 border-t border-chocolate/15 pt-6">
+                    <div className="flex items-center justify-between gap-4">
+                        <h2 className="text-xl font-bold text-chocolate">Cuidados</h2>
+                        <Link
+                            href={`/cuenta/perros/${perro.id}/cuidados/nuevo`}
+                            className="bg-chocolate text-crema text-sm font-semibold px-5 py-2.5 rounded-sm tracking-wide hover:bg-apricot transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-apricot"
+                        >
+                            Añadir cuidado
+                        </Link>
+                    </div>
+
+                    {cuidados.length === 0 ? (
+                        <p className="mt-4 text-chocolate/70">Todavía no hay cuidados registrados.</p>
+                    ) : (
+                        <>
+                            {proximos.length > 0 && (
+                                <div className="mt-4">
+                                    <h3 className="text-sm font-semibold uppercase tracking-wide text-chocolate/70">
+                                        Próximos
+                                    </h3>
+                                    <ul className="mt-2 flex flex-col gap-2">
+                                        {proximos.map((cuidado) => (
+                                            <FilaCuidado key={cuidado.id} perroId={perro.id} cuidado={cuidado} />
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {historial.length > 0 && (
+                                <div className="mt-6">
+                                    <h3 className="text-sm font-semibold uppercase tracking-wide text-chocolate/70">
+                                        Historial
+                                    </h3>
+                                    <ul className="mt-2 flex flex-col gap-2">
+                                        {historial.map((cuidado) => (
+                                            <FilaCuidado key={cuidado.id} perroId={perro.id} cuidado={cuidado} />
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
         </section>

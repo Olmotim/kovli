@@ -12,6 +12,13 @@ enum Sexo {
   HEMBRA
 }
 
+enum TipoCuidado {
+  VACUNA
+  DESPARASITACION
+  REVISION
+  OTRO
+}
+
 model Perro {
   id              String    @id @default(uuid())
   usuarioId       String
@@ -25,5 +32,24 @@ model Perro {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
+  cuidados Cuidado[]
+
   @@index([usuarioId])
+}
+
+model Cuidado {
+  id         String      @id @default(uuid())
+  usuarioId  String
+  perroId    String
+  tipo       TipoCuidado
+  tipoLibre  String?
+  fecha      DateTime
+  notas      String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  perro Perro @relation(fields: [perroId], references: [id], onDelete: Cascade)
+
+  @@index([usuarioId])
+  @@index([perroId])
 }

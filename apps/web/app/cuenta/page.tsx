@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@kovli/db";
-import { calcularEdadEnAnios } from "@kovli/domain";
+import { calcularEdadEnAnios, proximoCuidado } from "@kovli/domain";
 import { breeds } from "@/data/breeds";
 import { cerrarSesionAction } from "@/lib/actions/auth";
+import { resumenProximoCuidado } from "@/lib/cuidados";
 import { urlFotoPerro } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 
@@ -30,6 +31,7 @@ export default async function CuentaPage() {
     const perros = await prisma.perro.findMany({
         where: { usuarioId: user.id },
         orderBy: { createdAt: "asc" },
+        include: { cuidados: true },
     });
 
     return (
@@ -65,6 +67,7 @@ export default async function CuentaPage() {
                     <ul className="mt-6 flex flex-col gap-3">
                         {perros.map((perro) => {
                             const edad = calcularEdadEnAnios(perro.fechaNacimiento);
+                            const cuidado = proximoCuidado(perro.cuidados);
 
                             return (
                                 <li key={perro.id}>
@@ -92,6 +95,11 @@ export default async function CuentaPage() {
                                                 {nombreRaza(perro.raza)} ·{" "}
                                                 {edad !== null ? `${edad} ${edad === 1 ? "año" : "años"}` : "edad desconocida"}
                                             </p>
+                                            {cuidado && (
+                                                <p className="text-sm text-chocolate/80">
+                                                    {resumenProximoCuidado(cuidado)}
+                                                </p>
+                                            )}
                                         </div>
                                     </Link>
                                 </li>
