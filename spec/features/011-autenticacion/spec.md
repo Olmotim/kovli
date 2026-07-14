@@ -1,6 +1,6 @@
 # 011 · Autenticación
 
-**Estado:** especificada — pendiente de crear el proyecto de Supabase antes de tocar código (ver tasks.md).
+**Estado:** hecha — validada por el usuario en el navegador (registro, confirmación de email, login, logout, `/cuenta` y recuperación de contraseña).
 
 ## Qué hace
 
@@ -14,16 +14,16 @@ Es la base de toda la Fase 2: sin usuario logueado no hay "de quién" es un perr
 
 ## Criterios de aceptación
 
-- [ ] Un visitante puede registrarse con email + contraseña, y debe confirmar el email (clic en el enlace que le llega) antes de poder iniciar sesión.
-- [ ] Un usuario registrado y confirmado puede iniciar sesión.
-- [ ] Un usuario con sesión iniciada puede cerrarla.
-- [ ] Un usuario puede solicitar recuperar su contraseña (email con enlace) y establecer una nueva.
-- [ ] La ruta privada de prueba (`/cuenta`) redirige a `/login` si no hay sesión, y muestra el email del usuario si la hay.
-- [ ] Contraseña con un mínimo razonable (longitud) validado antes de enviarla, con mensajes de error claros — sin depender solo de lo que rechace Supabase.
-- [ ] Mensajes de error comprensibles para casos habituales: email ya registrado, credenciales incorrectas, contraseña demasiado corta.
-- [ ] Ninguna clave de Supabase queda commiteada — todo vía `.env.local` (no subido) y variables de entorno de Vercel para producción.
-- [ ] `pnpm build` y `pnpm lint` sin errores nuevos.
-- [ ] Validado por el usuario en el navegador: registro, login, logout y acceso/bloqueo de `/cuenta`.
+- [x] Un visitante puede registrarse con email + contraseña, y debe confirmar el email (clic en el enlace que le llega) antes de poder iniciar sesión.
+- [x] Un usuario registrado y confirmado puede iniciar sesión.
+- [x] Un usuario con sesión iniciada puede cerrarla.
+- [x] Un usuario puede solicitar recuperar su contraseña (email con enlace) y establecer una nueva.
+- [x] La ruta privada de prueba (`/cuenta`) redirige a `/login` si no hay sesión, y muestra el email del usuario si la hay.
+- [x] Contraseña con un mínimo razonable (longitud) validado antes de enviarla, con mensajes de error claros — sin depender solo de lo que rechace Supabase.
+- [x] Mensajes de error comprensibles para casos habituales: email ya registrado, credenciales incorrectas, contraseña demasiado corta.
+- [x] Ninguna clave de Supabase queda commiteada — todo vía `.env.local` (no subido) y variables de entorno de Vercel para producción.
+- [x] `pnpm build` y `pnpm lint` sin errores nuevos.
+- [x] Validado por el usuario en el navegador: registro, login, logout y acceso/bloqueo de `/cuenta`.
 
 ## Fuera de alcance
 

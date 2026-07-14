@@ -4,6 +4,7 @@ import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  transpilePackages: ["@kovli/schemas"],
   turbopack: {
     root: path.resolve(__dirname, "../.."),
   },
