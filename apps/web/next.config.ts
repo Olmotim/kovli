@@ -4,7 +4,7 @@ import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  transpilePackages: ["@kovli/schemas"],
+  transpilePackages: ["@kovli/schemas", "@kovli/db", "@kovli/domain"],
   turbopack: {
     root: path.resolve(__dirname, "../.."),
   },
@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.supabase.co",
+        pathname: "/storage/v1/object/public/**",
       },
     ],
   },

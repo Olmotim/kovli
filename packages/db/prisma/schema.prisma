@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Sexo {
+  MACHO
+  HEMBRA
+}
+
+model Perro {
+  id              String    @id @default(uuid())
+  usuarioId       String
+  nombre          String
+  raza            String
+  fechaNacimiento DateTime?
+  sexo            Sexo?
+  peso            Decimal?  @db.Decimal(5, 2)
+  notas           String?
+  fotoPath        String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([usuarioId])
+}

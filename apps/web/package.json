@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@kovli/db": "workspace:*",
+    "@kovli/domain": "workspace:*",
     "@kovli/schemas": "workspace:*",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
