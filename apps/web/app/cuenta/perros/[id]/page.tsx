@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@kovli/db";
-import { calcularEdadEnAnios } from "@kovli/domain";
+import { calcularEdadEnAnios, inicioDelDia } from "@kovli/domain";
 import BotonBorrar from "@/components/perros/BotonBorrar";
 import PerroForm from "@/components/perros/PerroForm";
 import FilaCuidado from "@/components/cuidados/FilaCuidado";
+import CasillaTarea from "@/components/tareas/CasillaTarea";
 import { actualizarPerroAction, borrarPerroAction } from "@/lib/actions/perros";
+import { marcarTareaAction } from "@/lib/actions/tareas";
 import { urlFotoPerro } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 
@@ -50,6 +52,12 @@ export default async function FichaPerroPage({ params }: PageProps) {
     const hoy = new Date();
     const proximos = cuidados.filter((cuidado) => cuidado.fecha >= hoy);
     const historial = cuidados.filter((cuidado) => cuidado.fecha < hoy).reverse();
+
+    const tareas = await prisma.tarea.findMany({
+        where: { perroId: perro.id },
+        orderBy: { createdAt: "asc" },
+        include: { completadas: { where: { fecha: inicioDelDia(hoy) } } },
+    });
 
     const valoresIniciales = {
         nombre: perro.nombre,
@@ -121,6 +129,43 @@ export default async function FichaPerroPage({ params }: PageProps) {
                                 </div>
                             )}
                         </>
+                    )}
+                </div>
+
+                <div className="mt-10 border-t border-chocolate/15 pt-6">
+                    <div className="flex items-center justify-between gap-4">
+                        <h2 className="text-xl font-bold text-chocolate">Rutinas de hoy</h2>
+                        <Link
+                            href={`/cuenta/perros/${perro.id}/rutinas/nueva`}
+                            className="bg-chocolate text-crema text-sm font-semibold px-5 py-2.5 rounded-sm tracking-wide hover:bg-apricot transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-apricot"
+                        >
+                            Añadir rutina
+                        </Link>
+                    </div>
+
+                    {tareas.length === 0 ? (
+                        <p className="mt-4 text-chocolate/70">Todavía no hay rutinas creadas.</p>
+                    ) : (
+                        <ul className="mt-4 flex flex-col gap-2">
+                            {tareas.map((tarea) => (
+                                <li
+                                    key={tarea.id}
+                                    className="flex items-center justify-between gap-4 rounded-sm border border-chocolate/15 bg-crema px-4 py-3"
+                                >
+                                    <CasillaTarea
+                                        accion={marcarTareaAction.bind(null, tarea.id)}
+                                        marcada={tarea.completadas.length > 0}
+                                        etiqueta={tarea.nombre}
+                                    />
+                                    <Link
+                                        href={`/cuenta/perros/${perro.id}/rutinas/${tarea.id}`}
+                                        className="whitespace-nowrap text-sm text-chocolate/60 hover:text-chocolate"
+                                    >
+                                        Editar
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     )}
                 </div>
             </div>

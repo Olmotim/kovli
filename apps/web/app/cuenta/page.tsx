@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@kovli/db";
-import { calcularEdadEnAnios, proximoCuidado } from "@kovli/domain";
+import { calcularEdadEnAnios, inicioDelDia, proximoCuidado, resumenRutinasHoy } from "@kovli/domain";
 import { breeds } from "@/data/breeds";
 import { cerrarSesionAction } from "@/lib/actions/auth";
 import { resumenProximoCuidado } from "@/lib/cuidados";
@@ -28,10 +28,15 @@ export default async function CuentaPage() {
         redirect("/login");
     }
 
+    const hoy = inicioDelDia(new Date());
+
     const perros = await prisma.perro.findMany({
         where: { usuarioId: user.id },
         orderBy: { createdAt: "asc" },
-        include: { cuidados: true },
+        include: {
+            cuidados: true,
+            tareas: { include: { completadas: { where: { fecha: hoy } } } },
+        },
     });
 
     return (
@@ -68,6 +73,9 @@ export default async function CuentaPage() {
                         {perros.map((perro) => {
                             const edad = calcularEdadEnAnios(perro.fechaNacimiento);
                             const cuidado = proximoCuidado(perro.cuidados);
+                            const rutinas = resumenRutinasHoy(
+                                perro.tareas.map((tarea) => ({ completadaHoy: tarea.completadas.length > 0 })),
+                            );
 
                             return (
                                 <li key={perro.id}>
@@ -98,6 +106,11 @@ export default async function CuentaPage() {
                                             {cuidado && (
                                                 <p className="text-sm text-chocolate/80">
                                                     {resumenProximoCuidado(cuidado)}
+                                                </p>
+                                            )}
+                                            {rutinas.total > 0 && (
+                                                <p className="text-sm text-chocolate/80">
+                                                    {rutinas.hechas}/{rutinas.total} rutinas hechas hoy
                                                 </p>
                                             )}
                                         </div>
