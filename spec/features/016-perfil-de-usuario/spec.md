@@ -1,6 +1,6 @@
 # 016 · Perfil de usuario editable
 
-**Estado:** spec y plan cerrados — documentado para implementar en la próxima sesión, sin tocar código todavía.
+**Estado:** hecho — implementado y validado por el usuario en el navegador.
 
 ## Qué hace
 
@@ -18,13 +18,13 @@ El avatar reutiliza el bucket `fotos-perros` ya existente, bajo una ruta fija po
 
 ## Criterios de aceptación
 
-- [ ] `/cuenta` tiene un enlace a `/cuenta/perfil`.
-- [ ] El usuario puede guardar un nombre (texto libre, opcional) que sustituye al email en "Sesión iniciada como..." de `/cuenta` cuando existe.
-- [ ] El usuario puede subir o cambiar su avatar (opcional); se muestra en `/cuenta/perfil` y, si existe, también junto al nombre en `/cuenta`.
-- [ ] El usuario puede cambiar su contraseña desde un formulario aparte: contraseña actual, contraseña nueva y confirmación. Si la contraseña actual no es correcta, error claro sin cambiar nada.
-- [ ] Validación de los datos con Zod (`packages/schemas`).
-- [ ] `pnpm build` y `pnpm lint` sin errores nuevos.
-- [ ] Validado por el usuario en el navegador: cambiar nombre, subir avatar, cambiar contraseña (con la actual correcta e incorrecta), y volver a iniciar sesión con la contraseña nueva.
+- [x] `/cuenta` tiene un enlace a `/cuenta/perfil`.
+- [x] El usuario puede guardar un nombre (texto libre, opcional) que sustituye al email en "Sesión iniciada como..." de `/cuenta` cuando existe.
+- [x] El usuario puede subir o cambiar su avatar (opcional); se muestra en `/cuenta/perfil` y, si existe, también junto al nombre en `/cuenta`.
+- [x] El usuario puede cambiar su contraseña desde un formulario aparte: contraseña actual, contraseña nueva y confirmación. Si la contraseña actual no es correcta, error claro sin cambiar nada.
+- [x] Validación de los datos con Zod (`packages/schemas`).
+- [x] `pnpm build` y `pnpm lint` sin errores nuevos.
+- [x] Validado por el usuario en el navegador: cambiar nombre, subir avatar, cambiar contraseña (con la actual correcta e incorrecta), y volver a iniciar sesión con la contraseña nueva.
 
 ## Fuera de alcance
 

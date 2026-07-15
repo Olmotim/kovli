@@ -7,6 +7,7 @@ import { calcularEdadEnAnios, inicioDelDia, proximoCuidado, resumenRutinasHoy } 
 import { breeds } from "@/data/breeds";
 import { cerrarSesionAction } from "@/lib/actions/auth";
 import { resumenProximoCuidado } from "@/lib/cuidados";
+import { metadataPerfil } from "@/lib/perfil";
 import { urlFoto } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 
@@ -28,6 +29,8 @@ export default async function CuentaPage() {
         redirect("/login");
     }
 
+    const { nombre, avatarPath } = metadataPerfil(user.user_metadata);
+
     const hoy = inicioDelDia(new Date());
 
     const perros = await prisma.perro.findMany({
@@ -43,11 +46,29 @@ export default async function CuentaPage() {
         <section className="py-16 sm:py-20">
             <div className="max-w-2xl mx-auto px-6">
                 <div className="flex items-center justify-between gap-4">
-                    <div>
-                        <h1 className="text-chocolate text-3xl sm:text-4xl font-bold">Tu cuenta</h1>
-                        <p className="mt-2 text-chocolate/80">
-                            Sesión iniciada como <strong className="text-chocolate">{user.email}</strong>
-                        </p>
+                    <div className="flex items-center gap-4">
+                        {avatarPath && (
+                            <Image
+                                src={urlFoto(avatarPath)}
+                                alt=""
+                                width={56}
+                                height={56}
+                                className="h-14 w-14 rounded-full object-cover"
+                            />
+                        )}
+                        <div>
+                            <h1 className="text-chocolate text-3xl sm:text-4xl font-bold">Tu cuenta</h1>
+                            <p className="mt-2 text-chocolate/80">
+                                Sesión iniciada como{" "}
+                                <strong className="text-chocolate">{nombre ?? user.email}</strong>
+                            </p>
+                            <Link
+                                href="/cuenta/perfil"
+                                className="mt-1 inline-block text-sm font-semibold text-cafe hover:text-apricot"
+                            >
+                                Editar perfil
+                            </Link>
+                        </div>
                     </div>
                     <form action={cerrarSesionAction}>
                         <button type="submit" className="text-sm font-semibold text-cafe hover:text-apricot">

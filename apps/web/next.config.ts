@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname, "../.."),
   },
+  // Por defecto Next.js limita el cuerpo de una Server Action a 1 MB — una
+  // foto de móvil normal ya lo supera. Afecta a cualquier subida de archivo
+  // por Server Action (avatar, foto de perro, fotos del diario), no solo al
+  // perfil.
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "4mb",
+    },
+  },
   images: {
     remotePatterns: [
       {
