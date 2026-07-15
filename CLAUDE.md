@@ -9,7 +9,7 @@ Kovli es una web de información sobre el cuidado de perros, organizada en secci
 - **Estilos:** Tailwind CSS
 - **Monorepo:** pnpm workspaces + Turborepo
 - **Base de datos:** 🟡 Fase 2 — Postgres (ORM y hosting por decidir). No aplica en Fase 1.
-- **Tests:** 🟡 por decidir (propuesta: Vitest)
+- **Tests:** Vitest, por ahora solo en `packages/domain` (lógica pura, sin efectos secundarios)
 
 > Detalle completo y convenciones en `spec/constitution/tech-stack.md`.
 
@@ -18,7 +18,7 @@ Kovli es una web de información sobre el cuidado de perros, organizada en secci
 - `pnpm dev` — arranca el entorno local (`apps/web` en `http://localhost:3000`)
 - `pnpm build` — compila para producción
 - `pnpm lint` — revisa el estilo
-- `pnpm test` — 🟡 todavía no configurado (propuesta: Vitest)
+- `pnpm test` — corre los tests (Vitest, hoy solo en `packages/domain`)
 
 ## Entorno de desarrollo
 

@@ -13,7 +13,7 @@
 - **Validación:** Zod (esquemas compartidos en `packages/schemas`), a partir de Fase 2.
 - **Móvil:** 🟡 Fase 3 — Expo + React Native.
 - **Capa nativa:** 🟡 Fase 4 — Kotlin + Jetpack Compose.
-- **Tests:** 🟡 por decidir — propuesta: Vitest. (¿desde Fase 1 o más adelante?)
+- **Tests:** Vitest, configurado a partir de la sesión de cierre de Fase 2. Cada paquete que tiene tests declara `vitest` como su propia devDependency (mismo patrón que `typescript` en `packages/domain`, en vez de una única versión hoisted en la raíz) y añade su propio `vitest.config.ts` + script `"test": "vitest run"`; `turbo.json` tiene una tarea `test` (`dependsOn: ["^test"]`) y `pnpm test` en la raíz la dispara en todo el monorepo. Alcance inicial: solo `packages/domain` (`calcularEdadEnAnios`, `estadoCuidado`/`proximoCuidado`, `inicioDelDia`/`resumenRutinasHoy`) — es lógica pura sin I/O, la más barata de probar y la que más se repite entre features. Sin `globals: true` en la config: cada test importa `describe`/`it`/`expect` de `"vitest"` explícitamente, más explícito y sin necesitar tipos globales en el `tsconfig.json`. Las funciones que internamente usan `new Date()` sin recibir `hoy` como parámetro (ej. `calcularEdadEnAnios`) se testean con `vi.useFakeTimers()` + `vi.setSystemTime(...)`, no cambiando la firma de la función solo para poder testearla.
 - **Despliegue:** Vercel (web).
 - **Mapas:** Leaflet + `react-leaflet`, teselas de OpenStreetMap (sin API key ni coste, a diferencia de Mapbox). Decidido en la feature 007.
 
@@ -73,7 +73,7 @@
 
 ## Comandos
 
-🟡 _Se concretan al montar el monorepo (Etapa 0)._ Previstos: `pnpm dev`, `pnpm test`, `pnpm lint`, `pnpm build`.
+`pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm test` — los cuatro corren en todo el monorepo vía Turborepo (`turbo dev`/`build`/`lint`/`test`).
 
 ## Modelo de datos / dominio
 
