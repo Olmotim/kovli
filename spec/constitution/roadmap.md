@@ -23,7 +23,17 @@
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso. Fase 2 completa (011-015) — pendiente de decidir con el usuario si se abre Fase 3 (app móvil) o se sigue puliendo/ampliando Fase 2._
+_Ninguna feature en curso todavía — las 5 de abajo tienen spec y plan ya cerrados (sesión 2026-07-15), listas para implementar una a una empezando la próxima sesión. Sin escribir código hasta entonces._
+
+**Fase 2.1 · Puliendo Fase 2** (repaso completo de la lista de "fuera de alcance" de 011/013/014/015, decidido con el usuario tras cerrar Fase 2 — se excluyó explícitamente el login social):
+
+1. **016 · Perfil de usuario editable** — nombre, avatar y cambio de contraseña, sin tabla Prisma nueva (vive en `user_metadata` de Supabase Auth). Ver `spec/features/016-perfil-de-usuario/`.
+2. **017 · Recordatorios por email** — digest diario (cuidados vencidos/próximos ≤7 días + rutinas de hoy sin marcar) vía Vercel Cron + Resend. Primera tarea programada del proyecto. Ver `spec/features/017-recordatorios-email/`. *De aquí sale el cron que reutiliza la 018.*
+3. **018 · Mejoras del calendario de cuidados** — recurrencia automática, vista de calendario mensual, adjuntar archivos, mismo cuidado para varios perros. Depende de que la 017 esté hecha (reutiliza su cron). Ver `spec/features/018-mejoras-calendario-cuidados/`.
+4. **019 · Mejoras de rutinas diarias** — días de la semana, historial visual, pausar/archivar, reordenar con botones. Si la 017 ya está hecha, toca también su digest para que respete `activa`. Ver `spec/features/019-mejoras-rutinas-diarias/`.
+5. **020 · Mejoras del diario personal** — resumen en `/cuenta`, reordenar fotos, vista imprimible (exportar), etiquetas libres. Ver `spec/features/020-mejoras-diario-personal/`.
+
+> Orden propuesto (016 → 017 → 018 → 019 → 020) por las dependencias reales entre ellas (018 necesita el cron de la 017); dentro de eso, una sola "en curso" a la vez, como marca la regla de abajo.
 
 ## Backlog / features 💡
 
