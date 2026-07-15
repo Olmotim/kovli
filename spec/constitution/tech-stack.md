@@ -64,6 +64,12 @@
   - `inicioDelDia(fecha)` (`packages/domain`) trunca a medianoche local — se usa tanto al guardar una `TareaCompletada` como al consultar "¿hay marca de hoy?", para que ambos lados comparen el mismo valor exacto. Si en algún sitio se compara con un `new Date()` sin pasar por esta función, la comparación de igualdad falla en silencio y una tarea parece "no hecha" aunque se haya marcado.
   - **Primera Server Action del proyecto que no navega:** `marcarTareaAction` (marcar/desmarcar una rutina) usa `revalidatePath()` en vez de `redirect()` — le dice a Next.js que refresque los datos de la página actual sin cambiar de sitio. Se dispara desde un `<form action={...}>` con una casilla (`type="checkbox"`) cuyo `onChange` llama a `evento.currentTarget.form?.requestSubmit()`, mismo patrón `<form>` que el resto de la app (sin invocar la Server Action directamente desde el cliente).
   - Repetida la lección de la 013: tras la migración, `npx prisma generate` a mano en `packages/db` antes de dar el cliente por actualizado — esta vez sí se hizo antes del primer `pnpm build`, sin fallo intermedio.
+- **015 · Diario personal** (Fase 2, última pieza — primera con varias fotos a la vez):
+  - `EntradaDiario.fotos` es una columna array de Postgres (`String[]`), no una tabla aparte por foto: no hace falta más metadato que la ruta, y el orden lo da la posición en la lista. Patrón distinto al de `TareaCompletada` (tabla aparte) porque ahí sí hacía falta una fila por día con su propia fecha — aquí las fotos no tienen datos propios más allá de la ruta.
+  - **Reutiliza el bucket `fotos-perros` de la 012 sin ninguna configuración nueva en Supabase**: la política de Storage restringe por el primer segmento de la ruta (`auth.uid()`), le da igual lo que haya después — las fotos del diario van a `usuarioId/diario/...` en vez de `usuarioId/...` (la foto de perfil del perro), dentro del mismo bucket y la misma política.
+  - `extensionDeArchivo()` se movió de `apps/web/lib/actions/perros.ts` a `apps/web/lib/storage.ts` para reutilizarla desde `diario.ts` sin duplicarla; de paso, `urlFotoPerro()` se renombró a `urlFoto()` porque ya no es solo "la foto del perro" (sirve para cualquier ruta del bucket compartido).
+  - Subida/gestión de **varias** fotos a la vez por primera vez: un único `<input type="file" multiple>` (no varios inputs sueltos); al editar, cada foto ya guardada se muestra con una casilla `eliminarFotos` (mismo `name` repetido, se leen todas juntas con `formData.getAll("eliminarFotos")`) y las fotos nuevas se suman por encima — el tope de 5 fotos en total (existentes que se mantienen + nuevas) se valida en la Server Action, no solo en el formulario.
+  - La regla "una entrada no puede quedar vacía" (necesita texto o al menos una foto) vive en la Server Action, no en el schema de Zod — las fotos llegan como `File` del `FormData`, fuera de lo que Zod valida directamente, mismo patrón que ya usaba la foto de `Perro` en la 012.
 
 ## Comandos
 
@@ -71,7 +77,7 @@
 
 ## Modelo de datos / dominio
 
-Fase 2 — entidades previstas (esquema Prisma exacto por definir en la spec de cada feature): `user` (gestionado por Supabase Auth), ✅ `Perro` (varios por usuario, feature 012), ✅ `Cuidado` (vacunas/desparasitación/revisiones/otro, con fecha, feature 013), ✅ `Tarea` + `TareaCompletada` (rutinas diarias por perro, feature 014), `entrada_diario` (texto + fotos, por perro). Se construyen una a una: autenticación (011) → ficha de perro (012, hecha) → calendario de cuidados (013, hecha) → tareas/rutinas (014, hecha) → diario personal.
+Fase 2 — **completa**: `user` (gestionado por Supabase Auth), ✅ `Perro` (varios por usuario, feature 012), ✅ `Cuidado` (vacunas/desparasitación/revisiones/otro, con fecha, feature 013), ✅ `Tarea` + `TareaCompletada` (rutinas diarias por perro, feature 014), ✅ `EntradaDiario` (texto + hasta 5 fotos, por perro, feature 015). Los 5 pilares de Fase 2 están hechos: autenticación (011) → ficha de perro (012) → calendario de cuidados (013) → tareas/rutinas (014) → diario personal (015).
 
 ## Convenciones
 

@@ -32,8 +32,9 @@ model Perro {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  cuidados Cuidado[]
-  tareas   Tarea[]
+  cuidados        Cuidado[]
+  tareas          Tarea[]
+  entradasDiario  EntradaDiario[]
 
   @@index([usuarioId])
 }
@@ -79,4 +80,20 @@ model TareaCompletada {
   tarea Tarea @relation(fields: [tareaId], references: [id], onDelete: Cascade)
 
   @@unique([tareaId, fecha])
+}
+
+model EntradaDiario {
+  id        String   @id @default(uuid())
+  usuarioId String
+  perroId   String
+  fecha     DateTime
+  texto     String?
+  fotos     String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  perro Perro @relation(fields: [perroId], references: [id], onDelete: Cascade)
+
+  @@index([usuarioId])
+  @@index([perroId])
 }

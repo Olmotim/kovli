@@ -7,9 +7,10 @@ import BotonBorrar from "@/components/perros/BotonBorrar";
 import PerroForm from "@/components/perros/PerroForm";
 import FilaCuidado from "@/components/cuidados/FilaCuidado";
 import CasillaTarea from "@/components/tareas/CasillaTarea";
+import FilaEntradaDiario from "@/components/diario/FilaEntradaDiario";
 import { actualizarPerroAction, borrarPerroAction } from "@/lib/actions/perros";
 import { marcarTareaAction } from "@/lib/actions/tareas";
-import { urlFotoPerro } from "@/lib/storage";
+import { urlFoto } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -59,6 +60,11 @@ export default async function FichaPerroPage({ params }: PageProps) {
         include: { completadas: { where: { fecha: inicioDelDia(hoy) } } },
     });
 
+    const entradasDiario = await prisma.entradaDiario.findMany({
+        where: { perroId: perro.id },
+        orderBy: { fecha: "desc" },
+    });
+
     const valoresIniciales = {
         nombre: perro.nombre,
         raza: perro.raza,
@@ -68,7 +74,7 @@ export default async function FichaPerroPage({ params }: PageProps) {
         sexo: perro.sexo ?? "",
         peso: perro.peso ? perro.peso.toString() : "",
         notas: perro.notas ?? "",
-        fotoUrl: perro.fotoPath ? urlFotoPerro(perro.fotoPath) : "",
+        fotoUrl: perro.fotoPath ? urlFoto(perro.fotoPath) : "",
     };
 
     return (
@@ -164,6 +170,28 @@ export default async function FichaPerroPage({ params }: PageProps) {
                                         Editar
                                     </Link>
                                 </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
+                <div className="mt-10 border-t border-chocolate/15 pt-6">
+                    <div className="flex items-center justify-between gap-4">
+                        <h2 className="text-xl font-bold text-chocolate">Diario</h2>
+                        <Link
+                            href={`/cuenta/perros/${perro.id}/diario/nueva`}
+                            className="bg-chocolate text-crema text-sm font-semibold px-5 py-2.5 rounded-sm tracking-wide hover:bg-apricot transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-apricot"
+                        >
+                            Añadir entrada
+                        </Link>
+                    </div>
+
+                    {entradasDiario.length === 0 ? (
+                        <p className="mt-4 text-chocolate/70">Todavía no hay entradas en el diario.</p>
+                    ) : (
+                        <ul className="mt-4 flex flex-col gap-3">
+                            {entradasDiario.map((entrada) => (
+                                <FilaEntradaDiario key={entrada.id} perroId={perro.id} entrada={entrada} />
                             ))}
                         </ul>
                     )}

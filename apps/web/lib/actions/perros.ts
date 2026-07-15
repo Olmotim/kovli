@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { perroSchema } from "@kovli/schemas";
 import { prisma } from "@kovli/db";
 import { createClient } from "@/lib/supabase/server";
-import { BUCKET_FOTOS_PERROS } from "@/lib/storage";
+import { BUCKET_FOTOS_PERROS, extensionDeArchivo } from "@/lib/storage";
 
 export type PerroFormState = {
   success: boolean;
@@ -21,11 +21,6 @@ function razaDesdeFormulario(formData: FormData): string {
     return String(formData.get("razaLibre") ?? "").trim();
   }
   return razaSlug;
-}
-
-function extensionDeArchivo(nombre: string): string {
-  const coincide = /\.([a-zA-Z0-9]{2,5})$/.exec(nombre);
-  return coincide ? coincide[1].toLowerCase() : "jpg";
 }
 
 type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>;

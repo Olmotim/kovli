@@ -18,10 +18,11 @@
 14. **012 · Ficha de perro(s)** — segundo pilar de Fase 2 y primera tabla de negocio propia: un usuario puede registrar varios perros (nombre y raza obligatorios; fecha de nacimiento, sexo, peso, notas y foto opcionales), verlos en `/cuenta` (que deja de ser el placeholder de la 011 y pasa a listar "mis perros"), y ver/editar/borrar cada uno en `/cuenta/perros/[id]`. Entra Prisma de verdad (`packages/db`, con la arquitectura de *driver adapters* de Prisma v7 — más reciente de lo esperado) y `packages/domain` (primer uso, función de cálculo de edad a partir de la fecha de nacimiento, nunca almacenada). La raza puede elegirse del catálogo existente o escribirse libre si no está en la lista. La foto se sube a Supabase Storage (bucket público, políticas RLS restringidas a la carpeta del propio usuario); el resto de campos se protege filtrando por `usuarioId` en cada Server Action, sin RLS de Postgres (decisión cerrada con el usuario, ver `spec/features/012-ficha-de-perro/spec.md`). Validado por el usuario en el navegador; desplegado en producción. Ver `spec/features/012-ficha-de-perro/`.
 15. **013 · Calendario de cuidados** — tercer pilar de Fase 2: por cada perro, el usuario registra cuidados veterinarios (vacuna, desparasitación, revisión veterinaria u "otro" con texto libre) con fecha y notas opcionales. Primera tabla del proyecto con relación Prisma-a-Prisma de verdad (`Cuidado → Perro`, con `onDelete: Cascade`), no solo una FK suelta a `auth.users` como `Perro`. La ficha de cada perro (`/cuenta/perros/[id]`) muestra los cuidados separados en "Próximos" e "Historial"; `/cuenta` muestra además un resumen del cuidado más urgente por perro. Sin estado explícito "hecho/pendiente": se calcula comparando la `fecha` con hoy (`estadoCuidado()` en `packages/domain`, margen de 30 días para "próximo"). Recordatorio solo visual en la web (sin email ni push) y repetición manual (sin recurrencia automática) — decisiones cerradas con el usuario, ver `spec/features/013-calendario-de-cuidados/spec.md`. Validado por el usuario en el navegador. Ver `spec/features/013-calendario-de-cuidados/`.
 16. **014 · Tareas / rutinas diarias** — cuarto pilar de Fase 2: por cada perro, el usuario define rutinas de nombre libre (ej. "Paseo de la mañana") que se repiten todos los días; un checklist en la ficha del perro las marca/desmarca sin salir de la página, y `/cuenta` muestra un resumen "x/y hechas hoy" por perro. Dos tablas (`Tarea`, la definición; `TareaCompletada`, una marca por día con `@@unique([tareaId, fecha])`) — sin booleano "hecha", se calcula comprobando si existe una marca para hoy. Primera Server Action del proyecto que usa `revalidatePath()` en vez de `redirect()` (marcar una rutina no navega a ningún sitio). Solo rutinas diarias (sin elegir días de la semana) y sin vista de historial todavía, aunque el modelo ya lo permite — decisiones cerradas con el usuario, ver `spec/features/014-tareas-rutinas/spec.md`. Validado por el usuario en el navegador. Ver `spec/features/014-tareas-rutinas/`.
+17. **015 · Diario personal** — quinto y último pilar de Fase 2: por cada perro, el usuario escribe entradas de diario con fecha propia editable, texto opcional y hasta 5 fotos (ni texto ni fotos son obligatorios por separado, pero la entrada no puede quedar totalmente vacía). Una sola tabla (`EntradaDiario`, con `fotos` como columna array de Postgres en vez de una tabla aparte por foto) que reutiliza el bucket `fotos-perros` de la 012 sin tocar Supabase (subcarpeta `usuarioId/diario/...`, misma política de acceso). Primera feature que sube/gestiona varias fotos a la vez (input de archivo múltiple + casillas "quitar" sobre las fotos ya guardadas al editar). Sección "Diario" en la ficha del perro, sin resumen en `/cuenta` (no es algo "pendiente" como cuidados o rutinas) — decisiones cerradas con el usuario, ver `spec/features/015-diario-personal/spec.md`. Validado por el usuario en el navegador. Ver `spec/features/015-diario-personal/`. **Cierra Fase 2 entera.**
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso — pendiente de elegir el siguiente pilar de Fase 2 (diario personal, el último de los cuatro)._
+_Ninguna feature en curso. Fase 2 completa (011-015) — pendiente de decidir con el usuario si se abre Fase 3 (app móvil) o se sigue puliendo/ampliando Fase 2._
 
 ## Backlog / features 💡
 
@@ -29,16 +30,16 @@ _Ninguna feature en curso — pendiente de elegir el siguiente pilar de Fase 2 (
 
 ## Fases posteriores (fuera del alcance de Fase 1)
 
-- **Fase 2 · Área privada** — decisiones técnicas cerradas con el usuario (sesión 2026-07-14), en marcha (primer pilar hecho, ver 011 en "Hecho ✅" arriba):
+- **Fase 2 · Área privada** — ✅ **completa** (011-015, cerrada 2026-07-15). Decisiones técnicas cerradas con el usuario (sesión 2026-07-14):
   - **Infraestructura:** Supabase (Auth + Postgres + Storage en un mismo proveedor, en vez de piezas sueltas como Auth.js + Neon + Vercel Blob) — elegido por simplicidad, ya que el diario personal necesita subir fotos de todas formas.
-  - **ORM:** Prisma (elegido sobre Drizzle por ser más documentado/tutorializado para aprender sobre la marcha). Todavía no entra en juego — llega con la ficha de perro (primera tabla de negocio propia).
+  - **ORM:** Prisma (elegido sobre Drizzle por ser más documentado/tutorializado para aprender sobre la marcha).
   - **Login:** email + contraseña (Supabase Auth), sin OAuth ni enlace mágico por ahora.
-  - **Alcance funcional, en 4 pilares** (a construir uno a uno, como en Fase 1):
+  - **Alcance funcional, 5 pilares, todos hechos:**
     1. ✅ **Autenticación** (011) — registro, login, logout, sesión protegida. Sin datos de negocio todavía.
     2. ✅ **Ficha de perro(s)** (012) — un usuario puede registrar varios perros; datos básicos (nombre, raza enlazada al catálogo existente o libre, fecha de nacimiento, sexo, peso, notas, foto).
     3. ✅ **Calendario de cuidados** (013) — vacunas, desparasitación, revisiones veterinarias u "otro" con fecha y notas, por perro; aviso visual (próximo/vencido) en la ficha y en `/cuenta`.
     4. ✅ **Tareas / rutinas diarias** (014) — rutinas de nombre libre que se repiten a diario, por perro; checklist en la ficha y resumen "x/y hechas hoy" en `/cuenta`.
-    5. **Diario personal** — recuerdos, fotos y notas de cuidados, por perro.
+    5. ✅ **Diario personal** (015) — entradas con fecha propia, texto y hasta 5 fotos, por perro.
 - **Fase 3 · App móvil** — Expo / React Native, login compartido.
 - **Fase 4 · Capa nativa** — módulo o app en Kotlin + Jetpack Compose.
 

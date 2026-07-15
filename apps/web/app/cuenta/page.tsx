@@ -7,7 +7,7 @@ import { calcularEdadEnAnios, inicioDelDia, proximoCuidado, resumenRutinasHoy } 
 import { breeds } from "@/data/breeds";
 import { cerrarSesionAction } from "@/lib/actions/auth";
 import { resumenProximoCuidado } from "@/lib/cuidados";
-import { urlFotoPerro } from "@/lib/storage";
+import { urlFoto } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -85,7 +85,7 @@ export default async function CuentaPage() {
                                     >
                                         {perro.fotoPath ? (
                                             <Image
-                                                src={urlFotoPerro(perro.fotoPath)}
+                                                src={urlFoto(perro.fotoPath)}
                                                 alt=""
                                                 width={56}
                                                 height={56}
