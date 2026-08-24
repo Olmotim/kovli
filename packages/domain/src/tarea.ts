@@ -19,3 +19,11 @@ export function tareasSinCompletarHoy<T extends { completadaHoy: boolean }>(
 ): T[] {
   return tareas.filter((tarea) => !tarea.completadaHoy);
 }
+
+// Días de la semana de una rutina (feature 019): vacío significa "todos
+// los días" (compatible con las rutinas creadas antes de que existiera
+// este campo, que no tenían restricción alguna). getDay() de Date ya usa
+// 0 = domingo ... 6 = sábado, mismo convenio que se guarda en diasSemana.
+export function tocaHoy(diasSemana: number[], hoy = new Date()): boolean {
+  return diasSemana.length === 0 || diasSemana.includes(hoy.getDay());
+}

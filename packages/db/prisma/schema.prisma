@@ -59,12 +59,15 @@ model Cuidado {
 }
 
 model Tarea {
-  id        String   @id @default(uuid())
-  usuarioId String
-  perroId   String
-  nombre    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  usuarioId  String
+  perroId    String
+  nombre     String
+  diasSemana Int[]    @default([])
+  activa     Boolean  @default(true)
+  orden      Int      @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   perro       Perro             @relation(fields: [perroId], references: [id], onDelete: Cascade)
   completadas TareaCompletada[]

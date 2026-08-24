@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@kovli/db";
-import { calcularEdadEnAnios, inicioDelDia, proximoCuidado, resumenRutinasHoy } from "@kovli/domain";
+import { calcularEdadEnAnios, inicioDelDia, proximoCuidado, resumenRutinasHoy, tocaHoy } from "@kovli/domain";
 import { breeds } from "@/data/breeds";
 import { cerrarSesionAction } from "@/lib/actions/auth";
 import { resumenProximoCuidado } from "@/lib/cuidados";
@@ -95,7 +95,9 @@ export default async function CuentaPage() {
                             const edad = calcularEdadEnAnios(perro.fechaNacimiento);
                             const cuidado = proximoCuidado(perro.cuidados);
                             const rutinas = resumenRutinasHoy(
-                                perro.tareas.map((tarea) => ({ completadaHoy: tarea.completadas.length > 0 })),
+                                perro.tareas
+                                    .filter((tarea) => tarea.activa && tocaHoy(tarea.diasSemana, hoy))
+                                    .map((tarea) => ({ completadaHoy: tarea.completadas.length > 0 })),
                             );
 
                             return (

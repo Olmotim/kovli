@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import type { TareaFormState } from "@/lib/actions/tareas";
 import BotonEnviar from "@/components/auth/BotonEnviar";
 import CampoTexto from "@/components/perros/CampoTexto";
+import CampoDiasSemana from "./CampoDiasSemana";
 
 const ESTADO_INICIAL: TareaFormState = { success: false };
 
@@ -11,9 +12,10 @@ type TareaFormProps = {
     accion: (prevState: TareaFormState, formData: FormData) => Promise<TareaFormState>;
     textoBoton: string;
     nombreActual?: string;
+    diasSemanaActuales?: number[];
 };
 
-export default function TareaForm({ accion, textoBoton, nombreActual }: TareaFormProps) {
+export default function TareaForm({ accion, textoBoton, nombreActual, diasSemanaActuales }: TareaFormProps) {
     const [estado, formAction] = useActionState(accion, ESTADO_INICIAL);
 
     return (
@@ -25,6 +27,8 @@ export default function TareaForm({ accion, textoBoton, nombreActual }: TareaFor
                 defaultValue={nombreActual}
                 errores={estado.errors?.nombre}
             />
+
+            <CampoDiasSemana diasActuales={diasSemanaActuales} />
 
             {estado.message && (
                 <p className="text-sm text-red-800" role="alert">

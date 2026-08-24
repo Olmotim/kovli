@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { inicioDelDia, resumenRutinasHoy, tareasSinCompletarHoy } from "./tarea";
+import { inicioDelDia, resumenRutinasHoy, tareasSinCompletarHoy, tocaHoy } from "./tarea";
 
 describe("inicioDelDia", () => {
   it("trunca la hora, dejando solo el día", () => {
@@ -32,5 +32,21 @@ describe("tareasSinCompletarHoy", () => {
 
   it("devuelve una lista vacía si ya están todas hechas", () => {
     expect(tareasSinCompletarHoy([{ completadaHoy: true }])).toEqual([]);
+  });
+});
+
+describe("tocaHoy", () => {
+  const SABADO = new Date(2024, 5, 15); // 15 de junio de 2024, sábado (getDay() === 6)
+
+  it("un array vacío significa todos los días", () => {
+    expect(tocaHoy([], SABADO)).toBe(true);
+  });
+
+  it("es true si el día de hoy está en la lista", () => {
+    expect(tocaHoy([0, 6], SABADO)).toBe(true); // domingo y sábado
+  });
+
+  it("es false si el día de hoy no está en la lista", () => {
+    expect(tocaHoy([1, 2, 3, 4, 5], SABADO)).toBe(false); // solo entre semana
   });
 });

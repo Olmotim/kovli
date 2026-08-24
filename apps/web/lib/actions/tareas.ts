@@ -16,6 +16,7 @@ export type TareaFormState = {
 function datosDelFormulario(formData: FormData) {
   return {
     nombre: formData.get("nombre"),
+    diasSemana: formData.getAll("diasSemana"),
   };
 }
 
@@ -50,6 +51,7 @@ export async function crearTareaAction(
       usuarioId: user.id,
       perroId: perro.id,
       nombre: parsed.data.nombre,
+      diasSemana: parsed.data.diasSemana,
     },
   });
 
@@ -84,7 +86,7 @@ export async function actualizarTareaAction(
 
   await prisma.tarea.update({
     where: { id },
-    data: { nombre: parsed.data.nombre },
+    data: { nombre: parsed.data.nombre, diasSemana: parsed.data.diasSemana },
   });
 
   redirect(`/cuenta/perros/${tareaExistente.perroId}`);
@@ -134,6 +136,76 @@ export async function marcarTareaAction(tareaId: string): Promise<void> {
   } else {
     await prisma.tareaCompletada.create({ data: { tareaId, fecha: hoy } });
   }
+
+  revalidatePath(`/cuenta/perros/${tarea.perroId}`);
+}
+
+async function cambiarActiva(id: string, activa: boolean): Promise<void> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const tarea = await prisma.tarea.findFirst({
+    where: { id, usuarioId: user.id },
+  });
+
+  if (!tarea) redirect("/cuenta");
+
+  await prisma.tarea.update({ where: { id }, data: { activa } });
+
+  revalidatePath(`/cuenta/perros/${tarea.perroId}`);
+}
+
+// Pausar no borra nada: la rutina desaparece del checklist de hoy y del
+// email de recordatorio (feature 017), pero su historial (TareaCompletada)
+// se conserva intacto — solo cambia el booleano activa.
+export async function pausarTareaAction(id: string): Promise<void> {
+  await cambiarActiva(id, false);
+}
+
+export async function reactivarTareaAction(id: string): Promise<void> {
+  await cambiarActiva(id, true);
+}
+
+// Intercambia el "orden" de una tarea con su vecina (la de orden
+// inmediatamente mayor o menor, dentro del mismo perro) — en una
+// transacción para que nunca queden dos tareas con el mismo orden a medio
+// camino si algo fallara entre los dos updates.
+export async function moverTareaAction(id: string, direccion: "arriba" | "abajo"): Promise<void> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const tarea = await prisma.tarea.findFirst({
+    where: { id, usuarioId: user.id },
+  });
+
+  if (!tarea) redirect("/cuenta");
+
+  const vecina = await prisma.tarea.findFirst({
+    where: {
+      perroId: tarea.perroId,
+      orden: direccion === "arriba" ? { lt: tarea.orden } : { gt: tarea.orden },
+    },
+    orderBy: { orden: direccion === "arriba" ? "desc" : "asc" },
+  });
+
+  if (!vecina) {
+    // Ya está en el extremo (primera o última) — no hay nada que mover.
+    revalidatePath(`/cuenta/perros/${tarea.perroId}`);
+    return;
+  }
+
+  await prisma.$transaction([
+    prisma.tarea.update({ where: { id: tarea.id }, data: { orden: vecina.orden } }),
+    prisma.tarea.update({ where: { id: vecina.id }, data: { orden: tarea.orden } }),
+  ]);
 
   revalidatePath(`/cuenta/perros/${tarea.perroId}`);
 }

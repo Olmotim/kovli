@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Tarea" ADD COLUMN     "activa" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN     "diasSemana" INTEGER[] DEFAULT ARRAY[]::INTEGER[],
+ADD COLUMN     "orden" SERIAL NOT NULL;

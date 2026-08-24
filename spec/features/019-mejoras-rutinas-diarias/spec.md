@@ -1,6 +1,6 @@
 # 019 · Mejoras de rutinas diarias
 
-**Estado:** spec y plan cerrados — documentado para implementar en la próxima sesión, sin tocar código todavía.
+**Estado:** implementada y validada por el usuario en el navegador (local).
 
 ## Qué hace
 
@@ -25,14 +25,14 @@ Las cuatro estaban explícitamente fuera de alcance en `spec/features/014-tareas
 
 ## Criterios de aceptación
 
-- [ ] Al crear o editar una rutina, se pueden marcar los días de la semana en que aplica (por defecto, todos — sin cambiar el comportamiento de las rutinas ya existentes).
-- [ ] "Rutinas de hoy" solo muestra las rutinas activas cuyo día de la semana de hoy esté incluido (o que no tengan restricción de días).
-- [ ] Nueva vista de historial por rutina (`/cuenta/perros/[id]/rutinas/[tareaId]/historial`): lista de los últimos 30 días con si se completó o no cada uno.
-- [ ] Una rutina se puede pausar/reactivar desde su página de edición; pausada, desaparece del checklist de hoy y del email de recordatorio, pero su historial sigue accesible.
-- [ ] Cada rutina tiene botones para subir/bajar su posición en la lista; el checklist respeta ese orden.
-- [ ] Un usuario no puede ver ni modificar rutinas de otro usuario (se mantiene el patrón ya existente).
-- [ ] `pnpm build` y `pnpm lint` sin errores nuevos.
-- [ ] Validado por el usuario en el navegador: crear una rutina solo de fin de semana y comprobar que no aparece entre semana; ver el historial de una rutina con varios días marcados; pausar una rutina y comprobar que desaparece del checklist; reordenar con los botones.
+- [x] Al crear o editar una rutina, se pueden marcar los días de la semana en que aplica (por defecto, todos — sin cambiar el comportamiento de las rutinas ya existentes).
+- [x] "Rutinas de hoy" solo muestra las rutinas activas cuyo día de la semana de hoy esté incluido (o que no tengan restricción de días).
+- [x] Nueva vista de historial por rutina (`/cuenta/perros/[id]/rutinas/[tareaId]/historial`): lista de los últimos 30 días con si se completó o no cada uno.
+- [x] Una rutina se puede pausar/reactivar desde su página de edición; pausada, desaparece del checklist de hoy y del email de recordatorio, pero su historial sigue accesible.
+- [x] Cada rutina tiene botones para subir/bajar su posición en la lista; el checklist respeta ese orden.
+- [x] Un usuario no puede ver ni modificar rutinas de otro usuario (se mantiene el patrón ya existente).
+- [x] `pnpm build` y `pnpm lint` sin errores nuevos.
+- [x] Validado por el usuario en el navegador: crear una rutina solo de fin de semana y comprobar que no aparece entre semana; ver el historial de una rutina con varios días marcados; pausar una rutina y comprobar que desaparece del checklist; reordenar con los botones.
 
 ## Fuera de alcance
 

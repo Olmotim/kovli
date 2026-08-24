@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@kovli/db";
-import { calcularEdadEnAnios, inicioDelDia } from "@kovli/domain";
+import { calcularEdadEnAnios, inicioDelDia, tocaHoy } from "@kovli/domain";
 import BotonBorrar from "@/components/perros/BotonBorrar";
 import PerroForm from "@/components/perros/PerroForm";
 import FilaCuidado from "@/components/cuidados/FilaCuidado";
-import CasillaTarea from "@/components/tareas/CasillaTarea";
+import FilaTarea from "@/components/tareas/FilaTarea";
 import FilaEntradaDiario from "@/components/diario/FilaEntradaDiario";
 import { actualizarPerroAction, borrarPerroAction } from "@/lib/actions/perros";
-import { marcarTareaAction } from "@/lib/actions/tareas";
 import { urlFoto } from "@/lib/storage";
 import { createClient } from "@/lib/supabase/server";
 
@@ -54,11 +53,16 @@ export default async function FichaPerroPage({ params }: PageProps) {
     const proximos = cuidados.filter((cuidado) => cuidado.fecha >= hoy);
     const historial = cuidados.filter((cuidado) => cuidado.fecha < hoy).reverse();
 
-    const tareas = await prisma.tarea.findMany({
-        where: { perroId: perro.id },
-        orderBy: { createdAt: "asc" },
+    // Filtrar por el día de la semana (tocaHoy) se hace en memoria, no en la
+    // consulta: no hay una forma simple de expresar "el array está vacío o
+    // incluye este valor" en Prisma sin complicar el where, y la lista de
+    // rutinas de un usuario es pequeña.
+    const todasLasTareas = await prisma.tarea.findMany({
+        where: { perroId: perro.id, activa: true },
+        orderBy: { orden: "asc" },
         include: { completadas: { where: { fecha: inicioDelDia(hoy) } } },
     });
+    const tareas = todasLasTareas.filter((tarea) => tocaHoy(tarea.diasSemana, hoy));
 
     const entradasDiario = await prisma.entradaDiario.findMany({
         where: { perroId: perro.id },
@@ -158,26 +162,23 @@ export default async function FichaPerroPage({ params }: PageProps) {
                     </div>
 
                     {tareas.length === 0 ? (
-                        <p className="mt-4 text-chocolate/70">Todavía no hay rutinas creadas.</p>
+                        <p className="mt-4 text-chocolate/70">
+                            {todasLasTareas.length === 0
+                                ? "Todavía no hay rutinas creadas."
+                                : "Ninguna rutina aplica hoy."}
+                        </p>
                     ) : (
                         <ul className="mt-4 flex flex-col gap-2">
                             {tareas.map((tarea) => (
-                                <li
+                                <FilaTarea
                                     key={tarea.id}
-                                    className="flex items-center justify-between gap-4 rounded-sm border border-chocolate/15 bg-crema px-4 py-3"
-                                >
-                                    <CasillaTarea
-                                        accion={marcarTareaAction.bind(null, tarea.id)}
-                                        marcada={tarea.completadas.length > 0}
-                                        etiqueta={tarea.nombre}
-                                    />
-                                    <Link
-                                        href={`/cuenta/perros/${perro.id}/rutinas/${tarea.id}`}
-                                        className="whitespace-nowrap text-sm text-chocolate/60 hover:text-chocolate"
-                                    >
-                                        Editar
-                                    </Link>
-                                </li>
+                                    perroId={perro.id}
+                                    tarea={{
+                                        id: tarea.id,
+                                        nombre: tarea.nombre,
+                                        completadaHoy: tarea.completadas.length > 0,
+                                    }}
+                                />
                             ))}
                         </ul>
                     )}

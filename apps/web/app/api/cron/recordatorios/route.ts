@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@kovli/db";
-import { cuidadosPendientes, inicioDelDia, siguienteFechaRecurrencia, tareasSinCompletarHoy } from "@kovli/domain";
+import {
+  cuidadosPendientes,
+  inicioDelDia,
+  siguienteFechaRecurrencia,
+  tareasSinCompletarHoy,
+  tocaHoy,
+} from "@kovli/domain";
 import { resumenProximoCuidado } from "@/lib/cuidados";
 import { enviarDigest } from "@/lib/email";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -13,7 +19,7 @@ async function cargarPerros(hoy: Date) {
   return prisma.perro.findMany({
     include: {
       cuidados: true,
-      tareas: { include: { completadas: { where: { fecha: hoy } } } },
+      tareas: { where: { activa: true }, include: { completadas: { where: { fecha: hoy } } } },
     },
   });
 }
@@ -21,7 +27,9 @@ async function cargarPerros(hoy: Date) {
 function seccionPerro(perro: PerroConPendientes, hoy: Date): string | null {
   const { vencidos, proximos } = cuidadosPendientes(perro.cuidados, hoy, 7);
   const rutinasPendientes = tareasSinCompletarHoy(
-    perro.tareas.map((tarea) => ({ ...tarea, completadaHoy: tarea.completadas.length > 0 })),
+    perro.tareas
+      .filter((tarea) => tocaHoy(tarea.diasSemana, hoy))
+      .map((tarea) => ({ ...tarea, completadaHoy: tarea.completadas.length > 0 })),
   );
 
   if (vencidos.length === 0 && proximos.length === 0 && rutinasPendientes.length === 0) {
