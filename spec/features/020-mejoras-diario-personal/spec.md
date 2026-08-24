@@ -1,6 +1,6 @@
 # 020 · Mejoras del diario personal
 
-**Estado:** spec y plan cerrados — documentado para implementar en la próxima sesión, sin tocar código todavía.
+**Estado:** implementada y validada por el usuario en el navegador (local). Cierra la Fase 2.1.
 
 ## Qué hace
 
@@ -25,12 +25,12 @@ El orden de las `fotos` ya es la lista misma (el array `fotos: String[]` de la 0
 
 ## Criterios de aceptación
 
-- [ ] `/cuenta` muestra, junto a cada perro, la fecha de su última entrada de diario (si tiene alguna); si no tiene ninguna, no muestra nada.
-- [ ] Al editar una entrada, cada foto ya guardada tiene botones subir/bajar que cambian su posición; el orden se refleja al momento (sin tener que guardar el resto del formulario a la vez).
-- [ ] Nueva vista imprimible (`/cuenta/perros/[id]/diario/imprimir`) con todas las entradas del perro, con estilos pensados para impresión (`@media print`) — el usuario la usa con "Imprimir → Guardar como PDF" del navegador.
-- [ ] Al crear o editar una entrada, se pueden añadir etiquetas de texto libre; se muestran como chips en cada entrada de la ficha del perro.
-- [ ] `pnpm build` y `pnpm lint` sin errores nuevos.
-- [ ] Validado por el usuario en el navegador: comprobar el resumen en `/cuenta`, reordenar fotos de una entrada, abrir la vista imprimible y comprobar que se ve bien en la vista previa de impresión del navegador, añadir etiquetas y verlas en la ficha.
+- [x] `/cuenta` muestra, junto a cada perro, la fecha de su última entrada de diario (si tiene alguna); si no tiene ninguna, no muestra nada.
+- [x] Al editar una entrada, cada foto ya guardada tiene botones subir/bajar que cambian su posición; el orden se refleja al momento (sin tener que guardar el resto del formulario a la vez).
+- [x] Nueva vista imprimible (`/cuenta/perros/[id]/diario/imprimir`) con todas las entradas del perro, con estilos pensados para impresión (`@media print`) — el usuario la usa con "Imprimir → Guardar como PDF" del navegador.
+- [x] Al crear o editar una entrada, se pueden añadir etiquetas de texto libre; se muestran como chips en cada entrada de la ficha del perro.
+- [x] `pnpm build` y `pnpm lint` sin errores nuevos.
+- [x] Validado por el usuario en el navegador: comprobar el resumen en `/cuenta`, reordenar fotos de una entrada, abrir la vista imprimible y comprobar que se ve bien en la vista previa de impresión del navegador, añadir etiquetas y verlas en la ficha.
 
 ## Fuera de alcance
 

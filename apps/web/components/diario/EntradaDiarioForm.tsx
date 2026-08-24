@@ -13,15 +13,19 @@ export type EntradaDiarioValoresIniciales = {
     fecha: string;
     texto: string;
     fotos: string[];
+    etiquetas: string[];
 };
 
 type EntradaDiarioFormProps = {
     accion: (prevState: EntradaDiarioFormState, formData: FormData) => Promise<EntradaDiarioFormState>;
     textoBoton: string;
     valoresIniciales?: EntradaDiarioValoresIniciales;
+    // Solo se pasa al editar una entrada ya guardada, para poder reordenar
+    // sus fotos — ver CampoFotosDiario.
+    entradaId?: string;
 };
 
-export default function EntradaDiarioForm({ accion, textoBoton, valoresIniciales }: EntradaDiarioFormProps) {
+export default function EntradaDiarioForm({ accion, textoBoton, valoresIniciales, entradaId }: EntradaDiarioFormProps) {
     const [estado, formAction] = useActionState(accion, ESTADO_INICIAL);
 
     return (
@@ -42,7 +46,15 @@ export default function EntradaDiarioForm({ accion, textoBoton, valoresIniciales
                 errores={estado.errors?.texto}
             />
 
-            <CampoFotosDiario fotosActuales={valoresIniciales?.fotos} />
+            <CampoTexto
+                label="Etiquetas"
+                name="etiquetas"
+                placeholder="paseo, veterinario, playa"
+                defaultValue={valoresIniciales?.etiquetas?.join(", ")}
+                errores={estado.errors?.etiquetas}
+            />
+
+            <CampoFotosDiario fotosActuales={valoresIniciales?.fotos} entradaId={entradaId} />
 
             {estado.message && (
                 <p className="text-sm text-red-800" role="alert">

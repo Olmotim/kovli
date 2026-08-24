@@ -7,6 +7,7 @@ type CampoTextoProps = {
     min?: string;
     max?: string;
     step?: string;
+    placeholder?: string;
     errores?: string[];
 };
 
@@ -19,6 +20,7 @@ export default function CampoTexto({
     min,
     max,
     step,
+    placeholder,
     errores,
 }: CampoTextoProps) {
     const tieneError = Boolean(errores && errores.length > 0);
@@ -38,6 +40,7 @@ export default function CampoTexto({
                 min={min}
                 max={max}
                 step={step}
+                placeholder={placeholder}
                 aria-invalid={tieneError || undefined}
                 aria-describedby={tieneError ? `${name}-error` : undefined}
                 className="w-full rounded-sm border border-chocolate/30 bg-crema px-4 py-2 text-chocolate placeholder:text-chocolate/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-chocolate"

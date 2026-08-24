@@ -24,14 +24,11 @@
 20. **017 · Recordatorios por email** — digest diario por email (cuidados vencidos, próximos ≤7 días y rutinas de hoy sin marcar) para cada usuario con perros; si no hay nada pendiente, no se envía nada. Primera tarea programada del proyecto (Vercel Cron, `apps/web/vercel.json` — no en la raíz del repo, porque el Root Directory del proyecto en Vercel es `apps/web`) y primera vez que la propia app envía emails (SDK oficial `resend`, no solo el SMTP que ya usa Supabase). La Route Handler (`/api/cron/recordatorios`) comprueba `Authorization: Bearer <CRON_SECRET>` antes de hacer nada; usa el cliente **admin** de Supabase (`SUPABASE_SERVICE_ROLE_KEY`) para leer el email de cada usuario, ya que Prisma no tiene acceso a `auth.users`. `estadoCuidado()` de `packages/domain` se generalizó con un parámetro `diasParaProximo` (30 en la interfaz, 7 en el email) en vez de duplicar la función; nuevas `cuidadosPendientes()` y `tareasSinCompletarHoy()`. Remitente `onboarding@resend.dev` (dominio de pruebas de Resend): solo entrega a la dirección con la que el usuario se registró en Resend — cuando se verifique un dominio propio, sustituye el valor sin tocar el resto del código. Validado por el usuario en local (curl con y sin secreto, email recibido con contenido correcto). Ver `spec/features/017-recordatorios-email/`.
 21. **018 · Mejoras del calendario de cuidados** — cuatro mejoras sobre la 013: (1) recurrencia automática (`repiteCadaMeses` en `Cuidado`; al vencer, el mismo cron de la 017 genera el siguiente, comprobando antes que no exista ya un "sucesor" para no duplicar); (2) vista de calendario mensual (`/cuenta/perros/[id]/cuidados/calendario`, cuadrícula CSS Grid a mano, sin librería nueva, navegación `?mes=YYYY-MM`); (3) adjuntar hasta 5 archivos (imagen o PDF) por cuidado, reutilizando el bucket `fotos-perros`; (4) marcar "aplicar también a" otros perros al crear un cuidado (fila independiente por perro, no compartida). Validado por el usuario en el navegador (local). Ver `spec/features/018-mejoras-calendario-cuidados/`.
 22. **019 · Mejoras de rutinas diarias** — cuatro mejoras sobre la 014: (1) días de la semana (`Tarea.diasSemana`, vacío = todos los días, compatible con las rutinas ya creadas); (2) historial visual (`/cuenta/perros/[id]/rutinas/[tareaId]/historial`, lista de los últimos 30 días hecho/no hecho); (3) pausar/reactivar (`Tarea.activa`, una rutina pausada desaparece del checklist y del email de la 017 pero conserva su historial); (4) reordenar con botones ↑/↓ (`Tarea.orden`, columna `SERIAL`, se intercambia con la vecina en una transacción). El digest de la 017 se amplió para filtrar también por `activa` y por el día de la semana. Validado por el usuario en el navegador (local). Ver `spec/features/019-mejoras-rutinas-diarias/`.
+23. **020 · Mejoras del diario personal** — cuatro mejoras sobre la 015, última de Fase 2.1: (1) resumen en `/cuenta` (fecha de la última entrada por perro, vía `ultimaEntrada()` en `packages/domain`); (2) reordenar fotos de una entrada ya guardada con botones ↑/↓ (`moverFotoEntradaAction`, intercambia posiciones en el array `fotos` y usa `revalidatePath()`, sin pasar por el formulario completo); (3) vista imprimible (`/cuenta/perros/[id]/diario/imprimir`, estilos `print:` de Tailwind, imágenes `<img>` normales en vez de `next/image` para que se impriman sin lazy-loading, pensada para "Imprimir → Guardar como PDF" del navegador); (4) etiquetas de texto libre (`EntradaDiario.etiquetas`, un único campo separado por comas en vez de un componente de tags interactivo, mostradas como chips). Validado por el usuario en el navegador (local). Ver `spec/features/020-mejoras-diario-personal/`. **Cierra la Fase 2.1 (016-020) entera.**
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso todavía — la 020 tiene spec y plan ya cerrados (sesión 2026-07-15), lista para implementar. Sin escribir código hasta entonces._
-
-**Fase 2.1 · Puliendo Fase 2** (repaso completo de la lista de "fuera de alcance" de 011/013/014/015, decidido con el usuario tras cerrar Fase 2 — se excluyó explícitamente el login social):
-
-1. **020 · Mejoras del diario personal** — resumen en `/cuenta`, reordenar fotos, vista imprimible (exportar), etiquetas libres. Ver `spec/features/020-mejoras-diario-personal/`. Última de las 5 mejoras de Fase 2.1 (016-020).
+_Ninguna feature en curso — Fase 2.1 completa. La siguiente decisión (seguir puliendo Fase 2 o abrir Fase 3) es del usuario, no asumir la respuesta hasta que la dé._
 
 ## Backlog / features 💡
 
@@ -49,6 +46,12 @@ _Ninguna feature en curso todavía — la 020 tiene spec y plan ya cerrados (ses
     3. ✅ **Calendario de cuidados** (013) — vacunas, desparasitación, revisiones veterinarias u "otro" con fecha y notas, por perro; aviso visual (próximo/vencido) en la ficha y en `/cuenta`.
     4. ✅ **Tareas / rutinas diarias** (014) — rutinas de nombre libre que se repiten a diario, por perro; checklist en la ficha y resumen "x/y hechas hoy" en `/cuenta`.
     5. ✅ **Diario personal** (015) — entradas con fecha propia, texto y hasta 5 fotos, por perro.
+- **Fase 2.1 · Puliendo Fase 2** — ✅ **completa** (016-020, cerrada 2026-08-24). Repaso de la lista de "fuera de alcance" de 011/013/014/015 (login social excluido explícitamente):
+    1. ✅ **Perfil de usuario** (016) — nombre, avatar, cambio de contraseña.
+    2. ✅ **Recordatorios por email** (017) — digest diario, primera tarea programada del proyecto (Vercel Cron + Resend).
+    3. ✅ **Mejoras del calendario de cuidados** (018) — recurrencia automática, vista mensual, adjuntos, multi-perro.
+    4. ✅ **Mejoras de rutinas diarias** (019) — días de la semana, historial, pausar/reactivar, reordenar.
+    5. ✅ **Mejoras del diario personal** (020) — resumen en `/cuenta`, reordenar fotos, vista imprimible, etiquetas.
 - **Fase 3 · App móvil** — Expo / React Native, login compartido.
 - **Fase 4 · Capa nativa** — módulo o app en Kotlin + Jetpack Compose.
 

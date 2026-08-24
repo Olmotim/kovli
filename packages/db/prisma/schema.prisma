@@ -94,6 +94,7 @@ model EntradaDiario {
   fecha     DateTime
   texto     String?
   fotos     String[]
+  etiquetas String[] @default([])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

@@ -9,6 +9,7 @@ type FilaEntradaDiarioProps = {
         fecha: Date;
         texto: string | null;
         fotos: string[];
+        etiquetas: string[];
     };
 };
 
@@ -26,6 +27,19 @@ export default function FilaEntradaDiario({ perroId, entrada }: FilaEntradaDiari
             </div>
 
             {entrada.texto && <p className="mt-2 whitespace-pre-line text-chocolate/80">{entrada.texto}</p>}
+
+            {entrada.etiquetas.length > 0 && (
+                <ul className="mt-2 flex flex-wrap gap-1.5">
+                    {entrada.etiquetas.map((etiqueta) => (
+                        <li
+                            key={etiqueta}
+                            className="rounded-full bg-chocolate/10 px-2.5 py-0.5 text-xs text-chocolate/80"
+                        >
+                            {etiqueta}
+                        </li>
+                    ))}
+                </ul>
+            )}
 
             {entrada.fotos.length > 0 && (
                 <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">

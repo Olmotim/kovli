@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { entradaDiarioSchema } from "@kovli/schemas";
 import { prisma } from "@kovli/db";
@@ -18,6 +19,7 @@ function datosDelFormulario(formData: FormData) {
   return {
     fecha: formData.get("fecha"),
     texto: formData.get("texto"),
+    etiquetas: formData.get("etiquetas"),
   };
 }
 
@@ -83,6 +85,7 @@ export async function crearEntradaAction(
       fecha: parsed.data.fecha,
       texto: parsed.data.texto,
       fotos,
+      etiquetas: parsed.data.etiquetas,
     },
   });
 
@@ -150,12 +153,52 @@ export async function actualizarEntradaAction(
       fecha: parsed.data.fecha,
       texto: parsed.data.texto ?? null,
       fotos: [...fotosRestantes, ...fotosSubidas],
+      etiquetas: parsed.data.etiquetas,
     },
   });
 
   await borrarArchivos(supabase, paraQuitar);
 
   redirect(`/cuenta/perros/${entradaExistente.perroId}`);
+}
+
+// Reordena una foto ya guardada intercambiándola con su vecina — no pasa
+// por el formulario completo, mismo patrón que marcarTareaAction (014) y
+// moverTareaAction (019): revalidatePath() en vez de redirect(), porque no
+// tiene sentido navegar a ningún sitio para mover una foto un puesto.
+export async function moverFotoEntradaAction(
+  entradaId: string,
+  path: string,
+  direccion: "arriba" | "abajo",
+): Promise<void> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const entrada = await prisma.entradaDiario.findFirst({
+    where: { id: entradaId, usuarioId: user.id },
+  });
+
+  if (!entrada) redirect("/cuenta");
+
+  const indice = entrada.fotos.indexOf(path);
+  const indiceVecino = direccion === "arriba" ? indice - 1 : indice + 1;
+
+  if (indice === -1 || indiceVecino < 0 || indiceVecino >= entrada.fotos.length) {
+    // La foto ya no existe, o ya está en el extremo — no hay nada que mover.
+    revalidatePath(`/cuenta/perros/${entrada.perroId}/diario/${entradaId}`);
+    return;
+  }
+
+  const fotos = [...entrada.fotos];
+  [fotos[indice], fotos[indiceVecino]] = [fotos[indiceVecino], fotos[indice]];
+
+  await prisma.entradaDiario.update({ where: { id: entradaId }, data: { fotos } });
+
+  revalidatePath(`/cuenta/perros/${entrada.perroId}/diario/${entradaId}`);
 }
 
 export async function borrarEntradaAction(id: string): Promise<void> {

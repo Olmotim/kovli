@@ -38,6 +38,7 @@ export default async function EditarEntradaPage({ params }: PageProps) {
         fecha: entrada.fecha.toISOString().split("T")[0],
         texto: entrada.texto ?? "",
         fotos: entrada.fotos,
+        etiquetas: entrada.etiquetas,
     };
 
     return (
@@ -48,6 +49,7 @@ export default async function EditarEntradaPage({ params }: PageProps) {
                     accion={actualizarEntradaAction.bind(null, entrada.id)}
                     textoBoton="Guardar cambios"
                     valoresIniciales={valoresIniciales}
+                    entradaId={entrada.id}
                 />
 
                 <div className="mt-8 border-t border-chocolate/15 pt-6">

@@ -2,3 +2,4 @@ export * from "./perro";
 export * from "./cuidado";
 export * from "./tarea";
 export * from "./calendario";
+export * from "./diario";

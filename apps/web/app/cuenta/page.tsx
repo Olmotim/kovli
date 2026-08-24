@@ -3,7 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@kovli/db";
-import { calcularEdadEnAnios, inicioDelDia, proximoCuidado, resumenRutinasHoy, tocaHoy } from "@kovli/domain";
+import {
+    calcularEdadEnAnios,
+    inicioDelDia,
+    proximoCuidado,
+    resumenRutinasHoy,
+    tocaHoy,
+    ultimaEntrada,
+} from "@kovli/domain";
 import { breeds } from "@/data/breeds";
 import { cerrarSesionAction } from "@/lib/actions/auth";
 import { resumenProximoCuidado } from "@/lib/cuidados";
@@ -39,6 +46,7 @@ export default async function CuentaPage() {
         include: {
             cuidados: true,
             tareas: { include: { completadas: { where: { fecha: hoy } } } },
+            entradasDiario: true,
         },
     });
 
@@ -99,6 +107,7 @@ export default async function CuentaPage() {
                                     .filter((tarea) => tarea.activa && tocaHoy(tarea.diasSemana, hoy))
                                     .map((tarea) => ({ completadaHoy: tarea.completadas.length > 0 })),
                             );
+                            const entrada = ultimaEntrada(perro.entradasDiario);
 
                             return (
                                 <li key={perro.id}>
@@ -134,6 +143,11 @@ export default async function CuentaPage() {
                                             {rutinas.total > 0 && (
                                                 <p className="text-sm text-chocolate/80">
                                                     {rutinas.hechas}/{rutinas.total} rutinas hechas hoy
+                                                </p>
+                                            )}
+                                            {entrada && (
+                                                <p className="text-sm text-chocolate/80">
+                                                    Última entrada del diario: {entrada.fecha.toLocaleDateString("es-ES")}
                                                 </p>
                                             )}
                                         </div>
