@@ -4,7 +4,7 @@ import { z } from "zod";
 // cadena vacía ("") cuando el usuario no los rellena, no como ausentes
 // — sin este preprocesado, un string vacío pasaría la validación como
 // "nombre vacío" en vez de "sin nombre".
-const vacioAIndefinido = (valor: unknown) => (valor === "" ? undefined : valor);
+const vacioAIndefinido = (valor: unknown) => (valor === "" || valor === null ? undefined : valor);
 
 export const perfilSchema = z.object({
   nombre: z.preprocess(

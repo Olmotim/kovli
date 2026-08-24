@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@kovli/db";
-import { cuidadosPendientes, inicioDelDia, tareasSinCompletarHoy } from "@kovli/domain";
+import { cuidadosPendientes, inicioDelDia, siguienteFechaRecurrencia, tareasSinCompletarHoy } from "@kovli/domain";
 import { resumenProximoCuidado } from "@/lib/cuidados";
 import { enviarDigest } from "@/lib/email";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -40,6 +40,49 @@ function seccionPerro(perro: PerroConPendientes, hoy: Date): string | null {
   return lineas.join("\n");
 }
 
+// Cuidados marcados como recurrentes (feature 018): al vencer, se genera
+// solo el siguiente de la serie — nunca uno nuevo si ya existe un
+// "sucesor" (mismo perro/tipo con fecha posterior), para no duplicar si
+// el cron corre más de una vez sobre el mismo cuidado ya vencido. El
+// sucesor no hereda los archivos adjuntos del anterior (una cartilla de
+// vacunación escaneada no vale para la próxima cita, solo para la que ya
+// pasó).
+async function generarRecurrencias(hoy: Date): Promise<number> {
+  const vencidosRecurrentes = await prisma.cuidado.findMany({
+    where: { repiteCadaMeses: { not: null }, fecha: { lt: hoy } },
+  });
+
+  let generados = 0;
+
+  for (const cuidado of vencidosRecurrentes) {
+    const sucesor = await prisma.cuidado.findFirst({
+      where: {
+        perroId: cuidado.perroId,
+        tipo: cuidado.tipo,
+        tipoLibre: cuidado.tipoLibre,
+        fecha: { gt: cuidado.fecha },
+      },
+    });
+
+    if (sucesor) continue;
+
+    await prisma.cuidado.create({
+      data: {
+        usuarioId: cuidado.usuarioId,
+        perroId: cuidado.perroId,
+        tipo: cuidado.tipo,
+        tipoLibre: cuidado.tipoLibre,
+        fecha: siguienteFechaRecurrencia(cuidado.fecha, cuidado.repiteCadaMeses!),
+        notas: cuidado.notas,
+        repiteCadaMeses: cuidado.repiteCadaMeses,
+      },
+    });
+    generados += 1;
+  }
+
+  return generados;
+}
+
 export async function GET(request: Request) {
   const secreto = request.headers.get("Authorization");
   if (secreto !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -47,6 +90,7 @@ export async function GET(request: Request) {
   }
 
   const hoy = inicioDelDia(new Date());
+  const recurrenciasGeneradas = await generarRecurrencias(hoy);
   const perros = await cargarPerros(hoy);
 
   const perrosPorUsuario = new Map<string, PerroConPendientes[]>();
@@ -93,5 +137,5 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.json({ enviados, sinPendientes, errores });
+  return NextResponse.json({ enviados, sinPendientes, errores, recurrenciasGeneradas });
 }

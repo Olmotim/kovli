@@ -40,15 +40,17 @@ model Perro {
 }
 
 model Cuidado {
-  id         String      @id @default(uuid())
-  usuarioId  String
-  perroId    String
-  tipo       TipoCuidado
-  tipoLibre  String?
-  fecha      DateTime
-  notas      String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id               String      @id @default(uuid())
+  usuarioId        String
+  perroId          String
+  tipo             TipoCuidado
+  tipoLibre        String?
+  fecha            DateTime
+  notas            String?
+  repiteCadaMeses  Int?
+  archivos         String[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
 
   perro Perro @relation(fields: [perroId], references: [id], onDelete: Cascade)
 

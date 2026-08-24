@@ -4,7 +4,7 @@ import { z } from "zod";
 // cadena vacía ("") cuando el usuario no los rellena, no como ausentes
 // — sin este preprocesado, z.coerce los trataría como valores inválidos
 // en vez de "sin dato".
-const vacioAIndefinido = (valor: unknown) => (valor === "" ? undefined : valor);
+const vacioAIndefinido = (valor: unknown) => (valor === "" || valor === null ? undefined : valor);
 
 export const perroSchema = z.object({
   nombre: z.string().trim().min(1, "Introduce el nombre del perro"),

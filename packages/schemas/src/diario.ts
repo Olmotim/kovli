@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const vacioAIndefinido = (valor: unknown) => (valor === "" ? undefined : valor);
+const vacioAIndefinido = (valor: unknown) => (valor === "" || valor === null ? undefined : valor);
 
 export const entradaDiarioSchema = z.object({
   fecha: z.coerce.date({ message: "Introduce una fecha" }),

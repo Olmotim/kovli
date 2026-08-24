@@ -33,12 +33,21 @@ export default async function NuevoCuidadoPage({ params }: PageProps) {
         notFound();
     }
 
+    const otrosPerros = await prisma.perro.findMany({
+        where: { usuarioId: user.id, id: { not: perro.id } },
+        orderBy: { nombre: "asc" },
+    });
+
     return (
         <section className="py-16 sm:py-20">
             <div className="max-w-md mx-auto px-6">
                 <h1 className="text-chocolate text-3xl sm:text-4xl font-bold">Añadir cuidado</h1>
                 <p className="mt-2 text-chocolate/70">{perro.nombre}</p>
-                <CuidadoForm accion={crearCuidadoAction.bind(null, perro.id)} textoBoton="Guardar" />
+                <CuidadoForm
+                    accion={crearCuidadoAction.bind(null, perro.id)}
+                    textoBoton="Guardar"
+                    otrosPerros={otrosPerros}
+                />
             </div>
         </section>
     );

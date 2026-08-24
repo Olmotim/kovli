@@ -97,12 +97,20 @@ export default async function FichaPerroPage({ params }: PageProps) {
                 <div className="mt-10 border-t border-chocolate/15 pt-6">
                     <div className="flex items-center justify-between gap-4">
                         <h2 className="text-xl font-bold text-chocolate">Cuidados</h2>
-                        <Link
-                            href={`/cuenta/perros/${perro.id}/cuidados/nuevo`}
-                            className="bg-chocolate text-crema text-sm font-semibold px-5 py-2.5 rounded-sm tracking-wide hover:bg-apricot transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-apricot"
-                        >
-                            Añadir cuidado
-                        </Link>
+                        <div className="flex items-center gap-4">
+                            <Link
+                                href={`/cuenta/perros/${perro.id}/cuidados/calendario`}
+                                className="whitespace-nowrap text-sm font-semibold text-cafe hover:text-apricot"
+                            >
+                                Ver calendario
+                            </Link>
+                            <Link
+                                href={`/cuenta/perros/${perro.id}/cuidados/nuevo`}
+                                className="bg-chocolate text-crema text-sm font-semibold px-5 py-2.5 rounded-sm tracking-wide hover:bg-apricot transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-apricot"
+                            >
+                                Añadir cuidado
+                            </Link>
+                        </div>
                     </div>
 
                     {cuidados.length === 0 ? (

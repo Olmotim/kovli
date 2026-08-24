@@ -1,11 +1,10 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 import { entradaDiarioSchema } from "@kovli/schemas";
 import { prisma } from "@kovli/db";
 import { createClient } from "@/lib/supabase/server";
-import { BUCKET_FOTOS_PERROS, extensionDeArchivo } from "@/lib/storage";
+import { borrarArchivos, subirArchivos } from "@/lib/storage";
 
 export type EntradaDiarioFormState = {
   success: boolean;
@@ -14,8 +13,6 @@ export type EntradaDiarioFormState = {
 };
 
 const MAX_FOTOS = 5;
-
-type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>;
 
 function datosDelFormulario(formData: FormData) {
   return {
@@ -30,30 +27,6 @@ function fotosNuevasDelFormulario(formData: FormData): File[] {
 
 function todasSonImagenes(fotos: File[]): boolean {
   return fotos.every((foto) => foto.type.startsWith("image/"));
-}
-
-async function subirFotos(supabase: SupabaseServerClient, usuarioId: string, fotos: File[]): Promise<string[]> {
-  const rutas: string[] = [];
-
-  for (const foto of fotos) {
-    const path = `${usuarioId}/diario/${randomUUID()}.${extensionDeArchivo(foto.name)}`;
-    const { error } = await supabase.storage.from(BUCKET_FOTOS_PERROS).upload(path, foto, {
-      contentType: foto.type,
-    });
-
-    if (error) {
-      throw new Error("No se han podido subir las fotos. Inténtalo de nuevo.");
-    }
-
-    rutas.push(path);
-  }
-
-  return rutas;
-}
-
-async function borrarFotos(supabase: SupabaseServerClient, paths: string[]): Promise<void> {
-  if (paths.length === 0) return;
-  await supabase.storage.from(BUCKET_FOTOS_PERROS).remove(paths);
 }
 
 export async function crearEntradaAction(
@@ -98,7 +71,7 @@ export async function crearEntradaAction(
 
   let fotos: string[];
   try {
-    fotos = await subirFotos(supabase, user.id, fotosNuevas);
+    fotos = await subirArchivos(supabase, `${user.id}/diario`, fotosNuevas);
   } catch (error) {
     return { success: false, message: error instanceof Error ? error.message : "No se han podido subir las fotos." };
   }
@@ -166,7 +139,7 @@ export async function actualizarEntradaAction(
 
   let fotosSubidas: string[];
   try {
-    fotosSubidas = await subirFotos(supabase, user.id, fotosNuevas);
+    fotosSubidas = await subirArchivos(supabase, `${user.id}/diario`, fotosNuevas);
   } catch (error) {
     return { success: false, message: error instanceof Error ? error.message : "No se han podido subir las fotos." };
   }
@@ -180,7 +153,7 @@ export async function actualizarEntradaAction(
     },
   });
 
-  await borrarFotos(supabase, paraQuitar);
+  await borrarArchivos(supabase, paraQuitar);
 
   redirect(`/cuenta/perros/${entradaExistente.perroId}`);
 }
@@ -199,7 +172,7 @@ export async function borrarEntradaAction(id: string): Promise<void> {
 
   if (!entrada) redirect("/cuenta");
 
-  await borrarFotos(supabase, entrada.fotos);
+  await borrarArchivos(supabase, entrada.fotos);
   await prisma.entradaDiario.delete({ where: { id } });
 
   redirect(`/cuenta/perros/${entrada.perroId}`);

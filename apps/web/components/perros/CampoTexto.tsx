@@ -4,6 +4,7 @@ type CampoTextoProps = {
     type?: string;
     required?: boolean;
     defaultValue?: string;
+    min?: string;
     max?: string;
     step?: string;
     errores?: string[];
@@ -15,6 +16,7 @@ export default function CampoTexto({
     type = "text",
     required = false,
     defaultValue,
+    min,
     max,
     step,
     errores,
@@ -33,6 +35,7 @@ export default function CampoTexto({
                 type={type}
                 required={required}
                 defaultValue={defaultValue}
+                min={min}
                 max={max}
                 step={step}
                 aria-invalid={tieneError || undefined}

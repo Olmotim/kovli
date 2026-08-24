@@ -62,3 +62,17 @@ export function cuidadosPendientes<T extends { fecha: Date }>(
 
   return { vencidos, proximos };
 }
+
+// Para la recurrencia automática (feature 018): la fecha del siguiente
+// cuidado de una serie, a partir de la fecha del que acaba de vencer.
+// Usa setMonth (no suma días) para que "cada 1 mes" caiga siempre en el
+// mismo día del mes siguiente en vez de desplazarse por meses de distinta
+// duración. Si ese día no existe en el mes de destino (ej. 31 de enero + 1
+// mes), el propio JavaScript hace rodar la fecha al mes de después (3 de
+// marzo en vez de 31 de febrero) — comportamiento estándar de Date, no un
+// bug de esta función.
+export function siguienteFechaRecurrencia(fecha: Date, meses: number): Date {
+  const siguiente = new Date(fecha);
+  siguiente.setMonth(siguiente.getMonth() + meses);
+  return siguiente;
+}

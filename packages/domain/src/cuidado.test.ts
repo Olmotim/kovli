@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cuidadosPendientes, estadoCuidado, proximoCuidado } from "./cuidado";
+import { cuidadosPendientes, estadoCuidado, proximoCuidado, siguienteFechaRecurrencia } from "./cuidado";
 
 const HOY = new Date(2024, 5, 15); // 15 de junio de 2024
 
@@ -72,5 +72,28 @@ describe("cuidadosPendientes", () => {
       vencidos: [vencido],
       proximos: [proximo],
     });
+  });
+});
+
+describe("siguienteFechaRecurrencia", () => {
+  it("suma el número de meses indicado, mismo día", () => {
+    const fecha = new Date(2024, 5, 15); // 15 de junio
+    expect(siguienteFechaRecurrencia(fecha, 1)).toEqual(new Date(2024, 6, 15)); // 15 de julio
+  });
+
+  it("suma varios meses de una vez", () => {
+    const fecha = new Date(2024, 0, 10); // 10 de enero
+    expect(siguienteFechaRecurrencia(fecha, 6)).toEqual(new Date(2024, 6, 10)); // 10 de julio
+  });
+
+  it("cruza de año si hace falta", () => {
+    const fecha = new Date(2024, 10, 1); // 1 de noviembre
+    expect(siguienteFechaRecurrencia(fecha, 3)).toEqual(new Date(2025, 1, 1)); // 1 de febrero
+  });
+
+  it("no muta la fecha original", () => {
+    const fecha = new Date(2024, 5, 15);
+    siguienteFechaRecurrencia(fecha, 1);
+    expect(fecha).toEqual(new Date(2024, 5, 15));
   });
 });

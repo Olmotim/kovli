@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const vacioAIndefinido = (valor: unknown) => (valor === "" ? undefined : valor);
+const vacioAIndefinido = (valor: unknown) => (valor === "" || valor === null ? undefined : valor);
 
 export const cuidadoSchema = z
   .object({
@@ -15,6 +15,15 @@ export const cuidadoSchema = z
     notas: z.preprocess(
       vacioAIndefinido,
       z.string().trim().max(2000, "Las notas son demasiado largas").optional(),
+    ),
+    repiteCadaMeses: z.preprocess(
+      vacioAIndefinido,
+      z.coerce
+        .number()
+        .int("Debe ser un número entero de meses")
+        .positive("Debe ser mayor que 0")
+        .max(60, "El máximo son 60 meses (5 años)")
+        .optional(),
     ),
   })
   .refine((datos) => datos.tipo !== "OTRO" || Boolean(datos.tipoLibre), {

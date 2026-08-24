@@ -1,6 +1,6 @@
 # 018 · Mejoras del calendario de cuidados
 
-**Estado:** spec y plan cerrados — documentado para implementar en la próxima sesión, sin tocar código todavía.
+**Estado:** implementada y validada por el usuario en el navegador (local).
 
 ## Qué hace
 
@@ -28,14 +28,14 @@ Se apoya en el mismo cron diario que ya trae la feature 017 (se le añade un pas
 
 ## Criterios de aceptación
 
-- [ ] Al crear o editar un cuidado, se puede marcar "se repite cada [N] meses" (opcional).
-- [ ] Cuando un cuidado recurrente vence, el cron crea automáticamente el siguiente (misma configuración de recurrencia), sin duplicados si corre varias veces sobre el mismo cuidado ya vencido.
-- [ ] Nueva vista `/cuenta/perros/[id]/cuidados/calendario`: cuadrícula del mes actual, navegación a mes anterior/siguiente, cuidados de cada día visibles en su celda; enlace para alternar entre esta vista y la lista existente.
-- [ ] Al crear o editar un cuidado, se pueden adjuntar hasta 5 archivos (imagen o PDF); se ven/descargan desde la ficha del cuidado; se borran del Storage al quitarlos o al borrar el cuidado entero.
-- [ ] Al crear un cuidado, se puede marcar "aplicar también a" otros perros del usuario; se crea un cuidado idéntico (mismos datos, sin compartir fila) por cada perro marcado.
-- [ ] Un usuario no puede ver ni modificar cuidados de otro usuario (se mantiene el patrón ya existente).
-- [ ] `pnpm build` y `pnpm lint` sin errores nuevos.
-- [ ] Validado por el usuario en el navegador: crear un cuidado recurrente y comprobar (forzando la fecha o esperando) que se genera el siguiente; navegar la vista de calendario; adjuntar y quitar archivos; crear un cuidado para varios perros a la vez.
+- [x] Al crear o editar un cuidado, se puede marcar "se repite cada [N] meses" (opcional).
+- [x] Cuando un cuidado recurrente vence, el cron crea automáticamente el siguiente (misma configuración de recurrencia), sin duplicados si corre varias veces sobre el mismo cuidado ya vencido.
+- [x] Nueva vista `/cuenta/perros/[id]/cuidados/calendario`: cuadrícula del mes actual, navegación a mes anterior/siguiente, cuidados de cada día visibles en su celda; enlace para alternar entre esta vista y la lista existente.
+- [x] Al crear o editar un cuidado, se pueden adjuntar hasta 5 archivos (imagen o PDF); se ven/descargan desde la ficha del cuidado; se borran del Storage al quitarlos o al borrar el cuidado entero.
+- [x] Al crear un cuidado, se puede marcar "aplicar también a" otros perros del usuario; se crea un cuidado idéntico (mismos datos, sin compartir fila) por cada perro marcado.
+- [x] Un usuario no puede ver ni modificar cuidados de otro usuario (se mantiene el patrón ya existente).
+- [x] `pnpm build` y `pnpm lint` sin errores nuevos.
+- [x] Validado por el usuario en el navegador: crear un cuidado recurrente y comprobar (forzando la fecha) que se genera el siguiente; navegar la vista de calendario; adjuntar y quitar archivos; crear un cuidado para varios perros a la vez.
 
 ## Fuera de alcance
 

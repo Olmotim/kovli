@@ -41,6 +41,8 @@ export default async function EditarCuidadoPage({ params }: PageProps) {
         tipoLibre: cuidado.tipoLibre ?? "",
         fecha: cuidado.fecha.toISOString().split("T")[0],
         notas: cuidado.notas ?? "",
+        repiteCadaMeses: cuidado.repiteCadaMeses ? String(cuidado.repiteCadaMeses) : "",
+        archivos: cuidado.archivos,
     };
 
     return (
