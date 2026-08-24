@@ -14,6 +14,9 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "@kovli/db#build": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true
