@@ -1,6 +1,6 @@
 # 017 · Recordatorios por email (cuidados y rutinas)
 
-**Estado:** spec y plan cerrados — documentado para implementar en la próxima sesión, sin tocar código todavía.
+**Estado:** implementada y validada por el usuario en local (email recibido con contenido correcto).
 
 ## Qué hace
 
@@ -18,13 +18,13 @@ Una tarea programada de Vercel (Vercel Cron) llama una vez al día a una ruta de
 
 ## Criterios de aceptación
 
-- [ ] Existe una tarea programada en Vercel (`vercel.json`) que llama a `/api/cron/recordatorios` una vez al día.
-- [ ] La ruta comprueba el header `Authorization: Bearer <CRON_SECRET>`; sin el secreto correcto, responde 401 sin hacer nada más.
-- [ ] Para cada usuario con al menos un perro, se calcula: cuidados vencidos, cuidados próximos (≤7 días) y rutinas de hoy sin completar.
-- [ ] Si el digest de un usuario está vacío, no se le envía ningún email ese día.
-- [ ] Si no está vacío, se envía un único email (no uno por cuidado/tarea) con el resumen, usando el SDK oficial de Resend.
-- [ ] `pnpm build` y `pnpm lint` sin errores nuevos.
-- [ ] Validado por el usuario: llamar a la ruta a mano con y sin el secreto correcto (comprobando 401 en el segundo caso), y comprobar que el email llega con el contenido esperado.
+- [x] Existe una tarea programada en Vercel (`vercel.json`) que llama a `/api/cron/recordatorios` una vez al día.
+- [x] La ruta comprueba el header `Authorization: Bearer <CRON_SECRET>`; sin el secreto correcto, responde 401 sin hacer nada más.
+- [x] Para cada usuario con al menos un perro, se calcula: cuidados vencidos, cuidados próximos (≤7 días) y rutinas de hoy sin completar.
+- [x] Si el digest de un usuario está vacío, no se le envía ningún email ese día.
+- [x] Si no está vacío, se envía un único email (no uno por cuidado/tarea) con el resumen, usando el SDK oficial de Resend.
+- [x] `pnpm build` y `pnpm lint` sin errores nuevos.
+- [x] Validado por el usuario: llamar a la ruta a mano con y sin el secreto correcto (comprobando 401 en el segundo caso), y comprobar que el email llega con el contenido esperado.
 
 ## Fuera de alcance
 

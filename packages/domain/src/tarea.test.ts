@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { inicioDelDia, resumenRutinasHoy } from "./tarea";
+import { inicioDelDia, resumenRutinasHoy, tareasSinCompletarHoy } from "./tarea";
 
 describe("inicioDelDia", () => {
   it("trunca la hora, dejando solo el día", () => {
@@ -20,5 +20,17 @@ describe("resumenRutinasHoy", () => {
       { completadaHoy: true },
     ];
     expect(resumenRutinasHoy(tareas)).toEqual({ hechas: 2, total: 3 });
+  });
+});
+
+describe("tareasSinCompletarHoy", () => {
+  it("devuelve solo las que faltan por marcar", () => {
+    const sinMarcar = { completadaHoy: false };
+    const tareas = [{ completadaHoy: true }, sinMarcar];
+    expect(tareasSinCompletarHoy(tareas)).toEqual([sinMarcar]);
+  });
+
+  it("devuelve una lista vacía si ya están todas hechas", () => {
+    expect(tareasSinCompletarHoy([{ completadaHoy: true }])).toEqual([]);
   });
 });

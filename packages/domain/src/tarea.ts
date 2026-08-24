@@ -11,3 +11,11 @@ export function resumenRutinasHoy(
   const hechas = tareas.filter((tarea) => tarea.completadaHoy).length;
   return { hechas, total: tareas.length };
 }
+
+// Para el digest de email (feature 017): a diferencia de resumenRutinasHoy
+// (que solo cuenta), aquí hace falta la lista de las rutinas sin marcar.
+export function tareasSinCompletarHoy<T extends { completadaHoy: boolean }>(
+  tareas: T[],
+): T[] {
+  return tareas.filter((tarea) => !tarea.completadaHoy);
+}

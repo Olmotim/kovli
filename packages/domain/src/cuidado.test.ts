@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { estadoCuidado, proximoCuidado } from "./cuidado";
+import { cuidadosPendientes, estadoCuidado, proximoCuidado } from "./cuidado";
 
 const HOY = new Date(2024, 5, 15); // 15 de junio de 2024
 
@@ -22,6 +22,11 @@ describe("estadoCuidado", () => {
 
   it("es lejano a partir del día 31", () => {
     expect(estadoCuidado(diasDespuesDeHoy(31), HOY)).toBe("lejano");
+  });
+
+  it("respeta una ventana de días distinta a la de por defecto", () => {
+    expect(estadoCuidado(diasDespuesDeHoy(7), HOY, 7)).toBe("proximo");
+    expect(estadoCuidado(diasDespuesDeHoy(8), HOY, 7)).toBe("lejano");
   });
 });
 
@@ -49,5 +54,23 @@ describe("proximoCuidado", () => {
     const medio = { fecha: diasDespuesDeHoy(10) };
 
     expect(proximoCuidado([lejano, medio, cercano], HOY)).toBe(cercano);
+  });
+});
+
+describe("cuidadosPendientes", () => {
+  it("devuelve listas vacías si no hay nada pendiente", () => {
+    const lejano = { fecha: diasDespuesDeHoy(60) };
+    expect(cuidadosPendientes([lejano], HOY)).toEqual({ vencidos: [], proximos: [] });
+  });
+
+  it("separa vencidos y próximos usando la ventana de 7 días por defecto", () => {
+    const vencido = { fecha: diasDespuesDeHoy(-1) };
+    const proximo = { fecha: diasDespuesDeHoy(5) };
+    const lejano = { fecha: diasDespuesDeHoy(10) };
+
+    expect(cuidadosPendientes([vencido, proximo, lejano], HOY)).toEqual({
+      vencidos: [vencido],
+      proximos: [proximo],
+    });
   });
 });
