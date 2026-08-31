@@ -32,7 +32,7 @@
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso. Con 021-024 hechas, la app móvil ya cubre los 4 pilares de Fase 2 en alguna forma (login, cuidados, rutinas, diario). Al empezar la próxima sesión, preguntar qué toca a continuación — por ejemplo permitir crear/editar perros o cuidados desde el móvil, subir fotos desde la cámara/galería, o volver al backlog de Fase 1/2 — decisión del usuario, no asumir la respuesta._
+**025 · Crear y editar cuidados desde el móvil** — quinta pieza de Fase 3: formulario (tipo, fecha, notas) para crear un cuidado nuevo o editar uno existente desde la app móvil, primera vez que manda un formulario completo (no solo un toggle como la 023). Dos APIs nuevas: `POST /api/perros/[id]/cuidados` y `PATCH /api/perros/[id]/cuidados/[cuidadoId]`, reutilizando `cuidadoSchema` de `@kovli/schemas`. Nueva dependencia `@react-native-community/datetimepicker`. Spec y plan cerrados, ver `spec/features/025-crear-editar-cuidados-movil/`. Sin código todavía.
 
 ## Backlog / features 💡
 
@@ -61,6 +61,7 @@ _Ninguna feature en curso. Con 021-024 hechas, la app móvil ya cubre los 4 pila
     2. ✅ **Calendario de cuidados en el móvil** (022) — primera pantalla de detalle de perro, con sus cuidados (próximos/historial), solo lectura.
     3. ✅ **Rutinas diarias en el móvil** (023) — checklist marcable de rutinas de hoy en la misma pantalla de detalle, primera escritura de la app móvil.
     4. ✅ **Diario personal en el móvil** (024) — pantalla propia con las entradas del diario (texto/fotos/etiquetas), solo lectura.
+    5. 🔜 **Crear y editar cuidados desde el móvil** (025) — formulario (tipo, fecha, notas), primera escritura de formulario completo. Spec y plan cerrados, código pendiente.
 - **Fase 4 · Capa nativa** — módulo o app en Kotlin + Jetpack Compose.
 
 > Cada feature se crea como `features/NNN-nombre-feature/` con `spec.md`, `plan.md` y `tasks.md` antes de tocar código. Una sola feature "en curso" a la vez.

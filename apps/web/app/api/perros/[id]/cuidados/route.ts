@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { prisma } from "@kovli/db";
 import { estadoCuidado } from "@kovli/domain";
+import { cuidadoSchema } from "@kovli/schemas";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -74,4 +75,70 @@ export async function GET(request: Request, { params }: RouteContext) {
     proximos: proximos.map(serializar),
     historial: historial.map(serializar),
   });
+}
+
+export async function POST(request: Request, { params }: RouteContext) {
+  const { id } = await params;
+
+  const authHeader = request.headers.get("Authorization");
+  const accessToken = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
+
+  if (!accessToken) {
+    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+  }
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+  );
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser(accessToken);
+
+  if (error || !user) {
+    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+  }
+
+  const perro = await prisma.perro.findFirst({
+    where: { id, usuarioId: user.id },
+  });
+
+  if (!perro) {
+    return NextResponse.json({ error: "No encontrado" }, { status: 404 });
+  }
+
+  const body = await request.json();
+
+  // Mismo esquema Zod que crearCuidadoAction en la web (packages/schemas) —
+  // sin duplicar reglas de validación entre la web y el móvil.
+  const parsed = cuidadoSchema.safeParse(body);
+
+  if (!parsed.success) {
+    return NextResponse.json({ errors: parsed.error.flatten().fieldErrors }, { status: 400 });
+  }
+
+  const cuidado = await prisma.cuidado.create({
+    data: {
+      usuarioId: user.id,
+      perroId: perro.id,
+      tipo: parsed.data.tipo,
+      tipoLibre: parsed.data.tipoLibre,
+      fecha: parsed.data.fecha,
+      notas: parsed.data.notas,
+    },
+  });
+
+  return NextResponse.json(
+    {
+      id: cuidado.id,
+      tipo: cuidado.tipo,
+      tipoLibre: cuidado.tipoLibre,
+      fecha: cuidado.fecha.toISOString(),
+      notas: cuidado.notas,
+      estado: estadoCuidado(cuidado.fecha),
+    },
+    { status: 201 },
+  );
 }

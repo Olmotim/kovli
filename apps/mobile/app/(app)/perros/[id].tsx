@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Link, useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 
 import { useSession } from "../../../lib/auth-context";
 
@@ -58,17 +58,32 @@ const ESTILOS_ESTADO: Record<EstadoCuidado, { borderColor: string; backgroundCol
   lejano: { borderColor: "#4E3B2E26", backgroundColor: "#FBF7F0" },
 };
 
-function FilaCuidado({ cuidado }: { cuidado: Cuidado }) {
+function FilaCuidado({ perroId, cuidado }: { perroId: string; cuidado: Cuidado }) {
   const fecha = new Date(cuidado.fecha).toLocaleDateString("es-ES");
 
   return (
-    <View style={[styles.filaCuidado, ESTILOS_ESTADO[cuidado.estado]]}>
-      <View style={styles.filaCuidadoTexto}>
-        <Text style={styles.filaCuidadoTipo}>{etiquetaTipoCuidado(cuidado)}</Text>
-        {cuidado.notas ? <Text style={styles.filaCuidadoNotas}>{cuidado.notas}</Text> : null}
-      </View>
-      <Text style={styles.filaCuidadoFecha}>{fecha}</Text>
-    </View>
+    <Link
+      href={{
+        pathname: "/perros/[id]/cuidados/[cuidadoId]",
+        params: {
+          id: perroId,
+          cuidadoId: cuidado.id,
+          tipo: cuidado.tipo,
+          tipoLibre: cuidado.tipoLibre ?? "",
+          fecha: cuidado.fecha,
+          notas: cuidado.notas ?? "",
+        },
+      }}
+      asChild
+    >
+      <TouchableOpacity style={[styles.filaCuidado, ESTILOS_ESTADO[cuidado.estado]]}>
+        <View style={styles.filaCuidadoTexto}>
+          <Text style={styles.filaCuidadoTipo}>{etiquetaTipoCuidado(cuidado)}</Text>
+          {cuidado.notas ? <Text style={styles.filaCuidadoNotas}>{cuidado.notas}</Text> : null}
+        </View>
+        <Text style={styles.filaCuidadoFecha}>{fecha}</Text>
+      </TouchableOpacity>
+    </Link>
   );
 }
 
@@ -141,10 +156,15 @@ export default function DetallePerro() {
     }
   }, [session, id]);
 
-  useEffect(() => {
-    cargarDetalle();
-    cargarRutinas();
-  }, [cargarDetalle, cargarRutinas]);
+  // useFocusEffect (no useEffect a secas): al volver de crear/editar un
+  // cuidado, la pantalla sigue montada por debajo en la pila de navegación
+  // — sin esto, la lista no se refrescaría hasta cerrar y reabrir la app.
+  useFocusEffect(
+    useCallback(() => {
+      cargarDetalle();
+      cargarRutinas();
+    }, [cargarDetalle, cargarRutinas]),
+  );
 
   const marcarRutina = useCallback(
     async (tareaId: string) => {
@@ -204,7 +224,7 @@ export default function DetallePerro() {
         <View style={styles.seccion}>
           <Text style={styles.seccionTitulo}>Próximos</Text>
           {detalle.proximos.map((cuidado) => (
-            <FilaCuidado key={cuidado.id} cuidado={cuidado} />
+            <FilaCuidado key={cuidado.id} perroId={id ?? ""} cuidado={cuidado} />
           ))}
         </View>
       ) : null}
@@ -213,10 +233,16 @@ export default function DetallePerro() {
         <View style={styles.seccion}>
           <Text style={styles.seccionTitulo}>Historial</Text>
           {detalle.historial.map((cuidado) => (
-            <FilaCuidado key={cuidado.id} cuidado={cuidado} />
+            <FilaCuidado key={cuidado.id} perroId={id ?? ""} cuidado={cuidado} />
           ))}
         </View>
       ) : null}
+
+      <Link href={{ pathname: "/perros/[id]/cuidados/nuevo", params: { id: id ?? "" } }} asChild>
+        <TouchableOpacity style={styles.enlaceSecundario}>
+          <Text style={styles.enlaceSecundarioTexto}>+ Añadir cuidado</Text>
+        </TouchableOpacity>
+      </Link>
 
       <View style={styles.seccion}>
         <Text style={styles.seccionTitulo}>Rutinas de hoy</Text>
@@ -240,8 +266,8 @@ export default function DetallePerro() {
       </View>
 
       <Link href={{ pathname: "/perros/[id]/diario", params: { id: id ?? "" } }} asChild>
-        <TouchableOpacity style={styles.enlaceDiario}>
-          <Text style={styles.enlaceDiarioTexto}>Diario ›</Text>
+        <TouchableOpacity style={styles.enlaceSecundario}>
+          <Text style={styles.enlaceSecundarioTexto}>Diario ›</Text>
         </TouchableOpacity>
       </Link>
     </ScrollView>
@@ -324,7 +350,7 @@ const styles = StyleSheet.create({
     color: "#4E3B2EB3",
     textDecorationLine: "line-through",
   },
-  enlaceDiario: {
+  enlaceSecundario: {
     borderWidth: 1,
     borderColor: "#4E3B2E26",
     borderRadius: 8,
@@ -332,7 +358,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: "center",
   },
-  enlaceDiarioTexto: {
+  enlaceSecundarioTexto: {
     fontWeight: "bold",
     color: "#A87C5F",
   },
