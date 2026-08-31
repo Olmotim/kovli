@@ -1,6 +1,6 @@
 # 022 · Calendario de cuidados en el móvil
 
-**Estado:** especificada — spec y plan cerrados, sin código todavía.
+**Estado:** hecho — validada en Expo Go (Mis perros → detalle de perro → cuidados).
 
 ## Qué hace
 
@@ -14,14 +14,14 @@ La 021 dejó la lista de perros pero ningún sitio al que ir al pulsar uno — e
 
 ## Criterios de aceptación
 
-- [ ] Pulsar un perro en "Mis perros" lleva a una pantalla nueva con su nombre y sus cuidados.
-- [ ] Los cuidados se muestran separados en "Próximos" e "Historial", igual que en la ficha web del perro.
-- [ ] Nueva API en `apps/web` (`GET /api/perros/[id]/cuidados`) que verifica el token de sesión, comprueba que el perro es del usuario autenticado, y devuelve los cuidados ya separados en `proximos`/`historial` (reutilizando `cuidadosPendientes()`/`estadoCuidado()` de `packages/domain`).
-- [ ] Si el perro no existe o no es del usuario, la API responde 404 (mismo criterio de seguridad que las Server Actions de la web: comprobar `usuarioId` antes de devolver nada).
-- [ ] Sin cuidados registrados, la pantalla muestra un mensaje ("Sin cuidados registrados todavía") en vez de listas vacías sin explicación.
-- [ ] Mensajes de error razonables si la API no responde.
-- [ ] `pnpm build` y `pnpm lint` siguen sin errores nuevos en el resto del monorepo.
-- [ ] Validado por ti en Expo Go.
+- [x] Pulsar un perro en "Mis perros" lleva a una pantalla nueva con su nombre y sus cuidados.
+- [x] Los cuidados se muestran separados en "Próximos" e "Historial", igual que en la ficha web del perro.
+- [x] Nueva API en `apps/web` (`GET /api/perros/[id]/cuidados`) que verifica el token de sesión, comprueba que el perro es del usuario autenticado, y devuelve los cuidados ya separados en `proximos`/`historial` (reutilizando `estadoCuidado()` de `packages/domain`).
+- [x] Si el perro no existe o no es del usuario, la API responde 404 (mismo criterio de seguridad que las Server Actions de la web: comprobar `usuarioId` antes de devolver nada).
+- [x] Sin cuidados registrados, la pantalla muestra un mensaje ("Sin cuidados registrados todavía") en vez de listas vacías sin explicación.
+- [x] Mensajes de error razonables si la API no responde.
+- [x] `pnpm build` y `pnpm lint` siguen sin errores nuevos en el resto del monorepo.
+- [x] Validado por ti en Expo Go.
 
 ## Fuera de alcance
 
