@@ -30,7 +30,7 @@
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso. Al empezar la próxima sesión, preguntar qué toca a continuación en Fase 3 (rutinas o diario en el móvil, siguiendo el mismo patrón) o volver al backlog de Fase 1/2 — decisión del usuario, no asumir la respuesta._
+**023 · Rutinas diarias en el móvil** — tercera pieza de Fase 3: sección "Rutinas de hoy" en la pantalla de detalle de perro ya existente (022), con checklist marcable/desmarcable — primera escritura de la app móvil hacia `apps/web` (dos APIs nuevas: `GET .../rutinas` y `POST .../rutinas/[tareaId]/marcar`). Spec y plan cerrados, ver `spec/features/023-rutinas-diarias-movil/`. Sin código todavía.
 
 ## Backlog / features 💡
 
@@ -57,6 +57,7 @@ _Ninguna feature en curso. Al empezar la próxima sesión, preguntar qué toca a
 - **Fase 3 · App móvil** — Expo / React Native, login compartido. En marcha:
     1. ✅ **Esqueleto de la app móvil** (021) — proyecto Expo, login compartido con Supabase Auth, pantalla "Mis perros" (solo lectura).
     2. ✅ **Calendario de cuidados en el móvil** (022) — primera pantalla de detalle de perro, con sus cuidados (próximos/historial), solo lectura.
+    3. 🔜 **Rutinas diarias en el móvil** (023) — checklist marcable de rutinas de hoy en la misma pantalla de detalle. Spec y plan cerrados, código pendiente.
 - **Fase 4 · Capa nativa** — módulo o app en Kotlin + Jetpack Compose.
 
 > Cada feature se crea como `features/NNN-nombre-feature/` con `spec.md`, `plan.md` y `tasks.md` antes de tocar código. Una sola feature "en curso" a la vez.

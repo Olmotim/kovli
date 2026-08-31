@@ -28,6 +28,12 @@ type DetallePerro = {
   historial: Cuidado[];
 };
 
+type Tarea = {
+  id: string;
+  nombre: string;
+  hecha: boolean;
+};
+
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 // Mismas etiquetas que apps/web/lib/cuidados.ts (etiquetaTipoCuidado) — se
@@ -66,12 +72,34 @@ function FilaCuidado({ cuidado }: { cuidado: Cuidado }) {
   );
 }
 
+function FilaTarea({
+  tarea,
+  pendiente,
+  onPress,
+}: {
+  tarea: Tarea;
+  pendiente: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity style={styles.filaTarea} onPress={onPress} disabled={pendiente}>
+      <Text style={styles.filaTareaCheck}>{tarea.hecha ? "☑" : "☐"}</Text>
+      <Text style={[styles.filaTareaNombre, tarea.hecha && styles.filaTareaHecha]}>
+        {tarea.nombre}
+      </Text>
+    </TouchableOpacity>
+  );
+}
+
 export default function DetallePerro() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { session } = useSession();
   const [detalle, setDetalle] = useState<DetallePerro | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [rutinas, setRutinas] = useState<Tarea[] | null>(null);
+  const [errorRutinas, setErrorRutinas] = useState<string | null>(null);
+  const [pendientes, setPendientes] = useState<Set<string>>(new Set());
 
   const cargarDetalle = useCallback(async () => {
     if (!session || !id) return;
@@ -93,9 +121,66 @@ export default function DetallePerro() {
     }
   }, [session, id]);
 
+  const cargarRutinas = useCallback(async () => {
+    if (!session || !id) return;
+    setErrorRutinas(null);
+
+    try {
+      const response = await fetch(`${API_URL}/api/perros/${id}/rutinas`, {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+
+      if (!response.ok) {
+        throw new Error("La API no ha respondido correctamente.");
+      }
+
+      const data = (await response.json()) as { tareas: Tarea[] };
+      setRutinas(data.tareas);
+    } catch {
+      setErrorRutinas("No se han podido cargar las rutinas. Comprueba tu conexión.");
+    }
+  }, [session, id]);
+
   useEffect(() => {
     cargarDetalle();
-  }, [cargarDetalle]);
+    cargarRutinas();
+  }, [cargarDetalle, cargarRutinas]);
+
+  const marcarRutina = useCallback(
+    async (tareaId: string) => {
+      if (!session || !id) return;
+
+      setPendientes((anteriores) => new Set(anteriores).add(tareaId));
+
+      try {
+        const response = await fetch(`${API_URL}/api/perros/${id}/rutinas/${tareaId}/marcar`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+
+        if (!response.ok) {
+          throw new Error("La API no ha respondido correctamente.");
+        }
+
+        const data = (await response.json()) as { hecha: boolean };
+        setRutinas(
+          (actuales) =>
+            actuales?.map((tarea) =>
+              tarea.id === tareaId ? { ...tarea, hecha: data.hecha } : tarea,
+            ) ?? actuales,
+        );
+      } catch {
+        setErrorRutinas("No se ha podido actualizar la rutina. Comprueba tu conexión.");
+      } finally {
+        setPendientes((anteriores) => {
+          const nuevas = new Set(anteriores);
+          nuevas.delete(tareaId);
+          return nuevas;
+        });
+      }
+    },
+    [session, id],
+  );
 
   const sinCuidados =
     detalle !== null && detalle.proximos.length === 0 && detalle.historial.length === 0;
@@ -111,9 +196,7 @@ export default function DetallePerro() {
 
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      {detalle === null && !error ? (
-        <ActivityIndicator style={styles.loading} />
-      ) : null}
+      {detalle === null && !error ? <ActivityIndicator style={styles.loading} /> : null}
 
       {sinCuidados ? <Text>Sin cuidados registrados todavía.</Text> : null}
 
@@ -134,6 +217,27 @@ export default function DetallePerro() {
           ))}
         </View>
       ) : null}
+
+      <View style={styles.seccion}>
+        <Text style={styles.seccionTitulo}>Rutinas de hoy</Text>
+
+        {errorRutinas ? <Text style={styles.error}>{errorRutinas}</Text> : null}
+
+        {rutinas === null && !errorRutinas ? (
+          <ActivityIndicator style={styles.loading} />
+        ) : null}
+
+        {rutinas && rutinas.length === 0 ? <Text>Sin rutinas para hoy.</Text> : null}
+
+        {rutinas?.map((tarea) => (
+          <FilaTarea
+            key={tarea.id}
+            tarea={tarea}
+            pendiente={pendientes.has(tarea.id)}
+            onPress={() => marcarRutina(tarea.id)}
+          />
+        ))}
+      </View>
     </ScrollView>
   );
 }
@@ -192,5 +296,26 @@ const styles = StyleSheet.create({
   filaCuidadoFecha: {
     color: "#4E3B2EB3",
     fontSize: 13,
+  },
+  filaTarea: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    borderWidth: 1,
+    borderColor: "#4E3B2E26",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  filaTareaCheck: {
+    fontSize: 18,
+    color: "#A87C5F",
+  },
+  filaTareaNombre: {
+    flexShrink: 1,
+  },
+  filaTareaHecha: {
+    color: "#4E3B2EB3",
+    textDecorationLine: "line-through",
   },
 });
