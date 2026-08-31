@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Link } from "expo-router";
 
 import { useSession } from "../../lib/auth-context";
 import { supabase } from "../../lib/supabase";
@@ -71,17 +72,19 @@ export default function MisPerros() {
             error ? null : <Text>Todavía no tienes ningún perro registrado.</Text>
           }
           renderItem={({ item }) => (
-            <View style={styles.perroRow}>
-              {item.fotoUrl ? (
-                <Image source={{ uri: item.fotoUrl }} style={styles.foto} />
-              ) : (
-                <View style={styles.fotoVacia} />
-              )}
-              <View>
-                <Text style={styles.perroNombre}>{item.nombre}</Text>
-                <Text>{item.raza}</Text>
-              </View>
-            </View>
+            <Link href={{ pathname: "/perros/[id]", params: { id: item.id } }} asChild>
+              <TouchableOpacity style={styles.perroRow}>
+                {item.fotoUrl ? (
+                  <Image source={{ uri: item.fotoUrl }} style={styles.foto} />
+                ) : (
+                  <View style={styles.fotoVacia} />
+                )}
+                <View>
+                  <Text style={styles.perroNombre}>{item.nombre}</Text>
+                  <Text>{item.raza}</Text>
+                </View>
+              </TouchableOpacity>
+            </Link>
           )}
         />
       )}

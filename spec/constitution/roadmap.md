@@ -29,7 +29,7 @@
 
 ## Siguiente 🔜 (en curso)
 
-_Ninguna feature en curso. Pendiente: decidir cómo incorporar `apps/mobile` a git, y luego qué toca a continuación en Fase 3 (o seguir con el backlog de Fase 1/2) — decisión del usuario, no asumir la respuesta hasta que la dé._
+**022 · Calendario de cuidados en el móvil** — segunda pieza de Fase 3: pantalla de detalle de perro en la app móvil (nueva, no existía en la 021) con sus cuidados veterinarios, separados en "Próximos"/"Historial", solo lectura. Nueva API `GET /api/perros/[id]/cuidados` en `apps/web`, reutilizando `cuidadosPendientes()`/`estadoCuidado()` de `packages/domain`. Spec y plan cerrados, ver `spec/features/022-calendario-cuidados-movil/`. Sin código todavía.
 
 ## Backlog / features 💡
 
@@ -55,6 +55,7 @@ _Ninguna feature en curso. Pendiente: decidir cómo incorporar `apps/mobile` a g
     5. ✅ **Mejoras del diario personal** (020) — resumen en `/cuenta`, reordenar fotos, vista imprimible, etiquetas.
 - **Fase 3 · App móvil** — Expo / React Native, login compartido. En marcha:
     1. ✅ **Esqueleto de la app móvil** (021) — proyecto Expo, login compartido con Supabase Auth, pantalla "Mis perros" (solo lectura).
+    2. 🔜 **Calendario de cuidados en el móvil** (022) — pantalla de detalle de perro con sus cuidados (próximos/historial), solo lectura. Spec y plan cerrados, código pendiente.
 - **Fase 4 · Capa nativa** — módulo o app en Kotlin + Jetpack Compose.
 
 > Cada feature se crea como `features/NNN-nombre-feature/` con `spec.md`, `plan.md` y `tasks.md` antes de tocar código. Una sola feature "en curso" a la vez.
