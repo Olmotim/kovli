@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 
 import { useSession } from "../../../lib/auth-context";
 
@@ -238,6 +238,12 @@ export default function DetallePerro() {
           />
         ))}
       </View>
+
+      <Link href={{ pathname: "/perros/[id]/diario", params: { id: id ?? "" } }} asChild>
+        <TouchableOpacity style={styles.enlaceDiario}>
+          <Text style={styles.enlaceDiarioTexto}>Diario ›</Text>
+        </TouchableOpacity>
+      </Link>
     </ScrollView>
   );
 }
@@ -317,5 +323,17 @@ const styles = StyleSheet.create({
   filaTareaHecha: {
     color: "#4E3B2EB3",
     textDecorationLine: "line-through",
+  },
+  enlaceDiario: {
+    borderWidth: 1,
+    borderColor: "#4E3B2E26",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    alignItems: "center",
+  },
+  enlaceDiarioTexto: {
+    fontWeight: "bold",
+    color: "#A87C5F",
   },
 });
