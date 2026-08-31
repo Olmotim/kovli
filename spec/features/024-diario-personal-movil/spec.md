@@ -1,6 +1,6 @@
 # 024 · Diario personal en el móvil
 
-**Estado:** especificada — spec y plan cerrados, sin código todavía.
+**Estado:** hecho — validada en Expo Go.
 
 ## Qué hace
 
@@ -16,14 +16,14 @@ Se deja en solo lectura (como la 022, a diferencia de la 023): crear una entrada
 
 ## Criterios de aceptación
 
-- [ ] La pantalla de detalle de perro (`apps/mobile/app/(app)/perros/[id].tsx`) tiene un enlace "Diario" que lleva a una pantalla nueva.
-- [ ] La pantalla nueva (`apps/mobile/app/(app)/perros/[id]/diario.tsx`) muestra las entradas del diario de ese perro, ordenadas de más reciente a más antigua: fecha, texto (si tiene), fotos (si tiene) y etiquetas (si tiene).
-- [ ] Nueva API `GET /api/perros/[id]/diario` en `apps/web` que devuelve esas entradas ya con la URL pública de cada foto (reutilizando `urlFoto()` de `apps/web/lib/storage.ts`).
-- [ ] La API comprueba el token de sesión y que el perro es del usuario autenticado — 401/404 si no.
-- [ ] Sin entradas de diario, se muestra un mensaje ("Todavía no hay entradas de diario") en vez de una lista vacía sin explicación.
-- [ ] Mensajes de error razonables si la API no responde.
-- [ ] `pnpm build` y `pnpm lint` siguen sin errores nuevos en el resto del monorepo.
-- [ ] Validado por ti en Expo Go.
+- [x] La pantalla de detalle de perro (`apps/mobile/app/(app)/perros/[id].tsx`) tiene un enlace "Diario" que lleva a una pantalla nueva.
+- [x] La pantalla nueva (`apps/mobile/app/(app)/perros/[id]/diario.tsx`) muestra las entradas del diario de ese perro, ordenadas de más reciente a más antigua: fecha, texto (si tiene), fotos (si tiene) y etiquetas (si tiene).
+- [x] Nueva API `GET /api/perros/[id]/diario` en `apps/web` que devuelve esas entradas ya con la URL pública de cada foto (reutilizando `urlFoto()` de `apps/web/lib/storage.ts`).
+- [x] La API comprueba el token de sesión y que el perro es del usuario autenticado — 401/404 si no.
+- [x] Sin entradas de diario, se muestra un mensaje ("Todavía no hay entradas de diario") en vez de una lista vacía sin explicación.
+- [x] Mensajes de error razonables si la API no responde.
+- [x] `pnpm build` y `pnpm lint` siguen sin errores nuevos en el resto del monorepo.
+- [x] Validado por ti en Expo Go.
 
 ## Fuera de alcance
 
