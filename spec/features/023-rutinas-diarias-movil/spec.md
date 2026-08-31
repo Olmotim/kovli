@@ -1,6 +1,6 @@
 # 023 · Rutinas diarias en el móvil
 
-**Estado:** especificada — spec y plan cerrados, sin código todavía.
+**Estado:** hecho — validada en Expo Go (rutinas de hoy, marcar/desmarcar).
 
 ## Qué hace
 
@@ -14,15 +14,15 @@ Las rutinas son, de las tres piezas que quedaban (calendario, rutinas, diario), 
 
 ## Criterios de aceptación
 
-- [ ] La pantalla de detalle de perro (`apps/mobile/app/(app)/perros/[id].tsx`) muestra una sección "Rutinas de hoy" debajo de "Cuidados", con las rutinas activas que tocan hoy (mismo filtro que la web: `activa` + `tocaHoy(diasSemana)`) y si están hechas o no.
-- [ ] Nueva API `GET /api/perros/[id]/rutinas` en `apps/web` que devuelve esa lista ya filtrada, con `hecha: boolean` por cada rutina.
-- [ ] Nueva API `POST /api/perros/[id]/rutinas/[tareaId]/marcar` que alterna la marca de hoy (igual que `marcarTareaAction` en la web: crea la marca si no existe, la borra si ya existía) y responde con el nuevo estado.
-- [ ] Ambas APIs comprueban el token de sesión y que el perro (y la rutina, en el caso del marcado) son del usuario autenticado — 401/404 si no.
-- [ ] Tocar una rutina en el móvil actualiza su check en pantalla sin recargar toda la pantalla.
-- [ ] Sin rutinas para hoy, se muestra un mensaje ("Sin rutinas para hoy") en vez de una sección vacía.
-- [ ] Mensajes de error razonables si alguna de las dos APIs no responde.
-- [ ] `pnpm build` y `pnpm lint` siguen sin errores nuevos en el resto del monorepo.
-- [ ] Validado por ti en Expo Go.
+- [x] La pantalla de detalle de perro (`apps/mobile/app/(app)/perros/[id].tsx`) muestra una sección "Rutinas de hoy" debajo de "Cuidados", con las rutinas activas que tocan hoy (mismo filtro que la web: `activa` + `tocaHoy(diasSemana)`) y si están hechas o no.
+- [x] Nueva API `GET /api/perros/[id]/rutinas` en `apps/web` que devuelve esa lista ya filtrada, con `hecha: boolean` por cada rutina.
+- [x] Nueva API `POST /api/perros/[id]/rutinas/[tareaId]/marcar` que alterna la marca de hoy (igual que `marcarTareaAction` en la web: crea la marca si no existe, la borra si ya existía) y responde con el nuevo estado.
+- [x] Ambas APIs comprueban el token de sesión y que el perro (y la rutina, en el caso del marcado) son del usuario autenticado — 401/404 si no.
+- [x] Tocar una rutina en el móvil actualiza su check en pantalla sin recargar toda la pantalla.
+- [x] Sin rutinas para hoy, se muestra un mensaje ("Sin rutinas para hoy") en vez de una sección vacía.
+- [x] Mensajes de error razonables si alguna de las dos APIs no responde.
+- [x] `pnpm build` y `pnpm lint` siguen sin errores nuevos en el resto del monorepo.
+- [x] Validado por ti en Expo Go.
 
 ## Fuera de alcance
 
